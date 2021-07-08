@@ -15,6 +15,8 @@
               <select class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()" >
                 <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">{{operator.label}}</option>
               </select>
+
+
           </form>
 
 
