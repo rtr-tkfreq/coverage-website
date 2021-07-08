@@ -1,0 +1,32 @@
+<div class="uk-section-default uk-section">
+  <div class="uk-container">
+    <h2>Frequenzen</h2>
+  </div>
+
+
+
+  <div class="uk-container uk-container-large">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <div>
+
+            <form class="uk-form">
+              <label for="statistik_type">Betreiber</label>
+              <select class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()" >
+                <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">{{operator.label}}</option>
+              </select>
+          </form>
+
+
+        </div>
+
+        <div class="map-container" id="map">
+
+        </div>
+
+      </div>
+      <div class="uk-width-1-3@m">1/3</div>
+    </div>
+  </div>
+</div>
+
