@@ -27,6 +27,22 @@ export interface LayerConfiguration {
   [key: string]: any
 }
 
+export interface PointInformation {
+  operator: string,
+  reference: string,
+  license: string,
+  raster: string,
+  last_updated: Date,
+  technology: string | null,
+  downloadkbitmax: number,
+  downloadkbitnormal: number,
+  uploadkbitmax: number,
+  uploadkbitnormal: number,
+  centroid_x: number,
+  centroid_y: number
+  [key: string]: any
+}
+
 const sample: FormOptionResponse = {
   "object": "settings",
   "filter": {

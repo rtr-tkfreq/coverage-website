@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration} from './sample1';
+import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration, PointInformation} from './sample1';
 
 import Map from "ol/Map";
 import View from 'ol/View';
@@ -14,8 +14,10 @@ import * as olProj from "ol/proj";
 import {Extent} from "ol/extent";
 import {HttpClient} from "@angular/common/http";
 import {XYZ} from "ol/source";
+import {Coordinate} from "ol/coordinate";
 
-const baseUrl : String = "https://frq.rtr.at/api/"
+
+const baseUrl : String = "https://frq.rtr.at/api"
 
 @Component({
   selector: 'app-frqmap',
@@ -26,6 +28,8 @@ export class FrqmapComponent implements OnInit {
   formOptions : FormOptionResponse;
   map: Map
   selectedOperator: String;
+  currentOverlay : TileLayer
+  pointInfo: PointInformation[] | null
 
 
   constructor(
@@ -43,7 +47,7 @@ export class FrqmapComponent implements OnInit {
     this.map = new Map({
       view: new View({
         center: [0, 0],
-        zoom: 10,
+        zoom: 10
       }),
       layers: [
         new TileLayer({
@@ -62,6 +66,12 @@ export class FrqmapComponent implements OnInit {
     bases.forEach((base) => {
       this.map.addLayer(base)
     });
+
+    this.map.on('click', (e) => {
+      let coordsWgs84 = olProj.transform(e.coordinate,'EPSG:3857', 'EPSG:4326');
+      console.log(e.coordinate, coordsWgs84);
+      this.loadInformationForPoint(coordsWgs84)
+    })
   }
 
   reloadMap() : void {
@@ -82,9 +92,35 @@ export class FrqmapComponent implements OnInit {
 
   }
 
+  private loadInformationForPoint(coords : Coordinate) : void {
+    let long = coords[0];
+    let lat = coords[1];
+
+    let url = `${baseUrl}/rpc/cov?x=${long}&y=${lat}`
+
+    this.http.get<PointInformation[]>(url, {
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+      .subscribe((val) => {
+        if (val.length > 0) {
+          this.pointInfo = val
+        }
+        else {
+          this.pointInfo = null
+          console.log("unset")
+        }
+      })
+  }
+
   private changeOverlaySource(url: String) :void {
+    if (this.currentOverlay != null) {
+      this.map.removeLayer(this.currentOverlay)
+    }
+
     const tileUrl = `${url}/{z}/{x}/{y}.png`;
-    let tileLayer = new TileLayer({
+    this.currentOverlay = new TileLayer({
       source: new XYZ({
           url: tileUrl,
           projection: olProj.get('EPSG:3857'),
@@ -95,7 +131,7 @@ export class FrqmapComponent implements OnInit {
       opacity: 0.5
     });
 
-    this.map.addLayer(tileLayer);
+    this.map.addLayer(this.currentOverlay);
   }
 
   private addBasemapLayers(bases: TileLayer[]): void {
