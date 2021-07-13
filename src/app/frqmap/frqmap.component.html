@@ -30,7 +30,11 @@
       <div class="uk-width-1-3@m">
         <div *ngIf="!pointInfo">Introtext</div>
         <div *ngIf="pointInfo">
-          <h3>Information</h3>
+          <h3>Informationen zur Abdeckung</h3>
+          <p>
+            Koordinaten: {{convertDMS(pointInfo[0].centroid_x)}}, {{convertDMS(pointInfo[0].centroid_y)}}<br/>
+            Raster-ID: {{pointInfo[0].raster}}
+          </p>
           <div *ngFor="let info of pointInfo">
             <h4>{{getOperatorByLabel(info.operator)?.label}}</h4>
             <table class="uk-table uk-table-small uk-table-striped">

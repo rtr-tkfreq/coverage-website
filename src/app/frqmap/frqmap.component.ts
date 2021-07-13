@@ -78,15 +78,22 @@ export class FrqmapComponent implements OnInit {
       this.loadInformationForPoint(coordsWgs84)
     })
 
-    setTimeout(() => {
-      this.map.updateSize();
-    }, 100);
-
+    let timeouts = [100, 300, 1000, 3000]
+    timeouts.forEach(to => {
+      setTimeout(() => {
+        this.map.updateSize();
+      }, to);
+    })
   }
 
   reloadMap() : void {
     const reference = "F7/16";
-    let url = `${baseUrl}/tileurl?and=(operator.eq.${this.selectedOperator},reference.eq.${reference})&limit=1`
+    let operator = this.selectedOperator;
+    if (operator === null || operator === "null") {
+      operator = "@all"
+    }
+
+    let url = `${baseUrl}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&limit=1`
 
     console.log(this.selectedOperator);
 
@@ -293,5 +300,14 @@ export class FrqmapComponent implements OnInit {
       return o.operator === name
     });
     return result
+  }
+
+  convertDMS(dd: number): string {
+    //https://stackoverflow.com/questions/5786025/decimal-degrees-to-degrees-minutes-and-seconds-in-javascript
+    var deg = dd | 0; // truncate dd to get degrees
+    var frac = Math.abs(dd - deg); // get fractional part
+    var min = (frac * 60) | 0; // multiply fraction by 60 and truncate
+    var sec = ((frac * 3600 - min * 60)*1000|0)/1000;
+    return deg + "° " + min + "' " + sec + "\"";
   }
 }
