@@ -22,6 +22,7 @@ import VectorLayer from "ol/layer/Vector";
 
 
 const baseUrl : String = "https://frq.rtr.at/api"
+const osmServer : String = "https://cache.netztest.at/tile/osm"
 
 @Component({
   selector: 'app-frqmap',
@@ -56,7 +57,9 @@ export class FrqmapComponent implements OnInit {
       }),
       layers: [
         new TileLayer({
-          source: new OSM()
+          source: new OSM({
+            url: osmServer + '/{z}/{x}/{y}.png'
+          })
         }),
       ],
       target: 'map'

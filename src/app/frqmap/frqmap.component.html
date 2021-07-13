@@ -6,29 +6,35 @@
 
 
   <div class="uk-container uk-container-xlarge">
+    <div class="uk-container">
+      <form class="uk-form uk-padding-remove uk-margin-top-50">
+        <p>
+          <label for="statistik_type" >Betreiber</label>
+          <select class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()" >
+            <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">{{operator.label}}</option>
+          </select>
+        </p>
+
+      </form>
+    </div>
     <div uk-grid>
       <div class="uk-width-expand@m">
-        <div>
-
-            <form class="uk-form">
-              <label for="statistik_type">Betreiber</label>
-              <select class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()" >
-                <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">{{operator.label}}</option>
-              </select>
-
-
-          </form>
-
-
-        </div>
-
         <div class="map-container" id="map">
 
         </div>
-
       </div>
       <div class="uk-width-1-3@m">
-        <div *ngIf="!pointInfo">Introtext</div>
+        <div *ngIf="!pointInfo" class="uk-flex uk-flex-column fullHeight">
+          <div class="alignToStart uk-width-expand">
+          <h5>Nutzen Sie die Mobilfunkabdeckungs-Karte von RTR.Telekom.Post</h5>
+          <p>Charivari Edlweiss Namidog Gamsbart midanand Kirwa, Habedehre. Biaschlegl boarischer Mamalad Spezi moand Guglhupf, Vergeltsgott Mamalad Biazelt zwoa. Barfuaßat nois singd a ganze, resch de Servas. Fingahaggln und scheans wos singd Schbozal, midanand barfuaßat. Deandlgwand luja Broadwurschtbudn oans Kneedl scheans dahoam!
+
+            Dahoam d’ Spuiratz dahoam i hob di liab Mamalad unbandig nimmds unbandig glei glacht. Brezn fei resch measi i mogsd a Bussal, eam zünftig? Baamwach nia need fei, back mas a fescha Bua Ledahosn hawadere midananda.</p>
+          </div>
+          <div class="alignToEnd">
+            <p><strong>Erklärung zur Karte:</strong> Blosmusi zwoa Fingahaggln des is schee, hi Goaßmaß. Schorsch hea trihöleridi dijidiholleri Breihaus zünftig, auszutzeln back mas hoam no a Maß! Greichats Obazda Blosmusi, gscheit es a geh Semmlkneedl resch o’ha Trachtnhuat. Gwiss heid ned Jodler no a Maß om auf’n Gipfe lem und lem lossn ned noch da Giasinga Heiwog</p>
+          </div>
+        </div>
         <div *ngIf="pointInfo">
           <h3>Informationen zur Abdeckung</h3>
           <p>
@@ -36,8 +42,8 @@
             Raster-ID: {{pointInfo[0].raster}}
           </p>
           <div *ngFor="let info of pointInfo">
-            <h4>{{getOperatorByLabel(info.operator)?.label}}</h4>
-            <table class="uk-table uk-table-small uk-table-striped">
+            <h4 class="uk-margin-top-50 uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
+            <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
               <thead>
               <tr>
                 <th></th>

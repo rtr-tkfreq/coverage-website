@@ -4,3 +4,13 @@
   height: 600px;
   background-color: lightsalmon;
 }
+
+.alignToStart {
+  align-self: flex-start;
+}
+.alignToEnd {
+  align-self: flex-end;
+}
+.fullHeight {
+  height: 100%;
+}
