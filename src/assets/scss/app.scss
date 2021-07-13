@@ -1,4 +1,7 @@
 // Import default variables and available mixins
+
+$container-xlarge-max-width: 1900px !default;
+
 @import 'variables-theme';
 @import '../../../node_modules/uikit/src/scss/mixins-theme';
 
@@ -19,6 +22,7 @@ $grey-light: #eeeeee;
 $box-shadow-rtr: 0 2px 4px 0 rgba(171, 171, 171, 0.5);
 $inverse-list-muted-color: #eeeeee;
 $inverse-list-emphasis-color: #eeeeee;
+
 
 .uk-dropdown {
   display: none;
