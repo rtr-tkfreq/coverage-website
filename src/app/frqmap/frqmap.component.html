@@ -32,7 +32,7 @@
         <div *ngIf="pointInfo">
           <h3>Information</h3>
           <div *ngFor="let info of pointInfo">
-            <h4>{{info.operator}}</h4>
+            <h4>{{getOperatorByLabel(info.operator)?.label}}</h4>
             <table class="uk-table uk-table-small uk-table-striped">
               <thead>
               <tr>

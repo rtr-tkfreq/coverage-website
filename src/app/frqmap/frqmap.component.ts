@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration, PointInformation} from './sample1';
+import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration, Operator, PointInformation} from './sample1';
 
 import Map from "ol/Map";
 import View from 'ol/View';
@@ -286,7 +286,12 @@ export class FrqmapComponent implements OnInit {
       addBasemapLayer(LayerTypes.BMAPGREY);
       //addBasemapLayer(LayerTypes.BMAPHIDPI);
       addBasemapLayer(LayerTypes.BASEMAP);
+  }
 
-
+  getOperatorByLabel(name : String): Operator | undefined {
+    let result = this.formOptions.filter.operators.find((o) => {
+      return o.operator === name
+    });
+    return result
   }
 }
