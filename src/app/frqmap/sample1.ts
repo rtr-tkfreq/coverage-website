@@ -39,7 +39,8 @@ export interface PointInformation {
   uploadkbitmax: number,
   uploadkbitnormal: number,
   centroid_x: number,
-  centroid_y: number
+  centroid_y: number,
+  geojson: string,
   [key: string]: any
 }
 

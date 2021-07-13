@@ -15,6 +15,10 @@ import {Extent} from "ol/extent";
 import {HttpClient} from "@angular/common/http";
 import {XYZ} from "ol/source";
 import {Coordinate} from "ol/coordinate";
+import VectorSource from "ol/source/Vector";
+import {Feature} from "ol";
+import {GeoJSON} from "ol/format";
+import VectorLayer from "ol/layer/Vector";
 
 
 const baseUrl : String = "https://frq.rtr.at/api"
@@ -26,7 +30,8 @@ const baseUrl : String = "https://frq.rtr.at/api"
 })
 export class FrqmapComponent implements OnInit {
   formOptions : FormOptionResponse;
-  map: Map
+  map: Map;
+  currentVectorLayer: VectorLayer | null = null
   selectedOperator: String;
   currentOverlay : TileLayer
   pointInfo: PointInformation[] | null
@@ -72,6 +77,11 @@ export class FrqmapComponent implements OnInit {
       console.log(e.coordinate, coordsWgs84);
       this.loadInformationForPoint(coordsWgs84)
     })
+
+    setTimeout(() => {
+      this.map.updateSize();
+    }, 100);
+
   }
 
   reloadMap() : void {
@@ -106,12 +116,40 @@ export class FrqmapComponent implements OnInit {
       .subscribe((val) => {
         if (val.length > 0) {
           this.pointInfo = val
+
+          let first = val[0];
+
+          if (this.currentVectorLayer !== null) {
+            this.map.removeLayer(this.currentVectorLayer);
+            this.currentVectorLayer = null;
+          }
+
+          //draw geojson
+          var vectorSource = new VectorSource({
+            features: [
+              new Feature({
+                geometry: new GeoJSON().readGeometry(first.geojson).transform('EPSG:4326', 'EPSG:3857')
+              })
+            ],
+
+          });
+          this.currentVectorLayer = new VectorLayer({
+            source: vectorSource
+            /*,style: new ol.style.Style ({
+                fill: new ol.style.Fill({
+                    color: 'rgba(255,100,50,0.5)'
+                })
+            })*/
+          })
+          this.map.addLayer(this.currentVectorLayer);
         }
         else {
           this.pointInfo = null
           console.log("unset")
         }
       })
+
+
   }
 
   private changeOverlaySource(url: String) :void {
@@ -128,7 +166,7 @@ export class FrqmapComponent implements OnInit {
         }
       ),
       visible: true,
-      opacity: 0.5
+      opacity: 1.0
     });
 
     this.map.addLayer(this.currentOverlay);

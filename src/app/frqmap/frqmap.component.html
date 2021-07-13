@@ -37,23 +37,26 @@
               <thead>
               <tr>
                 <th></th>
-                <th>Down</th>
-                <th>Up</th>
+                <th class="uk-text-right">Down</th>
+                <th class="uk-text-right">Up</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngIf="info.downloadkbitnormal">
-                <td>Normal</td>
-                <td>{{info.downloadkbitnormal}}</td>
-                <td>{{info.uploadkbitnormal}}</td>
+                <td>Normalerweise zur Verfügung stehende Geschwindigkeit</td>
+                <td class="uk-text-right">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}} Mbit/s</td>
+                <td class="uk-text-right">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}} Mbit/s</td>
               </tr>
               <tr *ngIf="info.downloadkbitmax">
-                <td>Max</td>
-                <td>{{info.downloadkbitmax}}</td>
-                <td>{{info.uploadkbitmax}}</td>
+                <td>maximale Geschwindigkeit</td>
+                <td class="uk-text-right">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}} Mbit/s</td>
+                <td class="uk-text-right">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}} Mbit/s</td>
               </tr>
               </tbody>
             </table>
+            <p>
+              Datenstand: {{ info.last_updated | date: 'dd.MM.yyyy' }}
+            </p>
           </div>
         </div>
       </div>
