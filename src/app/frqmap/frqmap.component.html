@@ -10,7 +10,7 @@
       <form class="uk-form uk-padding-remove uk-margin-top-50">
         <p>
           <label for="statistik_type" >Betreiber</label>
-          <select class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()" >
+          <select *ngIf="formOptions" class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()"  >
             <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">{{operator.label}}</option>
           </select>
         </p>
@@ -54,13 +54,13 @@
               <tbody>
               <tr *ngIf="info.downloadkbitnormal">
                 <td>Normalerweise zur Verfügung stehende Geschwindigkeit</td>
-                <td class="uk-text-right">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}} Mbit/s</td>
-                <td class="uk-text-right">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}} Mbit/s</td>
+                <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
+                <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
               </tr>
               <tr *ngIf="info.downloadkbitmax">
                 <td>maximale Geschwindigkeit</td>
-                <td class="uk-text-right">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}} Mbit/s</td>
-                <td class="uk-text-right">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}} Mbit/s</td>
+                <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
+                <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
               </tr>
               </tbody>
             </table>

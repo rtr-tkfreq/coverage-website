@@ -45,7 +45,7 @@ export class FrqmapComponent implements OnInit {
   ngOnInit(): void {
     console.log("init")
     //@TODO: Request input for options
-    this.formOptions = sampleResponseToReq1;
+    this.loadOptions()
     this.initMap()
   }
 
@@ -89,10 +89,36 @@ export class FrqmapComponent implements OnInit {
     })
   }
 
+  private loadOptions() {
+//    this.formOptions = sampleResponseToReq1;
+    let url = `${baseUrl}/settings`;
+    this.http.get<FormOptionResponse>(url,
+      {
+        headers: {
+          "Accept": "application/vnd.pgrst.object+json"
+        }})
+      .subscribe((response) => {
+        this.formOptions = response;
+
+        //there should be a default - select it
+        let defaultOperator = this.formOptions.filter.operators.find(o => {
+          return o.default
+        })
+        if (defaultOperator?.operator === null) {
+          defaultOperator.operator = "default"
+        }
+        if (defaultOperator) {
+          this.selectedOperator = defaultOperator.operator;
+          this.reloadMap()
+        }
+      })
+
+  }
+
   reloadMap() : void {
     const reference = "F7/16";
     let operator = this.selectedOperator;
-    if (operator === null || operator === "null") {
+    if (operator === null || operator === "null" || operator === "default") {
       operator = "@all"
     }
 
