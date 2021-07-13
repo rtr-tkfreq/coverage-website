@@ -38,7 +38,7 @@
         <div *ngIf="pointInfo">
           <h3>Informationen zur Abdeckung</h3>
           <p>
-            Koordinaten: {{convertDMS(pointInfo[0].centroid_x)}}, {{convertDMS(pointInfo[0].centroid_y)}}<br/>
+            Koordinaten: N {{convertDMS(pointInfo[0].centroid_y)}}, O {{convertDMS(pointInfo[0].centroid_x)}}<br/>
             Raster-ID: {{pointInfo[0].raster}}
           </p>
           <div *ngFor="let info of pointInfo">
