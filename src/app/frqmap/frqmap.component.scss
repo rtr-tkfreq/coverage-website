@@ -3,6 +3,10 @@
 #map {
   height: 600px;
   background-color: lightsalmon;
+
+  @media (min-height: 1080px) {
+    height: 1000px;
+  }
 }
 
 .alignToStart {

@@ -9,9 +9,17 @@
     <div class="uk-container">
       <form class="uk-form uk-padding-remove uk-margin-top-50">
         <p>
-          <label for="statistik_type" >Betreiber</label>
+          <label for="statistik_type" class="uk-margin-small-right">Betreiber</label>
           <select *ngIf="formOptions" class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()"  >
-            <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">{{operator.label}}</option>
+            <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">
+              <ng-container *ngIf="operator.label === '@all'">
+                Alle Betreiber
+              </ng-container>
+              <ng-container *ngIf="operator.label !== '@all'">
+                {{operator.label}}
+              </ng-container>
+
+            </option>
           </select>
         </p>
 
@@ -58,7 +66,7 @@
                 <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
               </tr>
               <tr *ngIf="info.downloadkbitmax">
-                <td>maximale Geschwindigkeit</td>
+                <td>Maximale Geschwindigkeit</td>
                 <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
                 <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
               </tr>
