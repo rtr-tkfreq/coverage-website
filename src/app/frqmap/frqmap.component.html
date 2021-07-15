@@ -1,6 +1,6 @@
 <div class="uk-section-default uk-section">
   <div class="uk-container">
-    <h2>Frequenzen</h2>
+    <h2 i18n="@@frequencies">Frequenzen</h2>
   </div>
 
 
@@ -9,12 +9,10 @@
     <div class="uk-container">
       <form class="uk-form uk-padding-remove uk-margin-top-50">
         <p>
-          <label for="statistik_type" class="uk-margin-small-right">Betreiber</label>
+          <label for="statistik_type" class="uk-margin-small-right" i18n="@@operator">Betreiber</label>
           <select *ngIf="formOptions" class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()"  >
             <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">
-              <ng-container *ngIf="operator.label === '@all'">
-                Alle Betreiber
-              </ng-container>
+              <ng-container *ngIf="operator.label === '@all'" i18n="@@allOperators">Alle Betreiber</ng-container>
               <ng-container *ngIf="operator.label !== '@all'">
                 {{operator.label}}
               </ng-container>
@@ -34,20 +32,21 @@
       <div class="uk-width-1-3@m">
         <div *ngIf="!pointInfo" class="uk-flex uk-flex-column fullHeight">
           <div class="alignToStart uk-width-expand">
-          <h5>Nutzen Sie die Mobilfunkabdeckungs-Karte von RTR.Telekom.Post</h5>
-          <p>Charivari Edlweiss Namidog Gamsbart midanand Kirwa, Habedehre. Biaschlegl boarischer Mamalad Spezi moand Guglhupf, Vergeltsgott Mamalad Biazelt zwoa. Barfuaßat nois singd a ganze, resch de Servas. Fingahaggln und scheans wos singd Schbozal, midanand barfuaßat. Deandlgwand luja Broadwurschtbudn oans Kneedl scheans dahoam!
+          <h5 i18n="@@introtext">Nutzen Sie die Mobilfunkabdeckungs-Karte von RTR.Telekom.Post</h5>
+          <p i18n="@@introtext_details">Charivari Edlweiss Namidog Gamsbart midanand Kirwa, Habedehre. Biaschlegl boarischer Mamalad Spezi moand Guglhupf, Vergeltsgott Mamalad Biazelt zwoa. Barfuaßat nois singd a ganze, resch de Servas. Fingahaggln und scheans wos singd Schbozal, midanand barfuaßat. Deandlgwand luja Broadwurschtbudn oans Kneedl scheans dahoam!
 
             Dahoam d’ Spuiratz dahoam i hob di liab Mamalad unbandig nimmds unbandig glei glacht. Brezn fei resch measi i mogsd a Bussal, eam zünftig? Baamwach nia need fei, back mas a fescha Bua Ledahosn hawadere midananda.</p>
           </div>
           <div class="alignToEnd">
-            <p><strong>Erklärung zur Karte:</strong> Blosmusi zwoa Fingahaggln des is schee, hi Goaßmaß. Schorsch hea trihöleridi dijidiholleri Breihaus zünftig, auszutzeln back mas hoam no a Maß! Greichats Obazda Blosmusi, gscheit es a geh Semmlkneedl resch o’ha Trachtnhuat. Gwiss heid ned Jodler no a Maß om auf’n Gipfe lem und lem lossn ned noch da Giasinga Heiwog</p>
+            <p><strong i18n="help">Erklärung zur Karte:</strong><ng-container i18n="help_full">Blosmusi zwoa Fingahaggln des is schee, hi Goaßmaß. Schorsch hea trihöleridi dijidiholleri Breihaus zünftig, auszutzeln back mas hoam no a Maß! Greichats Obazda Blosmusi, gscheit es a geh Semmlkneedl resch o’ha Trachtnhuat. Gwiss heid ned Jodler no a Maß om auf’n Gipfe lem und lem lossn ned noch da Giasinga Heiwog</ng-container></p>
           </div>
         </div>
-        <div *ngIf="pointInfo">
-          <h3>Informationen zur Abdeckung</h3>
+        <div *ngIf="pointInfo" class="uk-flex uk-flex-column fullHeight">
+          <div class="alignToStart uk-width-expand">
+          <h3 i18n="@@information">Informationen zur Abdeckung</h3>
           <p>
-            Koordinaten: N {{convertDMS(pointInfo[0].centroid_y)}}, O {{convertDMS(pointInfo[0].centroid_x)}}<br/>
-            Raster-ID: {{pointInfo[0].raster}}
+            <ng-container i18n="@@coordinates">Koordinaten: N {{convertDMS(pointInfo[0].centroid_y)}}, O {{convertDMS(pointInfo[0].centroid_x)}}</ng-container><br/>
+            <ng-container i18n="@@raster">Raster-ID</ng-container>: {{pointInfo[0].raster}}
           </p>
           <div *ngFor="let info of pointInfo">
             <h4 class="uk-margin-top-50 uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
@@ -55,25 +54,34 @@
               <thead>
               <tr>
                 <th></th>
-                <th class="uk-text-right">Down</th>
-                <th class="uk-text-right">Up</th>
+                <th class="uk-text-right" i18n="@@down">Down</th>
+                <th class="uk-text-right" i18n="@@up">Up</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngIf="info.downloadkbitnormal">
-                <td>Normalerweise zur Verfügung stehende Geschwindigkeit</td>
-                <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
-                <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
+                <td><ng-container i18n="@@normallyAvailable">Normalerweise zur Verfügung stehende Geschwindigkeit</ng-container></td>
+                <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
+                <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
               </tr>
               <tr *ngIf="info.downloadkbitmax">
-                <td>Maximale Geschwindigkeit</td>
-                <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
-                <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}}&nbsp;Mbit/s</td>
+                <td><ng-container i18n="@@maxSpeed">Maximale Geschwindigkeit</ng-container></td>
+                <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
+                <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
               </tr>
               </tbody>
             </table>
             <p>
-              Datenstand: {{ info.last_updated | date: 'dd.MM.yyyy' }}
+              <ng-container i18n="dateDate">Datenstand</ng-container>: {{ info.last_updated | date: 'dd.MM.yyyy' }}
+            </p>
+          </div>
+          </div>
+          <div class="alignToEnd">
+            <p>
+            <ng-container i18n="@@license">{pointInfo.length, plural, =1 {Lizenz} other {Lizenzen}}:</ng-container>
+              <ng-container *ngFor="let info of pointInfo; last as isLast">
+                {{info.license}} {{getOperatorByLabel(info.operator)?.label}} <ng-container *ngIf="!isLast">,</ng-container>
+              </ng-container>
             </p>
           </div>
         </div>
