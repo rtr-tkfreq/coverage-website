@@ -8,7 +8,7 @@ import TileLayer from 'ol/layer/Tile';
 import TileGrid from "ol/tilegrid/TileGrid";
 import WMTSGrid from "ol/tilegrid/WMTS";
 import OSM from 'ol/source/OSM';
-import WMTSSource from 'ol/source/WMTS'
+import WMTSSource, {optionsFromCapabilities} from 'ol/source/WMTS'
 import {Attribution} from "ol/control";
 import * as olProj from "ol/proj";
 import {Extent} from "ol/extent";
@@ -19,10 +19,12 @@ import VectorSource from "ol/source/Vector";
 import {Feature} from "ol";
 import {GeoJSON} from "ol/format";
 import VectorLayer from "ol/layer/Vector";
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 
 const baseUrl : String = "https://frq.rtr.at/api"
 const osmServer : String = "https://cache.netztest.at/tile/osm"
+const baseMapCapabilities: String = "https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml";
 
 @Component({
   selector: 'app-frqmap',
@@ -164,7 +166,8 @@ export class FrqmapComponent implements OnInit {
           var vectorSource = new VectorSource({
             features: [
               new Feature({
-                geometry: new GeoJSON().readGeometry(first.geojson).transform('EPSG:4326', 'EPSG:3857')
+                geometry: new GeoJSON().readGeometry(first.geojson).transform('EPSG:4326', 'EPSG:3857'),
+                projection: olProj.get('EPSG:3857')
               })
             ],
 
@@ -175,7 +178,8 @@ export class FrqmapComponent implements OnInit {
                 fill: new ol.style.Fill({
                     color: 'rgba(255,100,50,0.5)'
                 })
-            })*/
+            })*/,
+
           })
           this.map.addLayer(this.currentVectorLayer);
         }

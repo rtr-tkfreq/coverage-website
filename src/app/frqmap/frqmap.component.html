@@ -32,13 +32,13 @@
       <div class="uk-width-1-3@m">
         <div *ngIf="!pointInfo" class="uk-flex uk-flex-column fullHeight">
           <div class="alignToStart uk-width-expand">
-          <h5 i18n="@@introtext">Nutzen Sie die Mobilfunkabdeckungs-Karte von RTR.Telekom.Post</h5>
-          <p i18n="@@introtext_details">Charivari Edlweiss Namidog Gamsbart midanand Kirwa, Habedehre. Biaschlegl boarischer Mamalad Spezi moand Guglhupf, Vergeltsgott Mamalad Biazelt zwoa. Barfuaßat nois singd a ganze, resch de Servas. Fingahaggln und scheans wos singd Schbozal, midanand barfuaßat. Deandlgwand luja Broadwurschtbudn oans Kneedl scheans dahoam!
-
-            Dahoam d’ Spuiratz dahoam i hob di liab Mamalad unbandig nimmds unbandig glei glacht. Brezn fei resch measi i mogsd a Bussal, eam zünftig? Baamwach nia need fei, back mas a fescha Bua Ledahosn hawadere midananda.</p>
+          <h5 i18n="@@introtext">Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</h5>
+            <div i18n="@@introtext_details"><p>Diese Informationen beruhen auf <a href="https://www.rtr.at/TKP/service/rtr-nettest/help/legal_aspects/netztest_3rd_party_open_data.de.html">Open Data der Betreiber</a> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber. Bei den Daten wird zwischen Versorgung mit 3,4 GHz (vorwiegend 5G) und allen Frequenzen unterschieden (ab 2022 verfügbar).</p>
+            <p>Unter "maximaler Geschwindigkeit" ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag erreicht wird. Die "normalerweise verfügbare Geschwindigkeit" ist jene Geschwindigkeit, die zu 95% der Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten unterschritten werden. Je nach Datenquelle sind beide oder nur einer dieser Parameter angegeben.</p>
+          </div>
           </div>
           <div class="alignToEnd">
-            <p><strong i18n="help">Erklärung zur Karte:</strong><ng-container i18n="help_full">Blosmusi zwoa Fingahaggln des is schee, hi Goaßmaß. Schorsch hea trihöleridi dijidiholleri Breihaus zünftig, auszutzeln back mas hoam no a Maß! Greichats Obazda Blosmusi, gscheit es a geh Semmlkneedl resch o’ha Trachtnhuat. Gwiss heid ned Jodler no a Maß om auf’n Gipfe lem und lem lossn ned noch da Giasinga Heiwog</ng-container></p>
+            <p><strong i18n="legend">Legende:</strong><ng-container i18n="help_full">Blosmusi zwoa Fingahaggln des is schee, hi Goaßmaß. Schorsch hea trihöleridi dijidiholleri Breihaus zünftig, auszutzeln back mas hoam no a Maß! Greichats Obazda Blosmusi, gscheit es a geh Semmlkneedl resch o’ha Trachtnhuat. Gwiss heid ned Jodler no a Maß om auf’n Gipfe lem und lem lossn ned noch da Giasinga Heiwog</ng-container></p>
           </div>
         </div>
         <div *ngIf="pointInfo" class="uk-flex uk-flex-column fullHeight">
@@ -80,7 +80,7 @@
             <p>
             <ng-container i18n="@@license">{pointInfo.length, plural, =1 {Lizenz} other {Lizenzen}}:</ng-container>
               <ng-container *ngFor="let info of pointInfo; last as isLast">
-                {{info.license}} {{getOperatorByLabel(info.operator)?.label}} <ng-container *ngIf="!isLast">,</ng-container>
+                {{info.license}} {{getOperatorByLabel(info.operator)?.label}}<ng-container *ngIf="!isLast">,</ng-container>
               </ng-container>
             </p>
           </div>

@@ -17,23 +17,21 @@
         <div id="icontoggle" class="uk-grid">
           <div class="uk-inline">
             <button class="uk-button uk-button-top" type="button">
-              RTR
+              <ng-container i18n="@@telecommunicationPostal">Telekommunikation und Post</ng-container>
               <span class="uk-margin-small-right chevdown" uk-icon="chevron-down"></span><span
               class="uk-margin-small-right chevup" uk-icon="chevron-up"></span></button>
             <div class="uk-navbar-dropdown"
                  uk-drop="mode:click;offset:0;duration:100;delay-show:0;boundary: !.uk-container; boundary-align: true; pos: bottom-justify;">
               <div class="uk-container uk-container-large">
                 <ul class="uk-subnav uk-list-divider">
-                  <li><a href="%% Lang.template.tk_postal_url %%" class="area-switch">%% Lang.template.tk_postal %%</a>
-                  </li>
-                  <li><a href="%% Lang.template.media_url %%" class="area-switch">%% Lang.template.media %%</a></li>
-                  <li><a href="%% Lang.template.rtr_url %%" class="area-switch">%% Lang.template.RTR %%</a></li>
+                  <li><a href="%% Lang.template.media_url %%" class="area-switch" i18n="@@media">Medien</a></li>
+                  <li><a href="%% Lang.template.rtr_url %%" class="area-switch" i18n="@@RTR">RTR</a></li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="uk-inline">
-            <button class="uk-button uk-button-top" type="button">%%Lang.LANG%%<span
+            <button class="uk-button uk-button-top" type="button" i18n="@@de">DE<span
               class="uk-margin-small-right chevdown" uk-icon="chevron-down"></span><span
               class="uk-margin-small-right  chevup" uk-icon="chevron-up"></span></button>
             <div class="uk-navbar-dropdown"
@@ -41,13 +39,9 @@
               <div class="uk-container uk-container-large">
                 <ul class="uk-subnav uk-list-divider language-select">
                   <li>
-                    <a href="/en" data-lang-name="en">
-                      English
-                    </a>
+                    <a href="/en" data-lang-name="en" i18n="@@english">English</a>
                   <li>
-                    <a href="/de" data-lang-name="de">
-                      Deutsch
-                    </a>
+                    <a href="/de" data-lang-name="de" i18n="@@deutsch">Deutsch</a>
                   </li>
                 </ul>
               </div>
@@ -419,7 +413,8 @@
 <div class="uk-section-default uk-section uk-section-xsmall" id="breadcrumbs">
   <div class="uk-container uk-container-large">
     <ul class="uk-breadcrumb">
-      <li><a href="/%% Lang.lang %%">%% Lang.headline %%</a></li>
+      <li><a href="/TKP/startseite.de.html" title="Telekommunikation und Post" aria-label="Telekommunikation und Post" i18n="@@telecommuniationPostal">Telekommunikation und Post</a></li>
+      <a href="/TKP/was_wir_tun/telekommunikation/startseite.de.html" title="Telekommunikation" aria-label="Telekommunikation" i18n="@@telecommunication">Telekommunikation</a>
       <li class="uk-disabled">
         <a i18n="@@frequencies">Frequenzen</a>
       </li>
@@ -439,38 +434,85 @@
 <!-- Footer -->
 <div id="footer" class="uk-section-default uk-section uk-section-small">
   <div class="uk-container uk-container-large">
-    <div class="uk-grid-margin uk-grid" uk-grid="" uk-height-match="target: .uk-card; row: false">
-      <div class="uk-flex-auto uk-width-1-2@s uk-first-column m1">
-        <div class="uk-margin"><p><b>RUNDFUNK UND TELEKOM<br/>REGULIERUNGS-GMBH</b><br/><br/>A-1060 Wien, Mariahilfer
-          Straße 77-79<br/>Tel.: +<a target='_self' href="tel:+431580580">43 1 58058-0</a></p></div>
+    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="" uk-height-match="target: .uk-card; row: false">
+      <div class="uk-flex-auto uk-width-1-2@s uk-first-column m1 uk-grid-margin">
+        <div class="uk-margin"><p><b>RUNDFUNK UND TELEKOM<br>REGULIERUNGS-GMBH</b><br><br>A-1060 Wien, Mariahilfer Straße 77-79<br>Tel.: +<a target="_self" href="tel:+431580580">43 1 58058-0</a><br></p></div>
         <div class="uk-margin">
-          <div class="uk-child-width-auto uk-grid-small uk-grid" uk-grid="">
+          <div class="uk-child-width-auto uk-grid-small uk-grid uk-grid-stack" uk-grid="">
 
             <div class="uk-first-column">
-              <a class="el-link uk-icon-button uk-icon" rel="noreferrer"
-                 href="mailto:%% Lang.email_address %%?subject=%% Lang.email_subject %%" uk-icon="icon: mail;">
-              </a>
+              <a class="el-link uk-icon-button uk-icon" rel="noreferrer" href="mailto:rtr@rtr.at" uk-icon="icon: mail;" aria-label="Mail" title="Mail"></a>
             </div>
-            <div>
-              <a class="el-link uk-icon-button uk-icon" rel="noreferrer" target="_blank"
-                 href="https://www.github.com/rtr-nettest/" uk-icon="icon: github;">
-              </a>
+
+
+            <div class="uk-grid-margin uk-first-column">
+              <a class="el-link uk-icon-button uk-icon" rel="noreferrer" href="https://twitter.com/rtrgmbh" uk-icon="icon: twitter;" aria-label="Twitter" title="Twitter"></a>
             </div>
+
           </div>
         </div>
       </div>
-      <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s footer-large">
-        <ul class="uk-list">
+      <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s m2 uk-hidden@l uk-first-column">
+        <ul class="uk-list">            <li>
+          <a href="/rtr/Kontakt/Amtstafel.de.html">Kontakt</a>
+        </li>
           <li>
-            <a href="https://www.rtr.at/rtr/footer/impressum.%% Lang.lang %%.html">%% Lang.imprint %%</a>
+            <a href="/rtr/footer/impressum.de.html">Impressum</a>
           </li>
           <li>
-            <a href="%% Lang.index_content.tos.url %%">%% Lang.privacy %%</a>
+            <a href="/rtr/footer/Datenschutz.de.html">Datenschutz</a>
           </li>
           <li>
-            <a href="https://www.rtr.at/rtr/footer/Barrierefreiheit.%% Lang.lang %%.html">%% Lang.accessibility %%</a>
+            <a href="/rtr/footer/Barrierefreiheit.de.html">Barrierefreiheit</a>
+          </li>
+          <li>
+            <a href="#cookie-einstellungen" uk-toggle="">Cookie Präferenzen</a>
+          </li><li>
+          </li></ul>
+      </div>
+      <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s m3 uk-hidden@l uk-grid-margin uk-first-column">
+        <ul class="uk-list">            <li>
+          <a href="/TKP/presse/Startseite.de.html">Presse</a>
+        </li>
+          <li>
+            <a href="/rtr/service/ertr/eRTR.de.html">eRTR</a>
+          </li>
+          <li>
+            <a href="/rtr/service/opendata/OpenData.de.html">Open Data</a>
+          </li>
+          <li>
+            <a href="/TKP/service/FAQs/FAQ-TKP.de.html">Häufig gestellte Fragen</a>
           </li>
         </ul>
+      </div>
+      <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s footer-large uk-visible@l">
+        <ul class="uk-list">            <li>
+          <a href="/TKP/presse/Startseite.de.html">Presse</a>
+        </li>
+          <li>
+            <a href="/rtr/service/ertr/eRTR.de.html">eRTR</a>
+          </li>
+          <li>
+            <a href="/rtr/service/opendata/OpenData.de.html">Open Data</a>
+          </li>
+          <li>
+            <a href="/TKP/service/FAQs/FAQ-TKP.de.html">Häufig gestellte Fragen</a>
+          </li>
+        </ul>
+        <ul class="uk-list">            <li>
+          <a href="/rtr/Kontakt/Amtstafel.de.html">Kontakt</a>
+        </li>
+          <li>
+            <a href="/rtr/footer/impressum.de.html">Impressum</a>
+          </li>
+          <li>
+            <a href="/rtr/footer/Datenschutz.de.html">Datenschutz</a>
+          </li>
+          <li>
+            <a href="/rtr/footer/Barrierefreiheit.de.html">Barrierefreiheit</a>
+          </li>
+          <li>
+          </li></ul>
       </div>
     </div>
   </div>
