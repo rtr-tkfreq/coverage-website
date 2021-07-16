@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="uk-inline">
-            <button class="uk-button uk-button-top" type="button" i18n="@@de">DE<span
+            <button class="uk-button uk-button-top" type="button"><ng-container  i18n="@@de">DE</ng-container><span
               class="uk-margin-small-right chevdown" uk-icon="chevron-down"></span><span
               class="uk-margin-small-right  chevup" uk-icon="chevron-up"></span></button>
             <div class="uk-navbar-dropdown"
@@ -165,7 +165,7 @@
                   <div class="uk-navbar-container uk-navbar" uk-navbar="dropbar: true; dropbar-mode: push;mode: click">
                     <ul class="uk-navbar-nav second-level-nav">
                       <li class="uk-parent">
-                        <a href="#" aria-expanded="false" i18n="@@aboutus">Wer wir sind
+                        <a href="#" aria-expanded="false"><ng-container i18n="@@aboutus">Wer wir sind</ng-container>
                           <span class="icon-drop uk-icon" uk-icon="icon: chevron-down; ratio: 1.5"></span>
                         </a>
                         <div class="uk-navbar-dropdown">
@@ -184,18 +184,18 @@
                   <div class="uk-navbar-container uk-navbar" uk-navbar="dropbar: true; dropbar-mode: push;mode: click">
                     <ul class="uk-navbar-nav second-level-nav">
                       <li class="uk-parent">
-                        <a href="#" aria-expanded="false" i18n="@@contact">Kontakt
+                        <a href="#" aria-expanded="false"><ng-container i18n="@@contact">Kontakt</ng-container>
                           <span class="icon-drop uk-icon" uk-icon="icon: chevron-down; ratio: 1.5"></span>
                         </a>
                         <div class="uk-navbar-dropdown">
                           <ul class="uk-nav uk-navbar-dropdown-nav">
 
-                            <li><a i18n-href="@@contact-href" href="/TKP/kontakt/Kontakt_und_Amtstafel/Amtstafel.de.html"
+                            <li><a i18n-href="@@contactAmtstafel-href" href="/TKP/kontakt/Kontakt_und_Amtstafel/Amtstafel.de.html"
                                    title="Kontakt und Amtstafel" i18n="@@contactAmtstafel">Kontakt und Amtstafel</a></li>
 
                             <li><a i18n-href="@@press-href" href="/TKP/kontakt/presse/Presse.de.html" title="Presse" i18n="@@press">Presse</a></li>
 
-                            <li><a i18n-href="@@ertr-href" href="/TKP/kontakt/ertr/eRTR.de.html" title="eRTR" i18n="@@ertr">eRTR</a></li>
+                            <li><a i18n-href="@@ertrContact-href" href="/TKP/kontakt/ertr/eRTR.de.html" title="eRTR" i18n="@@ertr">eRTR</a></li>
 
                           </ul>
                         </div>
@@ -343,7 +343,7 @@
                 </div>
               </li>
               <li class="">
-                <a href="#" aria-expanded="false">Wer wir sind
+                <a href="#" aria-expanded="false"><ng-container i18n="@@aboutus">Wer wir sind</ng-container>
                   <span uk-icon="chevron-down" class="uk-icon"></span>
                 </a>
                 <div class="uk-navbar-dropdown">
@@ -351,19 +351,20 @@
 
                     <div>
                       <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/TKP/wer_wir_sind/telekommunikation_und_post/startseite.de.html" title="RTR.Telekom.Post">RTR.Telekom.Post</a></li>
+                        <li><a i18n-href="@@rtrTelecomPost-href" href="/TKP/wer_wir_sind/telekommunikation_und_post/startseite.de.html"
+                               title="RTR.Telekom.Post" i18n="@@rtrTelecomPost">RTR.Telekom.Post</a></li>
                       </ul>
                     </div>
 
                     <div>
                       <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/TKP/wer_wir_sind/tkk/TKK.de.html" title="TKK">TKK</a></li>
+                        <li><a i18n-href="@@tkk-href" href="/TKP/wer_wir_sind/tkk/TKK.de.html" title="TKK" i18n="@@tkk">TKK</a></li>
                       </ul>
                     </div>
 
                     <div>
                       <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/TKP/wer_wir_sind/pck/startseite.de.html" title="PCK">PCK</a></li>
+                        <li><a i18n-href="@@pck-href" href="/TKP/wer_wir_sind/pck/startseite.de.html" title="PCK" i18n="@@pck">PCK</a></li>
                       </ul>
                     </div>
 
@@ -374,7 +375,7 @@
 
 
               <li class="">
-                <a href="#" aria-expanded="false">Kontakt
+                <a href="#" aria-expanded="false"><ng-container i18n="@@contact">Kontakt</ng-container>
                   <span uk-icon="chevron-down" class="uk-icon"></span>
                 </a>
                 <div class="uk-navbar-dropdown">
@@ -382,19 +383,20 @@
 
                     <div>
                       <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/TKP/kontakt/Kontakt_und_Amtstafel/Amtstafel.de.html" title="Kontakt und Amtstafel">Kontakt und Amtstafel</a></li>
+                        <li><a i18n-href="@@contactAmtstafel-href" href="/TKP/kontakt/Kontakt_und_Amtstafel/Amtstafel.de.html"
+                               title="Kontakt und Amtstafel" i18n="@@contactAmtstafel">Kontakt und Amtstafel</a></li>
                       </ul>
                     </div>
 
                     <div>
                       <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/TKP/kontakt/presse/Presse.de.html" title="Presse">Presse</a></li>
+                        <li><a i18n-href="@@press-href" href="/TKP/kontakt/presse/Presse.de.html" title="Presse" i18n="@@press">Presse</a></li>
                       </ul>
                     </div>
 
                     <div>
                       <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="/TKP/kontakt/ertr/eRTR.de.html" title="eRTR">eRTR</a></li>
+                        <li><a i18n-href="@@ertrContact-href" href="/TKP/kontakt/ertr/eRTR.de.html" title="eRTR" i18n="@@ertr">eRTR</a></li>
                       </ul>
                     </div>
 
@@ -402,16 +404,9 @@
                 </div>
               </li>
 
-
-
-
-
-
-
-
-
-
-              <li class="nav-button"><a href="/TKP/service/startseite.de.html" class="uk-button uk-button-default">Unsere Services</a></li>
+              <li class="nav-button"><a i18n-href="@@ourServices-href" href="/TKP/service/startseite.de.html" i18n="@@ourServices">
+                Unsere Services
+              </a></li>
 
             </ul>
           </div>
@@ -425,8 +420,8 @@
 <div class="uk-section-default uk-section uk-section-xsmall" id="breadcrumbs">
   <div class="uk-container uk-container-large">
     <ul class="uk-breadcrumb">
-      <li><a href="/TKP/startseite.de.html" title="Telekommunikation und Post" aria-label="Telekommunikation und Post" i18n="@@telecommuniationPostal">Telekommunikation und Post</a></li>
-      <li><a href="/TKP/was_wir_tun/telekommunikation/startseite.de.html" title="Telekommunikation" aria-label="Telekommunikation" i18n="@@telecommunication">Telekommunikation</a></li>
+      <li><a i18n-href="@@telecommunicationPostal-href" href="/TKP/startseite.de.html" title="Telekommunikation und Post" aria-label="Telekommunikation und Post" i18n="@@telecommuniationPostal">Telekommunikation und Post</a></li>
+      <li><a i18n-href="@@telecommunication-href" href="/TKP/was_wir_tun/telekommunikation/startseite.de.html" title="Telekommunikation" aria-label="Telekommunikation" i18n="@@telecommunication">Telekommunikation</a></li>
       <li class="uk-disabled">
         <a i18n="@@frequencies">Frequenzen</a>
       </li>
@@ -436,7 +431,6 @@
 
 <!-- Content -->
 <div class="uk-section-default uk-section">
-
 
   <app-frqmap>
 
@@ -448,7 +442,8 @@
   <div class="uk-container uk-container-large">
     <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="" uk-height-match="target: .uk-card; row: false">
       <div class="uk-flex-auto uk-width-1-2@s uk-first-column m1 uk-grid-margin">
-        <div class="uk-margin"><p><b>RUNDFUNK UND TELEKOM<br>REGULIERUNGS-GMBH</b><br><br>A-1060 Wien, Mariahilfer Straße 77-79<br>Tel.: +<a target="_self" href="tel:+431580580">43 1 58058-0</a><br></p></div>
+        <div class="uk-margin"><p i18n="@@imprint-address"><b>RUNDFUNK UND TELEKOM<br>REGULIERUNGS-GMBH</b><br><br>A-1060 Wien, Mariahilfer
+          Straße 77-79<br>Tel.: +<a target="_self" href="tel:+431580580">43 1 58058-0</a><br></p></div>
         <div class="uk-margin">
           <div class="uk-child-width-auto uk-grid-small uk-grid uk-grid-stack" uk-grid="">
 
@@ -466,62 +461,60 @@
       </div>
       <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s m2 uk-hidden@l uk-first-column">
         <ul class="uk-list">            <li>
-          <a href="/rtr/Kontakt/Amtstafel.de.html">Kontakt</a>
+          <a i18n-href="@@contact-href" href="/rtr/Kontakt/Amtstafel.de.html" i18n="@@contact">Kontakt</a>
         </li>
           <li>
-            <a href="/rtr/footer/impressum.de.html">Impressum</a>
+            <a i18n-href="@@imprint-href" href="/rtr/footer/impressum.de.html" i18n="@@imprint">Impressum</a>
           </li>
           <li>
-            <a href="/rtr/footer/Datenschutz.de.html">Datenschutz</a>
+            <a i18n-href="@@privacy-href" href="/rtr/footer/Datenschutz.de.html" i18n="@@privacy">Datenschutz</a>
           </li>
           <li>
-            <a href="/rtr/footer/Barrierefreiheit.de.html">Barrierefreiheit</a>
+            <a i18n-href="@@accessibility-href" href="/rtr/footer/Barrierefreiheit.de.html" i18n="@@accessibility">Barrierefreiheit</a>
           </li>
-          <li>
-            <a href="#cookie-einstellungen" uk-toggle="">Cookie Präferenzen</a>
-          </li><li>
+         <li>
           </li></ul>
       </div>
       <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s m3 uk-hidden@l uk-grid-margin uk-first-column">
         <ul class="uk-list">            <li>
-          <a href="/TKP/presse/Startseite.de.html">Presse</a>
+          <a i18n-href="@@pressFoooter-href" href="/TKP/presse/Startseite.de.html" i18n="@@press">Presse</a>
         </li>
           <li>
-            <a href="/rtr/service/ertr/eRTR.de.html">eRTR</a>
+            <a i18n-href="@@ertr-href" href="/rtr/service/ertr/eRTR.de.html" i18n="@@ertr">eRTR</a>
           </li>
           <li>
-            <a href="/rtr/service/opendata/OpenData.de.html">Open Data</a>
+            <a i18n-href="@@opendata-href" href="/rtr/service/opendata/OpenData.de.html" i18n="@@opendata">Open Data</a>
           </li>
           <li>
-            <a href="/TKP/service/FAQs/FAQ-TKP.de.html">Häufig gestellte Fragen</a>
+            <a i18n-href="@@faq-href" href="/TKP/service/FAQs/FAQ-TKP.de.html" i18n="@@faq">Häufig gestellte Fragen</a>
           </li>
         </ul>
       </div>
       <div class="uk-flex-auto uk-width-1-2 uk-width-1-4@s footer-large uk-visible@l">
         <ul class="uk-list">            <li>
-          <a href="/TKP/presse/Startseite.de.html">Presse</a>
+          <a i18n-href="@@pressFoooter-href" href="/TKP/presse/Startseite.de.html" i18n="@@press">Presse</a>
         </li>
           <li>
-            <a href="/rtr/service/ertr/eRTR.de.html">eRTR</a>
+            <a i18n-href="@@ertr-href" href="/rtr/service/ertr/eRTR.de.html" i18n="@@ertr">eRTR</a>
           </li>
           <li>
-            <a href="/rtr/service/opendata/OpenData.de.html">Open Data</a>
+            <a i18n-href="@@opendata-href" href="/rtr/service/opendata/OpenData.de.html" i18n="@@opendata">Open Data</a>
           </li>
           <li>
-            <a href="/TKP/service/FAQs/FAQ-TKP.de.html">Häufig gestellte Fragen</a>
+            <a i18n-href="@@faq-href" href="/TKP/service/FAQs/FAQ-TKP.de.html" i18n="@@faq">Häufig gestellte Fragen</a>
           </li>
         </ul>
         <ul class="uk-list">            <li>
-          <a href="/rtr/Kontakt/Amtstafel.de.html">Kontakt</a>
+          <a i18n-href="@@contact-href" href="/rtr/Kontakt/Amtstafel.de.html" i18n="@@contact">Kontakt</a>
         </li>
           <li>
-            <a href="/rtr/footer/impressum.de.html">Impressum</a>
+            <a i18n-href="@@imprint-href" href="/rtr/footer/impressum.de.html" i18n="@@imprint">Impressum</a>
           </li>
           <li>
-            <a href="/rtr/footer/Datenschutz.de.html">Datenschutz</a>
+            <a i18n-href="@@privacy-href" href="/rtr/footer/Datenschutz.de.html" i18n="@@privacy">Datenschutz</a>
           </li>
           <li>
-            <a href="/rtr/footer/Barrierefreiheit.de.html">Barrierefreiheit</a>
+            <a i18n-href="@@accessibility-href" href="/rtr/footer/Barrierefreiheit.de.html" i18n="@@accessibility">Barrierefreiheit</a>
           </li>
           <li>
           </li></ul>
