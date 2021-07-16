@@ -52,6 +52,28 @@ export class FrqmapComponent implements OnInit {
   }
 
   private initMap(): void {
+/*
+
+    fetch("https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml")
+      .then((result) => {
+          return result.text()
+        }
+      ).then((result) => {
+      const options = optionsFromCapabilities(result, {
+        layer: 'bmapgrau',
+        matrixSet: 'google3857',
+      })
+      const layer = new TileLayer({
+        source: new WMTSSource(options),
+        opacity: 1,
+        visible: true
+      })
+      this.map.addLayer(layer);
+      ;
+    });
+
+*/
+
     this.map = new Map({
       view: new View({
         center: [0, 0],
@@ -62,7 +84,7 @@ export class FrqmapComponent implements OnInit {
           source: new OSM({
             url: osmServer + '/{z}/{x}/{y}.png'
           })
-        }),
+        })
       ],
       target: 'map'
     });
@@ -181,7 +203,7 @@ export class FrqmapComponent implements OnInit {
             })*/,
 
           })
-          this.map.addLayer(this.currentVectorLayer);
+          //this.map.addLayer(this.currentVectorLayer);
         }
         else {
           this.pointInfo = null
