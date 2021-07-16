@@ -38,7 +38,17 @@
           </div>
           </div>
           <div class="alignToEnd">
-            <p><strong i18n="@@legend">Legende:</strong><ng-container i18n="help_full">Blosmusi zwoa Fingahaggln des is schee, hi Goaßmaß. Schorsch hea trihöleridi dijidiholleri Breihaus zünftig, auszutzeln back mas hoam no a Maß! Greichats Obazda Blosmusi, gscheit es a geh Semmlkneedl resch o’ha Trachtnhuat. Gwiss heid ned Jodler no a Maß om auf’n Gipfe lem und lem lossn ned noch da Giasinga Heiwog</ng-container></p>
+            <p><strong i18n="@@legend">Legende:</strong><ng-container i18n="help_full"></ng-container></p>
+              <div class="legendContainer">
+                <div i18n="@@quality">Versorgungsqualität</div>
+                <div class="legendGradient"></div>
+                <div class="uk-grid" uk-grid>
+                  <div class="uk-width-1-3" i18n="@@bad">schwach</div>
+                  <div class="uk-width-1-3" i18n="@@medium">mittel</div>
+                  <div class="uk-width-1-3" i18n="@@excellent">ausgezeichnet</div>
+                </div>
+              </div>
+
           </div>
         </div>
         <div *ngIf="pointInfo" class="uk-flex uk-flex-column fullHeight">

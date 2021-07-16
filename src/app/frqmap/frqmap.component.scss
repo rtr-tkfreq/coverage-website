@@ -22,3 +22,13 @@
 .speedColumn {
   word-break: keep-all;
 }
+
+.legendContainer {
+  max-width: 400px;
+}
+
+.legendGradient {
+  width: 100%;
+  height: 20px;
+  background-image: linear-gradient(90deg, #040312, #57157D, #D1426F, #F97C5D, #FCFBBD);
+}
