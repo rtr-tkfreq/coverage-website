@@ -9,7 +9,6 @@ import TileGrid from "ol/tilegrid/TileGrid";
 import WMTSGrid from "ol/tilegrid/WMTS";
 import OSM from 'ol/source/OSM';
 import WMTSSource, {optionsFromCapabilities} from 'ol/source/WMTS'
-import {Attribution} from "ol/control";
 import * as olProj from "ol/proj";
 import {Extent} from "ol/extent";
 import {HttpClient} from "@angular/common/http";
@@ -24,7 +23,8 @@ import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 const baseUrl : String = "https://frq.rtr.at/api"
 const osmServer : String = "https://cache.netztest.at/tile/osm"
-const baseMapCapabilities: String = "https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml";
+const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
+const parser = new WMTSCapabilities();
 
 @Component({
   selector: 'app-frqmap',
@@ -52,52 +52,43 @@ export class FrqmapComponent implements OnInit {
   }
 
   private initMap(): void {
-/*
-
-    fetch("https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml")
-      .then((result) => {
-          return result.text()
-        }
-      ).then((result) => {
-      const options = optionsFromCapabilities(result, {
-        layer: 'bmapgrau',
-        matrixSet: 'google3857',
-      })
-      const layer = new TileLayer({
-        source: new WMTSSource(options),
-        opacity: 1,
-        visible: true
-      })
-      this.map.addLayer(layer);
-      ;
-    });
-
-*/
-
     this.map = new Map({
       view: new View({
         center: [0, 0],
         zoom: 10
       }),
-      layers: [
-        new TileLayer({
-          source: new OSM({
-            url: osmServer + '/{z}/{x}/{y}.png'
-          })
-        })
-      ],
+      layers: [],
       target: 'map'
+
     });
 
     var textent : Extent = [1252344.27125, 5846515.498922221, 1907596.397450879, 6284446.2299491335];
     this.map.getView().fit(textent, {size: this.map.getSize()});
 
-    let bases : TileLayer[] = []
-    this.addBasemapLayers(bases);
+    //add basemap layers
+    this.http.get(baseMapCapabilities, {
+      observe: 'body',
+      responseType: 'text'
+    })
+      .subscribe((text) => {
+        const result = parser.read(text);
+        const options = optionsFromCapabilities(result, {
+          layer: 'bmapgrau',
+          matrixSet: 'google3857'
+        })
+        options.attributions = 'Grundkarte &copy; <a href="//www.basemap.at/">' +
+          'basemap.at</a>, Versorgungsdaten CC-BY4.0.'
 
-    bases.forEach((base) => {
-      this.map.addLayer(base)
-    });
+        const layer = new TileLayer({
+          source: new WMTSSource(options),
+          opacity: 1,
+          visible: true
+        })
+        this.map.getLayers().insertAt(0, layer)
+        //this.map.addLayer(layer);
+      });
+
+
 
     this.map.on('click', (e) => {
       let coordsWgs84 = olProj.transform(e.coordinate,'EPSG:3857', 'EPSG:4326');
