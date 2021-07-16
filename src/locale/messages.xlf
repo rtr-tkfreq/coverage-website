@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="de-AT" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="telecommunicationPostal" datatype="html">
+        <source>Telekommunikation und Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="media-href" datatype="html">
+        <source>https://www.rtr.at/medien/startseite_medien.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="media" datatype="html">
+        <source>Medien</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rtr-href" datatype="html">
+        <source>https://www.rtr.at/rtr/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="RTR" datatype="html">
+        <source>RTR</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="de" datatype="html">
+        <source>DE</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="english" datatype="html">
+        <source>English</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deutsch" datatype="html">
+        <source>Deutsch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="decisions-href" datatype="html">
+        <source>https://www.rtr.at/TKP/aktuelles/entscheidungen/Uebersichtseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">265</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="decisions" datatype="html">
+        <source>Entscheidungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">265</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="legalPublications-href" datatype="html">
+        <source>https://www.rtr.at/TKP/aktuelles/veroeffentlichungen/Uebersichtseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="legalPublications" datatype="html">
+        <source>Veröffentlichungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">273</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">274</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publications-href" datatype="html">
+        <source>https://www.rtr.at/TKP/aktuelles/publikationen/Uebersichtseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">280</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publications" datatype="html">
+        <source>Publikationen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">281</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="events-href" datatype="html">
+        <source>https://www.rtr.at/TKP/aktuelles/veranstaltungen/Uebersicht.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">287</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="events" datatype="html">
+        <source>Veranstaltungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">288</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="news-href" datatype="html">
+        <source>https://www.rtr.at/TKP/aktuelles/neuigkeiten/Uebersicht.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">294</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="news" datatype="html">
+        <source>Neuigkeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">295</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pressStatements-href" datatype="html">
+        <source>https://www.rtr.at/TKP/aktuelles/pressemitteilungen/Uebersicht.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">301</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pressStatements" datatype="html">
+        <source>Pressemitteilungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">302</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutOurWork" datatype="html">
+        <source>Was wir tun</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">309</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="telecommunications-href" datatype="html">
+        <source>https://www.rtr.at/TKP/was_wir_tun/telekommunikation/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">317</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="telecommunications" datatype="html">
+        <source>Telekommunikation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">318</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="postal-href" datatype="html">
+        <source>https://www.rtr.at/TKP/was_wir_tun/post/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">323</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="postal" datatype="html">
+        <source>Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">324</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="trustServices-href" datatype="html">
+        <source>https://www.rtr.at/TKP/was_wir_tun/vertrauensdienste/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">330</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="trustServices" datatype="html">
+        <source>Vertrauensdienste</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">331</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="international-href" datatype="html">
+        <source>https://www.rtr.at/TKP/was_wir_tun/internationales/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">337</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="international" datatype="html">
+        <source>Internationales</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">338</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aboutus" datatype="html">
+        <source>Wer wir sind</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">346</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rtrTelecomPost-href" datatype="html">
+        <source>https://www.rtr.at/TKP/wer_wir_sind/telekommunikation_und_post/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">354</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rtrTelecomPost" datatype="html">
+        <source>RTR.Telekom.Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">355</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tkk-href" datatype="html">
+        <source>https://www.rtr.at/TKP/wer_wir_sind/tkk/TKK.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">175</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">361</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tkk" datatype="html">
+        <source>TKK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">175</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">361</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pck-href" datatype="html">
+        <source>https://www.rtr.at/TKP/wer_wir_sind/pck/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">367</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8189305665659903343" datatype="html">
+        <source>PCK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+        <note priority="1" from="description">@pck</note>
+      </trans-unit>
+      <trans-unit id="contact" datatype="html">
+        <source>Kontakt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">187</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">378</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">465</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">509</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactAmtstafel-href" datatype="html">
+        <source>https://www.rtr.at/TKP/kontakt/Kontakt_und_Amtstafel/Amtstafel.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">193</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">386</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactAmtstafel" datatype="html">
+        <source>Kontakt und Amtstafel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">387</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="press-href" datatype="html">
+        <source>https://www.rtr.at/TKP/kontakt/presse/Presse.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">393</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="press" datatype="html">
+        <source>Presse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">393</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">481</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">496</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ertrContact-href" datatype="html">
+        <source>https://www.rtr.at/TKP/kontakt/ertr/eRTR.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">399</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ertr" datatype="html">
+        <source>eRTR</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">399</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">484</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">499</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ourServices-href" datatype="html">
+        <source>https://www.rtr.at/TKP/service/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">408</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ourServices" datatype="html">
+        <source> Unsere Services </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">208,209</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">409,410</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recent-news" datatype="html">
+        <source>Aktuelles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">257</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pck" datatype="html">
+        <source>PCK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">367</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="telecommunicationPostal-href" datatype="html">
+        <source>https://www.rtr.at/TKP/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">424</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="telecommuniationPostal" datatype="html">
+        <source>Telekommunikation und Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">424</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="telecommunication-href" datatype="html">
+        <source>https://www.rtr.at/TKP/was_wir_tun/telekommunikation/startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">425</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="telecommunication" datatype="html">
+        <source>Telekommunikation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">425</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="frequencies" datatype="html">
+        <source>Frequenzen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">427</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="imprint-address" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>RUNDFUNK UND TELEKOM<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/>REGULIERUNGS-GMBH<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/>A-1060 Wien, Mariahilfer Straße 77-79<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/>Tel.: +<x id="START_LINK" ctype="x-a" equiv-text="&lt;a target=&quot;_self&quot; href=&quot;tel:+431580580&quot;&gt;"/>43 1 58058-0<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">446,447</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-href" datatype="html">
+        <source>https://www.rtr.at/rtr/Kontakt/Amtstafel.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">465</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">509</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="imprint-href" datatype="html">
+        <source>https://www.rtr.at/rtr/footer/impressum.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">468</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">512</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="imprint" datatype="html">
+        <source>Impressum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">468</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">512</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacy-href" datatype="html">
+        <source>https://www.rtr.at/rtr/footer/Datenschutz.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">471</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">515</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacy" datatype="html">
+        <source>Datenschutz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">471</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">515</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accessibility-href" datatype="html">
+        <source>https://www.rtr.at/rtr/footer/Barrierefreiheit.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">474</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">518</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accessibility" datatype="html">
+        <source>Barrierefreiheit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">474</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">518</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pressFoooter-href" datatype="html">
+        <source>https://www.rtr.at/TKP/presse/Startseite.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">481</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">496</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ertr-href" datatype="html">
+        <source>https://www.rtr.at/rtr/service/ertr/eRTR.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">484</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">499</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="opendata-href" datatype="html">
+        <source>https://www.rtr.at/rtr/service/opendata/OpenData.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">487</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">502</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="opendata" datatype="html">
+        <source>Open Data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">487</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">502</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="faq-href" datatype="html">
+        <source>https://www.rtr.at/TKP/service/FAQs/FAQ-TKP.de.html</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">490</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">505</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="faq" datatype="html">
+        <source>Häufig gestellte Fragen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">490</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">505</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="operator" datatype="html">
+        <source>Betreiber</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="allOperators" datatype="html">
+        <source>Alle Betreiber</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="introtext" datatype="html">
+        <source>Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="introtext_details" datatype="html">
+        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Diese Informationen beruhen auf <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.rtr.at/TKP/service/rtr-nettest/help/legal_aspects/netztest_3rd_party_open_data.de.html&quot;&gt;"/>Open Data der Betreiber<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber. Bei den Daten wird zwischen Versorgung mit 3,4 GHz (vorwiegend 5G) und allen Frequenzen unterschieden (ab 2022 verfügbar).<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Unter &quot;maximaler Geschwindigkeit&quot; ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag erreicht wird. Die &quot;normalerweise verfügbare Geschwindigkeit&quot; ist jene Geschwindigkeit, die zu 95% der Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten unterschritten werden. Je nach Datenquelle sind beide oder nur einer dieser Parameter angegeben.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="legend" datatype="html">
+        <source>Legende:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="quality" datatype="html">
+        <source>Versorgungsqualität</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bad" datatype="html">
+        <source>schwach</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="medium" datatype="html">
+        <source>mittel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="excellent" datatype="html">
+        <source>ausgezeichnet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="information" datatype="html">
+        <source>Informationen zur Abdeckung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="coordinates" datatype="html">
+        <source>Koordinaten: N <x id="INTERPOLATION" equiv-text="{{convertDMS(pointInfo[0].centroid_y)}}"/>, O <x id="INTERPOLATION_1" equiv-text="{{convertDMS(pointInfo[0].centroid_x)}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="raster" datatype="html">
+        <source>Raster-ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="down" datatype="html">
+        <source>Down</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="up" datatype="html">
+        <source>Up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="normallyAvailable" datatype="html">
+        <source>Normalerweise zur Verfügung stehende Geschwindigkeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mbits" datatype="html">
+        <source>Mbit/s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="maxSpeed" datatype="html">
+        <source>Maximale Geschwindigkeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dateDate" datatype="html">
+        <source>Datenstand</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3234019345298540974" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {Lizenz} other {Lizenzen}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="license" datatype="html">
+        <source><x id="ICU" equiv-text="{pointInfo.length, plural, =1 {Lizenz} other {Lizenzen}}"/>:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
