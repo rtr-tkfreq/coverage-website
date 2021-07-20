@@ -20,6 +20,7 @@ import {GeoJSON} from "ol/format";
 import VectorLayer from "ol/layer/Vector";
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 import {Fill, Stroke, Style} from "ol/style";
+import TileSource from "ol/source/Tile";
 
 
 const baseUrl : String = "https://frq.rtr.at/api"
@@ -35,9 +36,9 @@ const parser = new WMTSCapabilities();
 export class FrqmapComponent implements OnInit {
   formOptions : FormOptionResponse;
   map: Map;
-  currentVectorLayer: VectorLayer | null = null
+  currentVectorLayer: VectorLayer<VectorSource<any>> | null = null
   selectedOperator: String;
-  currentOverlay : TileLayer
+  currentOverlay : TileLayer<TileSource>
   pointInfo: PointInformation[] | null
 
 
