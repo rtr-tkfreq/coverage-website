@@ -19,6 +19,7 @@ import {Feature} from "ol";
 import {GeoJSON} from "ol/format";
 import VectorLayer from "ol/layer/Vector";
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import {Fill, Stroke, Style} from "ol/style";
 
 
 const baseUrl : String = "https://frq.rtr.at/api"
@@ -58,7 +59,8 @@ export class FrqmapComponent implements OnInit {
         zoom: 10
       }),
       layers: [],
-      target: 'map'
+      target: 'map',
+      pixelRatio: 1
 
     });
 
@@ -175,26 +177,31 @@ export class FrqmapComponent implements OnInit {
             this.currentVectorLayer = null;
           }
 
-          //draw geojson
-          var vectorSource = new VectorSource({
-            features: [
-              new Feature({
-                geometry: new GeoJSON().readGeometry(first.geojson).transform('EPSG:4326', 'EPSG:3857'),
-                projection: olProj.get('EPSG:3857')
-              })
-            ],
+          let geojson = new GeoJSON().readFeature(first.geojson, {
+            dataProjection: 'EPSG:4326', //WGS84
+            featureProjection: 'EPSG:3857' //Overlay + Basemap
+          });
 
+          var vectorSource = new VectorSource({
+            features: [geojson]
           });
           this.currentVectorLayer = new VectorLayer({
-            source: vectorSource
-            /*,style: new ol.style.Style ({
-                fill: new ol.style.Fill({
+            source: vectorSource,
+            style: new Style ({
+                fill: new Fill({
                     color: 'rgba(255,100,50,0.5)'
-                })
-            })*/,
+                }),
+               stroke: new Stroke({
+                  color:'rgba(80,80,80,0.5)',
+                 width: 2
+               })
+
+            })
 
           })
-          //this.map.addLayer(this.currentVectorLayer);
+          this.map.addLayer(this.currentVectorLayer);
+          this.map.updateSize();
+
         }
         else {
           this.pointInfo = null
