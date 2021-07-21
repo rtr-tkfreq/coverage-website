@@ -12,6 +12,8 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
+Install `Node.js 14` from [nodesource](https://github.com/nodesource/distributions). 
+Install Angular using `npm install -g @angular/cli`. Use `npm install` to update dependencies.
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
