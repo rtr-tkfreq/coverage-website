@@ -206,6 +206,10 @@ export class FrqmapComponent implements OnInit {
         }
         else {
           this.pointInfo = null
+          if (this.currentVectorLayer !== null) {
+            this.map.removeLayer(this.currentVectorLayer);
+            this.currentVectorLayer = null;
+          }
           console.log("unset")
         }
       })
