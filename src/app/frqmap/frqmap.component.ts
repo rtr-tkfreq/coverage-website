@@ -233,7 +233,7 @@ export class FrqmapComponent implements OnInit {
       source: new XYZ({
           url: tileUrl,
           projection: olProj.get('EPSG:3857'),
-          maxZoom: 16
+          maxZoom: 14
         }
       ),
       visible: true,
