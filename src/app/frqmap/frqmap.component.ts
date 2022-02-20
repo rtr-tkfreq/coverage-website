@@ -64,7 +64,7 @@ export class FrqmapComponent implements OnInit {
 
     });
 
-    var textent : Extent = [1252344.27125, 5846515.498922221, 1907596.397450879, 6284446.2299491335];
+    var textent : Extent = [908071,  5751733,     2047289,       6375459];
     this.map.getView().fit(textent, {size: this.map.getSize()});
 
     //add basemap layers
