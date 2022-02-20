@@ -24,7 +24,6 @@ import TileSource from "ol/source/Tile";
 
 
 const baseUrl : String = "https://frq.rtr.at/api"
-const osmServer : String = "https://cache.netztest.at/tile/osm"
 const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
 const parser = new WMTSCapabilities();
 
