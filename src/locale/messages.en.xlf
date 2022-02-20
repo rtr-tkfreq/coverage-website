@@ -817,7 +817,7 @@
       </trans-unit>
       <trans-unit id="bad" datatype="html">
         <source>schwach</source>
-        <target state="translated">bad</target>
+        <target state="translated">weak</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
           <context context-type="linenumber">46</context>
