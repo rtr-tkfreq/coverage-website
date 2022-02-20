@@ -133,13 +133,20 @@ export class FrqmapComponent implements OnInit {
   }
 
   reloadMap() : void {
-    const reference = "F7/16";
+    const reference = null;  // e.g. "F1/16" or "F7/16"
     let operator = this.selectedOperator;
     if (operator === null || operator === "null" || operator === "default") {
       operator = "@all"
     }
 
-    let url = `${baseUrl}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&limit=1`
+    let url = '';
+
+    if (reference) {
+      url = `${baseUrl}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&limit=1`
+    }
+    else {
+      url = `${baseUrl}/tileurl?and=(operator.eq.${operator})&limit=1`
+    }
 
     console.log(this.selectedOperator);
 
