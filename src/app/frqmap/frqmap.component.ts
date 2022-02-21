@@ -186,10 +186,10 @@ export class FrqmapComponent implements OnInit {
       params.cov_reference = 'F1/16';
     }
 
-    let url = new URL(`${baseUrl}/rpc/cov`);
-    url.search = (new URLSearchParams(params).toString());
+    let searchParams = (new URLSearchParams(params).toString());
+    let url = `${baseUrl}/rpc/cov?${searchParams}`;
 
-    this.http.get<PointInformation[]>(url.toString(), {
+    this.http.get<PointInformation[]>(url, {
       headers: {
         "Accept": "application/json"
       }
