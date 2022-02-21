@@ -166,7 +166,7 @@ export class FrqmapComponent implements OnInit {
     let long = coords[0];
     let lat = coords[1];
 
-    let url = `${baseUrl}/rpc/cov?x=${long}&y=${lat}`
+    let url = `${baseUrl}/rpc/cov?cov_longitude=${long}&cov_latitude=${lat}`
 
     this.http.get<PointInformation[]>(url, {
       headers: {
