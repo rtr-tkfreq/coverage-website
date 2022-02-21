@@ -37,6 +37,7 @@ export class FrqmapComponent implements OnInit {
   map: Map;
   currentVectorLayer: VectorLayer<VectorSource<any>> | null = null
   selectedOperator: String;
+  selectedReference: String | null;
   currentOverlay : TileLayer<TileSource>
   pointInfo: PointInformation[] | null
 
@@ -157,18 +158,38 @@ export class FrqmapComponent implements OnInit {
     })
       .subscribe((val) => {
         console.log(val.url)
+        if (val.reference) {
+          this.selectedReference = val.reference;
+        } else {
+          this.selectedReference = null;
+        }
         this.changeOverlaySource(val.url);
       });
 
   }
 
   private loadInformationForPoint(coords : Coordinate) : void {
-    let long = coords[0];
-    let lat = coords[1];
+    let params : any = {
+      cov_longitude: coords[0],
+      cov_latitude: coords[1]
+    }
+    if (this.selectedOperator === null || this.selectedOperator === "null" || this.selectedOperator === "default") {
+      //nothing
+      //params.cov_operator = "@all";
+    }
+    else {
+      params.cov_operator = this.selectedOperator;
+    }
 
-    let url = `${baseUrl}/rpc/cov?cov_longitude=${long}&cov_latitude=${lat}`
+    //Same for reference (f1/16), if any
+    if (this.selectedReference) {
+      params.cov_reference = 'F1/16';
+    }
 
-    this.http.get<PointInformation[]>(url, {
+    let url = new URL(`${baseUrl}/rpc/cov`);
+    url.search = (new URLSearchParams(params).toString());
+
+    this.http.get<PointInformation[]>(url.toString(), {
       headers: {
         "Accept": "application/json"
       }
