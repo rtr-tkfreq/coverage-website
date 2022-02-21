@@ -183,7 +183,7 @@ export class FrqmapComponent implements OnInit {
 
     //Same for reference (f1/16), if any
     if (this.selectedReference) {
-      params.cov_reference = 'F1/16';
+      params.cov_reference = this.selectedReference;
     }
 
     let searchParams = (new URLSearchParams(params).toString());
