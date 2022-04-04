@@ -62,21 +62,21 @@
             <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
               <thead>
               <tr>
-                <th></th>
+                <th class="uk-text-right" i18n="@@mbits">MBit/s</th>
                 <th class="uk-text-right" i18n="@@down">Down</th>
                 <th class="uk-text-right" i18n="@@up">Up</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngIf="info.downloadkbitnormal">
-                <td><ng-container i18n="@@normallyAvailable">Normalerweise zur Verfügung stehende Geschwindigkeit</ng-container></td>
-                <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
-                <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
+                <td><ng-container i18n="@@normallyAvailable">Normal</ng-container></td>
+                <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;</td>
+                <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | number: '1.0-0'}}&nbsp;</td>
               </tr>
               <tr *ngIf="info.downloadkbitmax">
-                <td><ng-container i18n="@@maxSpeed">Maximale Geschwindigkeit</ng-container></td>
-                <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
-                <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}}&nbsp;<ng-container i18n="@@mbits">Mbit/s</ng-container></td>
+                <td><ng-container i18n="@@maxSpeed">Maximal</ng-container></td>
+                <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | number: '1.0-0'}}&nbsp;</td>
+                <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | number: '1.0-0'}}&nbsp;</td>
               </tr>
               </tbody>
             </table>
