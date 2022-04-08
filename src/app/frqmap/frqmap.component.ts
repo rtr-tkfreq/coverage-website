@@ -23,7 +23,7 @@ import {Fill, Stroke, Style} from "ol/style";
 import TileSource from "ol/source/Tile";
 
 
-const baseUrl : String = "/api"
+const baseUrl : String = "https://frq.rtr.at" + "/api"
 const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
 const parser = new WMTSCapabilities();
 
