@@ -57,7 +57,8 @@ export class FrqmapComponent implements OnInit {
     this.map = new Map({
       view: new View({
         center: [0, 0],
-        zoom: 10
+        zoom: 10,
+        enableRotation: false
       }),
       layers: [],
       target: 'map',
