@@ -255,7 +255,7 @@ export class FrqmapComponent implements OnInit {
           url: tileUrl,
           projection: olProj.get('EPSG:3857'),
           maxZoom: 14,
-          minZoom: 4
+          minZoom: 7
         }
       ),
       visible: true,
