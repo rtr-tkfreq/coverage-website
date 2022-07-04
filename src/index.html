@@ -29,5 +29,63 @@
 <div class="tm-page">
   <app-root></app-root>
 </div>
+<script>
+  // Matomo
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push([
+    "setDomains",
+    [
+      "*.www.rtr.at",
+      "*.digitaler-rundfunk.at",
+      "*.digitalerrundfunk.at",
+      "*.egov.rtr.at",
+      "*.egov.rtr.gv.at",
+      "*.fernsehfonds.at",
+      "*.kommaustria.at",
+      "*.medienbehoerde.at",
+      "*.medienbehörde.at",
+      "*.netztest.at",
+      "*.signatur.rtr.at",
+      "*.www.fernsehfonds.at",
+      "*.www.kommaustria.at",
+      "*.www.medienbehoerde.at",
+      "*.www.medienbehörde.at",
+      "*.www.netztest.at",
+      "*.egov.rtr.at",
+      "*.egov.rtr.gv.at",
+      "*.fernsehfonds.at",
+      "*.kommaustria.at",
+      "*.medienbehoerde.at",
+      "*.medienbehörde.at",
+      "*.netztest.at",
+      "*.signatur.rtr.at",
+      "*.www.fernsehfonds.at",
+      "*.www.kommaustria.at",
+      "*.www.medienbehoerde.at",
+      "*.www.medienbehörde.at",
+      "*.www.netztest.at",
+      "*.www.rtr.at",
+      "*.frq.rtr.at",
+      "frq.rtr.at"
+    ]
+  ]);
+  (function () {
+    var u = "https://piwik.rtr.at/";
+    _paq.push([
+      'setTrackerUrl',
+      u + 'matomo.php'
+    ]);
+    _paq.push(['setSiteId', '1']);
+    _paq.push(['disableCookies']);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.async = true;
+    g.src = u + 'matomo.js';
+    s.parentNode.insertBefore(g, s);
+  })();
+</script>
 </body>
 </html>
