@@ -23,6 +23,7 @@ jobs:
       env:
         GIT_UPDATE_PATH_1: ${{ secrets.GIT_UPDATE_PATH_1 }}
         GIT_UPDATE_PATH_2: ${{ secrets.GIT_UPDATE_PATH_2 }}
+        AUTH_HEADER: ${{ secrets.AUTH_HEADER }}
       run: |
-        curl --location --request POST "$GIT_UPDATE_PATH_1"
-        curl --location --request POST "$GIT_UPDATE_PATH_2"
+        curl --location --request POST "$GIT_UPDATE_PATH_1" --header "$AUTH_HEADER"
+        curl --location --request POST "$GIT_UPDATE_PATH_2" --header "$AUTH_HEADER"
