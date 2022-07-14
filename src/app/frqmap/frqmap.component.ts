@@ -292,7 +292,7 @@ class CenterOnUserLocationControl extends Control {
     const options = opt_options || {};
 
     var button = document.createElement('button');
-    button.innerHTML = '&#8226;';
+    button.innerHTML = '<img alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQuMjMzMyA0LjIzMzMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTEuMDMxIC02NikiPgogIDxjaXJjbGUgY3g9IjUzLjE0OCIgY3k9IjY4LjExNyIgcj0iMS4wNTgzIiBmaWxsPSIjZmZmIiBzdHlsZT0icGFpbnQtb3JkZXI6ZmlsbCBtYXJrZXJzIHN0cm9rZSIvPgogPC9nPgo8L3N2Zz4K" />';
 
     const element = document.createElement('div');
     element.className = 'center-user-location ol-unselectable ol-control';
