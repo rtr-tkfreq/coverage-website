@@ -383,11 +383,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">465</context>
+          <context context-type="linenumber">466</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">509</context>
+          <context context-type="linenumber">510</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contactAmtstafel-href" datatype="html">
@@ -435,11 +435,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">481</context>
+          <context context-type="linenumber">482</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">496</context>
+          <context context-type="linenumber">497</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ertrContact-href" datatype="html">
@@ -465,11 +465,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">484</context>
+          <context context-type="linenumber">485</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">499</context>
+          <context context-type="linenumber">500</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ourServices-href" datatype="html">
@@ -554,143 +554,143 @@
         <source>https://www.rtr.at/rtr/Kontakt/Amtstafel.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">465</context>
+          <context context-type="linenumber">466</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">509</context>
+          <context context-type="linenumber">510</context>
         </context-group>
       </trans-unit>
       <trans-unit id="imprint-href" datatype="html">
         <source>https://www.rtr.at/rtr/footer/impressum.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">468</context>
+          <context context-type="linenumber">469</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">512</context>
+          <context context-type="linenumber">513</context>
         </context-group>
       </trans-unit>
       <trans-unit id="imprint" datatype="html">
         <source>Impressum</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">468</context>
+          <context context-type="linenumber">469</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">512</context>
+          <context context-type="linenumber">513</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy-href" datatype="html">
         <source>https://www.rtr.at/rtr/footer/Datenschutz.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">471</context>
+          <context context-type="linenumber">472</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">515</context>
+          <context context-type="linenumber">516</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy" datatype="html">
         <source>Datenschutz</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">471</context>
+          <context context-type="linenumber">472</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">515</context>
+          <context context-type="linenumber">516</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accessibility-href" datatype="html">
         <source>https://www.rtr.at/rtr/footer/Barrierefreiheit.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">474</context>
+          <context context-type="linenumber">475</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">518</context>
+          <context context-type="linenumber">519</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accessibility" datatype="html">
         <source>Barrierefreiheit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">474</context>
+          <context context-type="linenumber">475</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">518</context>
+          <context context-type="linenumber">519</context>
         </context-group>
       </trans-unit>
       <trans-unit id="pressFoooter-href" datatype="html">
         <source>https://www.rtr.at/TKP/presse/Startseite.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">481</context>
+          <context context-type="linenumber">482</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">496</context>
+          <context context-type="linenumber">497</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ertr-href" datatype="html">
         <source>https://www.rtr.at/rtr/service/ertr/eRTR.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">484</context>
+          <context context-type="linenumber">485</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">499</context>
+          <context context-type="linenumber">500</context>
         </context-group>
       </trans-unit>
       <trans-unit id="opendata-href" datatype="html">
         <source>https://www.rtr.at/rtr/service/opendata/OpenData.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">487</context>
+          <context context-type="linenumber">488</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">502</context>
+          <context context-type="linenumber">503</context>
         </context-group>
       </trans-unit>
       <trans-unit id="opendata" datatype="html">
         <source>Open Data</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">487</context>
+          <context context-type="linenumber">488</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">502</context>
+          <context context-type="linenumber">503</context>
         </context-group>
       </trans-unit>
       <trans-unit id="faq-href" datatype="html">
         <source>https://www.rtr.at/TKP/service/FAQs/FAQ-TKP.de.html</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">490</context>
+          <context context-type="linenumber">491</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">505</context>
+          <context context-type="linenumber">506</context>
         </context-group>
       </trans-unit>
       <trans-unit id="faq" datatype="html">
         <source>Häufig gestellte Fragen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">490</context>
+          <context context-type="linenumber">491</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">505</context>
+          <context context-type="linenumber">506</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cardMobile" datatype="html">
@@ -714,142 +714,206 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="introtext" datatype="html">
-        <source>Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</source>
+      <trans-unit id="obligation" datatype="html">
+        <source>Versorgungsauflagen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="none" datatype="html">
+        <source>keine</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cadastral" datatype="html">
+        <source>Katastralgemeinden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="streets" datatype="html">
+        <source>Straßen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cities" datatype="html">
+        <source>Städte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="roads_bl" datatype="html">
+        <source>Straßen (B/L)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="motorways" datatype="html">
+        <source>Autobahnen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="railways" datatype="html">
+        <source>Bahnstrecken</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="introtext_details" datatype="html">
-        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Diese Informationen beruhen auf <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;/open-data/de&quot;>"/>Open Data der Netzbetreiber<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber. Diese Netze werden auch von weiteren Mobilfunkanbietern (z.B. MVNOs) verwendet.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p>"/>Unter "maximaler Geschwindigkeit" ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag erreicht wird. Die "normalerweise verfügbare Geschwindigkeit" ist jene Geschwindigkeit, die zu 95% der Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten unterschritten werden.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p>"/></source>
+      <trans-unit id="introtext" datatype="html">
+        <source>Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">36,37</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="introtext_details" datatype="html">
+        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Diese Informationen beruhen auf <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;/open-data/de&quot;&gt;"/>Open Data der Netzbetreiber<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber. Diese Netze werden auch von weiteren Mobilfunkanbietern (z.B. MVNOs) verwendet.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Unter &quot;maximaler Geschwindigkeit&quot; ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag erreicht wird. Die &quot;normalerweise verfügbare Geschwindigkeit&quot; ist jene Geschwindigkeit, die zu 95% der Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten unterschritten werden.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">51,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="legend" datatype="html">
         <source>Legende:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="quality" datatype="html">
         <source>Versorgungsqualität</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bad" datatype="html">
         <source>schwach</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="medium" datatype="html">
         <source>mittel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="excellent" datatype="html">
-        <source>ausgezeichnet</source>
+        <source>ausge<x id="TAG_WBR" ctype="x-wbr" equiv-text="&lt;wbr&gt;"/>zeichnet</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="information" datatype="html">
         <source>Informationen zur Abdeckung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="coordinates" datatype="html">
         <source>Koordinaten: N <x id="INTERPOLATION" equiv-text="{{convertDMS(pointInfo[0].centroid_y)}}"/>, O <x id="INTERPOLATION_1" equiv-text="{{convertDMS(pointInfo[0].centroid_x)}}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="raster" datatype="html">
         <source>Raster-ID</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mbits" datatype="html">
+        <source>MBit/s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="down" datatype="html">
         <source>Down</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="up" datatype="html">
         <source>Up</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="normallyAvailable" datatype="html">
-        <source>Normalerweise zur Verfügung stehende Geschwindigkeit</source>
+        <source>Normal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">73</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="mbits" datatype="html">
-        <source>Mbit/s</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">74</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">75</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">79</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="maxSpeed" datatype="html">
-        <source>Maximale Geschwindigkeit</source>
+        <source>Maximal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dateDate" datatype="html">
         <source>Datenstand</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3234019345298540974" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {Lizenz} other {Lizenzen}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="license" datatype="html">
         <source><x id="ICU" equiv-text="{pointInfo.length, plural, =1 {Lizenz} other {Lizenzen}}"/>:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
     </body>

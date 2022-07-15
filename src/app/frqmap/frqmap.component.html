@@ -8,9 +8,9 @@
   <div class="uk-container uk-container-xlarge">
     <div class="uk-container">
       <form class="uk-form uk-padding-remove uk-margin-top-50">
-        <p>
+        <p class="uk-inline">
           <label for="statistik_type" class="uk-margin-small-right" i18n="@@operator">Betreiber</label>
-          <select *ngIf="formOptions" class="uk-select uk-width-auto" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap()"  >
+          <select *ngIf="formOptions" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="selectedObligationLayer=null;reloadMap()"  >
             <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">
               <ng-container *ngIf="operator.label === '@all'" i18n="@@allOperators">Alle Betreiber</ng-container>
               <ng-container *ngIf="operator.label !== '@all'">
@@ -18,9 +18,24 @@
               </ng-container>
 
             </option>
+
           </select>
         </p>
-
+        <p class="uk-inline uk-margin-remove-top" *ngIf="operatorFilterForOperator(selectedOperator)?.obligations">
+          <label for="statistik_type" class="uk-margin-small-right" i18n="@@obligation">Versorgungsauflagen</label>
+          <select id="obligation" name="obligation" class="uk-select uk-width-auto"  [(ngModel)]="selectedObligationLayer" (ngModelChange)="reloadMap()">
+            <option [value]="null" i18n="@@none">keine</option>
+            <option *ngFor="let obligation of operatorFilterForOperator(selectedOperator)?.obligations"
+                    [value]="obligation.type" >
+              <ng-container *ngIf="obligation.type === 'kg'" i18n="@@cadastral">Katastralgemeinden</ng-container>
+              <ng-container *ngIf="obligation.type === 'street'" i18n="@@streets">Straßen</ng-container>
+              <ng-container *ngIf="obligation.type === 'cities'" i18n="@@cities">Städte</ng-container>
+              <ng-container *ngIf="obligation.type === 'roads_bl'" i18n="@@roads_bl">Straßen (B/L)</ng-container>
+              <ng-container *ngIf="obligation.type === 'motorways'" i18n="@@motorways">Autobahnen</ng-container>
+              <ng-container *ngIf="obligation.type === 'railways'" i18n="@@railways">Bahnstrecken</ng-container>
+            </option>
+          </select>
+        </p>
       </form>
     </div>
     <div uk-grid>
