@@ -16,6 +16,13 @@ export interface Operator {
   label: string,
   default: boolean,
   operator: string | null
+  obligations?: Array<OperatorObligations>
+}
+
+export interface OperatorObligations {
+  type: string,
+  source: Array<string>,
+  label: any
 }
 
 export interface LayerConfiguration {

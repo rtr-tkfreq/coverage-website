@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration, Operator, PointInformation} from './sample1';
 
@@ -23,8 +23,10 @@ import TileSource from "ol/source/Tile";
 import {Control, defaults as defaultControls} from "ol/control";
 
 
-const baseUrl : String = "/api"
-const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
+const baseUrl : String = "";
+const baseUrlApi : String = `${baseUrl}/api`;
+const baseUrlTiles : String = `${baseUrl}/`;
+const baseMapCapabilities: string = "https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml";
 const parser = new WMTSCapabilities();
 
 @Component({
@@ -37,8 +39,10 @@ export class FrqmapComponent implements OnInit {
   map: Map;
   currentVectorLayer: VectorLayer<VectorSource<any>> | null = null
   selectedOperator: String;
+  selectedObligationLayer: string | null = null;
   selectedReference: String | null;
   currentOverlay : TileLayer<TileSource>
+  currentObligationOverlays: Array<TileLayer<TileSource>>
   pointInfo: PointInformation[] | null
 
 
@@ -111,7 +115,7 @@ export class FrqmapComponent implements OnInit {
 
   private loadOptions() {
 //    this.formOptions = sampleResponseToReq1;
-    let url = `${baseUrl}/settings`;
+    let url = `${baseUrlApi}/settings`;
     this.http.get<FormOptionResponse>(url,
       {
         headers: {
@@ -145,10 +149,10 @@ export class FrqmapComponent implements OnInit {
     let url = '';
 
     if (reference) {
-      url = `${baseUrl}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&limit=1`
+      url = `${baseUrlApi}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&limit=1`
     }
     else {
-      url = `${baseUrl}/tileurl?and=(operator.eq.${operator})&limit=1`
+      url = `${baseUrlApi}/tileurl?and=(operator.eq.${operator})&limit=1`
     }
 
     console.log(this.selectedOperator);
@@ -168,6 +172,23 @@ export class FrqmapComponent implements OnInit {
         this.changeOverlaySource(val.url);
       });
 
+    if (this.selectedObligationLayer && this.operatorFilterForOperator(this.selectedOperator)) {
+      let urls = this.operatorFilterForOperator(this.selectedOperator)?.obligations?.find(o => o.type === this.selectedObligationLayer)?.source;
+      if (urls) {
+        this.changeObligationSource(urls);
+      }
+    }
+  }
+
+  operatorFilterForOperator(operator: String): Operator | null {
+    if (this.formOptions && this.formOptions.filter && this.formOptions.filter.operators) {
+      let matchingOperator = this.formOptions.filter.operators.find(o =>
+        o.operator === operator
+      )
+      return matchingOperator || null;
+    } else {
+      return null;
+    }
   }
 
   private loadInformationForPoint(coords : Coordinate) : void {
@@ -189,7 +210,7 @@ export class FrqmapComponent implements OnInit {
     }
 
     let searchParams = (new URLSearchParams(params).toString());
-    let url = `${baseUrl}/rpc/cov?${searchParams}`;
+    let url = `${baseUrlApi}/rpc/cov?${searchParams}`;
 
     this.http.get<PointInformation[]>(url, {
       headers: {
@@ -251,7 +272,7 @@ export class FrqmapComponent implements OnInit {
       this.map.removeLayer(this.currentOverlay)
     }
 
-    const tileUrl = `${url}/{z}/{x}/{y}.png`;
+    const tileUrl = `${baseUrlTiles}${url}/{z}/{x}/{y}.png`;
     this.currentOverlay = new TileLayer({
       source: new XYZ({
           url: tileUrl,
@@ -265,6 +286,39 @@ export class FrqmapComponent implements OnInit {
     });
 
     this.map.addLayer(this.currentOverlay);
+  }
+
+  private changeObligationSource(urls: Array<string>) :void {
+
+    //remove obligation layers
+    if (this.currentObligationOverlays != null &&
+      this.currentObligationOverlays.length > 0) {
+      this.currentObligationOverlays.forEach(layer => {
+          this.map.removeLayer(layer)
+        }
+      )
+    }
+
+    this.currentObligationOverlays = [];
+
+    urls.forEach((url) => {
+      const tileUrl = baseUrlTiles + `${url}/{z}/{x}/{y}.png`;
+      let newOverlay = new TileLayer({
+        source: new XYZ({
+            url: tileUrl,
+            projection: olProj.get('EPSG:3857'),
+            maxZoom: 14,
+            minZoom: 7
+          }
+        ),
+        visible: true,
+        opacity: 1.0
+      });
+
+      this.map.addLayer(newOverlay);
+      this.currentObligationOverlays.push(newOverlay);
+    })
+
   }
 
   getOperatorByLabel(name : String): Operator | undefined {
