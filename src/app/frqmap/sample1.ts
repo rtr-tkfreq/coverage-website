@@ -22,7 +22,6 @@ export interface Operator {
 export interface OperatorObligations {
   type: string,
   source: Array<string>,
-  label: any
 }
 
 export interface LayerConfiguration {
