@@ -195,6 +195,8 @@ export class FrqmapComponent implements OnInit {
       let urls = this.operatorFilterForOperator(this.selectedOperator)?.obligations?.find(o => o.type === this.selectedObligationLayer)?.source;
       if (urls) {
         this.changeObligationSource(urls);
+      } else {
+        this.changeObligationSource(null);
       }
     } else {
       this.changeObligationSource(null);
