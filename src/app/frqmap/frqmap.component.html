@@ -10,7 +10,7 @@
       <form class="uk-form uk-padding-remove uk-margin-top-50">
         <p class="uk-inline">
           <label for="statistik_type" class="uk-margin-small-right" i18n="@@operator">Betreiber</label>
-          <select *ngIf="formOptions" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="reloadMap();selectedObligationLayer=null"  >
+          <select *ngIf="formOptions" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="selectedObligationLayer=null;reloadMap()"  >
             <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">
               <ng-container *ngIf="operator.label === '@all'" i18n="@@allOperators">Alle Betreiber</ng-container>
               <ng-container *ngIf="operator.label !== '@all'">

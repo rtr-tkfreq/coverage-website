@@ -5,9 +5,6 @@ import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration, Operator, 
 import Map from "ol/Map";
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
-import TileGrid from "ol/tilegrid/TileGrid";
-import WMTSGrid from "ol/tilegrid/WMTS";
-import OSM from 'ol/source/OSM';
 import WMTSSource, {optionsFromCapabilities} from 'ol/source/WMTS'
 import * as olProj from "ol/proj";
 import {Extent} from "ol/extent";
@@ -25,7 +22,7 @@ import {Control, defaults as defaultControls} from "ol/control";
 
 const baseUrl : String = "";
 const baseUrlApi : String = `${baseUrl}/api`;
-const baseUrlTiles : String = `${baseUrl}/`;
+const baseUrlTiles : String = `${baseUrl}`;
 const baseMapCapabilities: string = "https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml";
 const parser = new WMTSCapabilities();
 
@@ -172,11 +169,35 @@ export class FrqmapComponent implements OnInit {
         this.changeOverlaySource(val.url);
       });
 
+    //for debug only
+    if (this.selectedObligationLayer) {
+      let obligationUrl = '';
+      if (reference) {
+        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&obligation=${this.selectedObligationLayer}`
+      } else {
+        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator})&obligation=${this.selectedObligationLayer}`
+      }
+
+      console.log(this.selectedOperator);
+
+      this.http.get<any>(obligationUrl, {
+        headers: {
+          "Accept": "application/json"
+        }
+      })
+        .subscribe((val) => {
+          console.log(val)
+        });
+    }
+
+    //reload in any case
     if (this.selectedObligationLayer && this.operatorFilterForOperator(this.selectedOperator)) {
       let urls = this.operatorFilterForOperator(this.selectedOperator)?.obligations?.find(o => o.type === this.selectedObligationLayer)?.source;
       if (urls) {
         this.changeObligationSource(urls);
       }
+    } else {
+      this.changeObligationSource(null);
     }
   }
 
@@ -288,8 +309,7 @@ export class FrqmapComponent implements OnInit {
     this.map.addLayer(this.currentOverlay);
   }
 
-  private changeObligationSource(urls: Array<string>) :void {
-
+  private changeObligationSource(urls: Array<string> | null) :void {
     //remove obligation layers
     if (this.currentObligationOverlays != null &&
       this.currentObligationOverlays.length > 0) {
@@ -301,23 +321,26 @@ export class FrqmapComponent implements OnInit {
 
     this.currentObligationOverlays = [];
 
-    urls.forEach((url) => {
-      const tileUrl = baseUrlTiles + `${url}/{z}/{x}/{y}.png`;
-      let newOverlay = new TileLayer({
-        source: new XYZ({
-            url: tileUrl,
-            projection: olProj.get('EPSG:3857'),
-            maxZoom: 14,
-            minZoom: 7
-          }
-        ),
-        visible: true,
-        opacity: 1.0
-      });
+    if (urls) {
+      urls.forEach((url) => {
+        const tileUrl = baseUrlTiles + `${url}/{z}/{x}/{y}.png`;
+        let newOverlay = new TileLayer({
+          source: new XYZ({
+              url: tileUrl,
+              projection: olProj.get('EPSG:3857'),
+              maxZoom: 14,
+              minZoom: 7
+            }
+          ),
+          visible: true,
+          opacity: 1.0
+        });
 
-      this.map.addLayer(newOverlay);
-      this.currentObligationOverlays.push(newOverlay);
-    })
+        this.map.addLayer(newOverlay);
+        this.currentObligationOverlays.push(newOverlay);
+
+      })
+    }
 
   }
 
@@ -379,7 +402,7 @@ class CenterOnUserLocationControl extends Control {
       console.log("Centering map to user location ", coords)
       let convertedCoords = olProj.transform(coords, 'EPSG:4326', 'EPSG:3857')
       this.getMap().getView().setCenter(convertedCoords)
-      this.getMap().getView().setZoom(12);
+      this.getMap().getView().setZoom(14);
     });
   }
 }
