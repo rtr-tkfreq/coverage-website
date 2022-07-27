@@ -49,6 +49,16 @@ export interface PointInformation {
   geojson: string,
   request_latitude: number,
   request_longitude: number,
+  j1_kg: string, //J1 Annex KG
+  j1_kg_nr: string,
+  j1_operator: string, //operator with obligation
+  r250: string, //Raster 250m
+  long_id100: string,
+  short_id100: string,
+  long_id250: string,
+  short_id250: string,
+  location_tooltip: string,
+  cadastral_tooltip: string,
   [key: string]: any
 }
 

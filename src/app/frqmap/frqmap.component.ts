@@ -251,6 +251,19 @@ export class FrqmapComponent implements OnInit {
           val[0].request_latitude = params.cov_latitude;
           val[0].request_longitude = params.cov_longitude;
 
+          //build tooltip for location
+          val[0].location_tooltip="" +
+            (val[0].raster ? "Raster 100m: <br>&emsp;" + val[0].raster + "<br>" : "") +
+            (val[0].short_id100 ? "Short ID 100m: <br>&emsp;" + val[0].short_id100 + "<br>" : "") +
+            (val[0].long_id100 ? "Long ID 100m: <br>&emsp;" + val[0].long_id100 + "<br>" : "") +
+            (val[0].r250 ? "Raster 250m: <br>&emsp;" + val[0].r250 + "<br>" : "") +
+            (val[0].short_id250 ? "Short ID 250m: <br>&emsp;" + val[0].short_id250 + "<br>" : "") +
+            (val[0].long_id250 ? "Long ID 250m: <br>" + val[0].long_id250 + "" : "");
+
+          val[0].cadastral_tooltip ="" +
+            (val[0].j1_operator ? "" + val[0].j1_operator + "<br>" : "") +
+            (val[0].j1_kg_nr ? "KG-Nr: <br>&emsp;" + val[0].j1_kg_nr : "");
+
           if (this.currentVectorLayer !== null) {
             this.map.removeLayer(this.currentVectorLayer);
             this.currentVectorLayer = null;

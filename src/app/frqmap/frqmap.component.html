@@ -70,8 +70,20 @@
           <div class="alignToStart uk-width-expand">
           <h3 i18n="@@information">Informationen zur Abdeckung</h3>
           <p>
-            <ng-container i18n="@@coordinates">Koordinaten: N {{convertDMS(pointInfo[0].request_latitude)}}, O {{convertDMS(pointInfo[0].request_longitude)}}</ng-container><br/>
-            <ng-container i18n="@@raster">Raster-ID</ng-container>: {{pointInfo[0].raster}}
+            <ng-container i18n="@@coordinates">Koordinaten:
+              <abbr data-uk-tooltip="" [title]="pointInfo[0].location_tooltip">
+                N {{convertDMS(pointInfo[0].request_latitude)}},
+                O {{convertDMS(pointInfo[0].request_longitude)}}
+              </abbr>
+              <br/>
+            </ng-container>
+            <ng-container *ngIf="pointInfo[0].j1_kg">
+            <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>:
+              <abbr data-uk-tooltip="" [title]="pointInfo[0].cadastral_tooltip">
+              {{pointInfo[0].j1_kg}}
+              </abbr>
+              <br/>
+            </ng-container>
           </p>
           <div *ngFor="let info of pointInfo">
             <h4 class="uk-margin-top-50 uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
