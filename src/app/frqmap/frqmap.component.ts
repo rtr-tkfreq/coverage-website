@@ -246,6 +246,11 @@ export class FrqmapComponent implements OnInit {
 
           let first = val[0];
 
+          //set coordinates from request in order to
+          //not need the server return it
+          val[0].request_latitude = params.cov_latitude;
+          val[0].request_longitude = params.cov_longitude;
+
           if (this.currentVectorLayer !== null) {
             this.map.removeLayer(this.currentVectorLayer);
             this.currentVectorLayer = null;

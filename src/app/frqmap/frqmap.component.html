@@ -70,7 +70,7 @@
           <div class="alignToStart uk-width-expand">
           <h3 i18n="@@information">Informationen zur Abdeckung</h3>
           <p>
-            <ng-container i18n="@@coordinates">Koordinaten: N {{convertDMS(pointInfo[0].centroid_y)}}, O {{convertDMS(pointInfo[0].centroid_x)}}</ng-container><br/>
+            <ng-container i18n="@@coordinates">Koordinaten: N {{convertDMS(pointInfo[0].request_latitude)}}, O {{convertDMS(pointInfo[0].request_longitude)}}</ng-container><br/>
             <ng-container i18n="@@raster">Raster-ID</ng-container>: {{pointInfo[0].raster}}
           </p>
           <div *ngFor="let info of pointInfo">

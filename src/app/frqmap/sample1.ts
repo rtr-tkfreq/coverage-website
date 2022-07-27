@@ -47,6 +47,8 @@ export interface PointInformation {
   centroid_x: number,
   centroid_y: number,
   geojson: string,
+  request_latitude: number,
+  request_longitude: number,
   [key: string]: any
 }
 
