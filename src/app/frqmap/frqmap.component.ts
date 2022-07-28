@@ -315,14 +315,6 @@ export class FrqmapComponent implements OnInit {
           first.request_latitude = paramsCov.cov_latitude;
           first.request_longitude = paramsCov.cov_longitude;
 
-          //build tooltip for location
-          first.location_tooltip = "" +
-            (first.r100 ? "Raster 100m: <br>&emsp;" + first.r100 + "<br>" : "")
-            +  (first.r250 ? "Raster 250m: <br>&emsp;" + first.r250 + "<br>" : "")
-
-          console.log("tt "+first.location_tooltip)
-
-
         }
         else {
           this.pointInfoIds = null

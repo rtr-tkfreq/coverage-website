@@ -82,9 +82,8 @@
         </div>
         <div *ngIf="pointInfoIds || pointInfoCov" class="uk-flex uk-flex-column fullHeight">
 
-          <h3 i18n="@@information">Informationen zur Abdeckung</h3>
           <div *ngIf="pointInfoIds" class="alignToStart uk-width-expand">
-            <p>
+
               <b>
                 <ng-container i18n="@@coordinates">Auswahl:
                   N {{convertDMS(pointInfoIds[0].request_latitude)}},
@@ -92,39 +91,45 @@
                   <br/>
                 </ng-container>
               </b>
-              <ng-container *ngIf="pointInfoIds[0].vgd_gb">
-                <ng-container i18n="@@district">Bezirk</ng-container>
-                :
-                {{pointInfoIds[0].vgd_gb}}
-                <br/>
-              </ng-container>
-              <ng-container *ngIf="pointInfoIds[0].vgd_pg">
-                <ng-container i18n="@@community">Gemeinde</ng-container>:
-                {{pointInfoIds[0].vgd_pg}}
-                <br/>
-              </ng-container>
+            <p>
+            <ng-container *ngIf="selectedObligationLayer=='kg' && pointInfoIds[0].kg_operator  && pointInfoIds[0].kg_deadline">
 
-              <ng-container *ngIf="pointInfoIds[0].vgd_kg">
-                <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>:
-                {{pointInfoIds[0].vgd_kg}}
-                <br/>
-              </ng-container>
 
+
+            <h3 i18n="@@obligation_kg">Auflage Katastralgemeinde</h3>
+
+            <ng-container *ngIf="pointInfoIds[0].rtr_j1_kg">
+              <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>:
+              {{pointInfoIds[0].rtr_j1_kg}}
+              <br/>
+            </ng-container>
 
               <ng-container
-                *ngIf="selectedObligationLayer=='kg' && pointInfoIds[0].kg_operator  && pointInfoIds[0].kg_deadline">
-                <ng-container i18n="@@obligation_kg">Auflage KG</ng-container>
-                {{pointInfoIds[0].kg_deadline}}: {{pointInfoIds[0].kg_operator}} ({{pointInfoIds[0].rtr_j6_name}})
+                *ngIf="pointInfoIds[0].kg_operator">
+                <ng-container i18n="@@obligation_operator">Betreiber: </ng-container>
+                {{pointInfoIds[0].kg_operator}}
                 <br/>
               </ng-container>
 
+            <ng-container
+              *ngIf="pointInfoIds[0].kg_deadline">
+              <ng-container i18n="@@obligation_operator">Verpflichtet seit: </ng-container>
+              {{pointInfoIds[0].kg_deadline}}
+              <br/>
+            </ng-container>
+
+
+            </ng-container>
 
             </p>
           </div>
           <div *ngIf="pointInfoCov" class="uk-flex uk-flex-column fullHeight">
+            <h3 i18n="@@information">Abdeckung</h3>
+
 
             <div *ngFor="let info of pointInfoCov">
-              <h4 class="uk-margin-top-50 uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
+              <h4 class="uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
+              <ng-container i18n="@@operator_info_100m">Betreiberangabe für 100m x 100m Raster:</ng-container>
               <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
                 <thead>
                 <tr>
@@ -160,9 +165,41 @@
           <div *ngIf="!pointInfoCov" class="uk-flex uk-flex-column fullHeight">
             <h4 i18n="@@no_coverage">Keine Abdeckung.</h4>
           </div>
-          <div *ngIf="pointInfoIds" class="uk-flex uk-flex-column fullHeight">
+          <div *ngIf="pointInfoIds">
 
+            <h3 i18n="@@geo_info">Geoinformation</h3>
             <p>
+
+              <ng-container *ngIf="pointInfoIds[0].vgd_kg">
+                <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>:
+                {{pointInfoIds[0].vgd_kg}}
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].vgd_pg">
+                <ng-container i18n="@@community"> Gemeinde</ng-container>:
+                {{pointInfoIds[0].vgd_pg}}
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].vgd_gb">
+                <ng-container i18n="@@district">Bezirk</ng-container>:
+                {{pointInfoIds[0].vgd_gb}}
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].vgd_bl">
+                <ng-container i18n="@@region">Bundesland</ng-container>:
+                {{pointInfoIds[0].vgd_bl}}
+                <br/>
+              </ng-container>
+
+
+              <ng-container *ngIf="pointInfoIds[0].rtr_j6_name">
+                <ng-container i18n="@@permanent_settlement_area">Dauersiedlungsraum</ng-container>:
+                {{pointInfoIds[0].rtr_j6_name}}
+                <br/>
+              </ng-container>
 
               <ng-container *ngIf="pointInfoIds[0].r100">
                 <ng-container i18n="@@raster100">Raster 100m</ng-container>:
@@ -171,8 +208,7 @@
               </ng-container>
 
               <ng-container *ngIf="pointInfoIds[0].short_id100 && pointInfoIds[0].long_id100">
-                <ng-container i18n="@@id100">ID100</ng-container>
-                :
+                <ng-container i18n="@@id100">ID100</ng-container>:
                 {{pointInfoIds[0].short_id100}} ({{pointInfoIds[0].long_id100}})
 
                 <br/>
@@ -185,8 +221,7 @@
               </ng-container>
 
               <ng-container *ngIf="pointInfoIds[0].short_id250 && pointInfoIds[0].long_id250">
-                <ng-container i18n="@@id250">ID250</ng-container>
-                :
+                <ng-container i18n="@@id250">ID250</ng-container>:
                 {{pointInfoIds[0].short_id250}} ({{pointInfoIds[0].long_id250}})
 
                 <br/>
