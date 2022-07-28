@@ -81,10 +81,11 @@
           </div>
         </div>
         <div *ngIf="pointInfoIds || pointInfoCov" class="uk-flex uk-flex-column fullHeight">
+
+          <h3 i18n="@@information">Informationen zur Abdeckung</h3>
           <div *ngIf="pointInfoIds" class="alignToStart uk-width-expand">
-            <h3 i18n="@@information">Informationen zur Abdeckung</h3>
             <p>
-<b>
+            <b>
               <ng-container i18n="@@coordinates">Auswahl:
                 <abbr data-uk-tooltip="" [title]="pointInfoIds[0].location_tooltip">
                   N {{convertDMS(pointInfoIds[0].request_latitude)}},
@@ -92,9 +93,9 @@
                 </abbr>
                 <br/>
               </ng-container>
-</b>
-              <ng-container *ngIf="pointInfoIds[0].vgd_gb">
-                <ng-container i18n="@@district">Bezirk</ng-container>
+            </b>
+            <ng-container *ngIf="pointInfoIds[0].vgd_gb">
+              <ng-container i18n="@@district">Bezirk</ng-container>
                 :
                 <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_gb_kz">
                   {{pointInfoIds[0].vgd_gb}}
