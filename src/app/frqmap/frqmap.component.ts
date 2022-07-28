@@ -29,7 +29,7 @@ import {Control, defaults as defaultControls} from "ol/control";
 const baseUrl : String = "";
 const baseUrlApi : String = `${baseUrl}/api`;
 const baseUrlTiles : String = `${baseUrl}`;
-const baseMapCapabilities: string = "https://basemap.at/wmts/1.0.0/WMTSCapabilities.xml";
+const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
 const parser = new WMTSCapabilities();
 
 @Component({
