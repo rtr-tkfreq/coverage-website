@@ -85,57 +85,38 @@
           <h3 i18n="@@information">Informationen zur Abdeckung</h3>
           <div *ngIf="pointInfoIds" class="alignToStart uk-width-expand">
             <p>
-            <b>
-              <ng-container i18n="@@coordinates">Auswahl:
-                <abbr data-uk-tooltip="" [title]="pointInfoIds[0].location_tooltip">
+              <b>
+                <ng-container i18n="@@coordinates">Auswahl:
                   N {{convertDMS(pointInfoIds[0].request_latitude)}},
                   O {{convertDMS(pointInfoIds[0].request_longitude)}}
-                </abbr>
-                <br/>
-              </ng-container>
-            </b>
-            <ng-container *ngIf="pointInfoIds[0].vgd_gb">
-              <ng-container i18n="@@district">Bezirk</ng-container>
+                  <br/>
+                </ng-container>
+              </b>
+              <ng-container *ngIf="pointInfoIds[0].vgd_gb">
+                <ng-container i18n="@@district">Bezirk</ng-container>
                 :
-                <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_gb_kz">
-                  {{pointInfoIds[0].vgd_gb}}
-                </abbr>
+                {{pointInfoIds[0].vgd_gb}}
                 <br/>
               </ng-container>
-
               <ng-container *ngIf="pointInfoIds[0].vgd_pg">
-                <ng-container i18n="@@community">Gemeinde</ng-container>
-                :
-                <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_gkz">
-                  {{pointInfoIds[0].vgd_pg}}
-                </abbr>
+                <ng-container i18n="@@community">Gemeinde</ng-container>:
+                {{pointInfoIds[0].vgd_pg}}
                 <br/>
               </ng-container>
 
               <ng-container *ngIf="pointInfoIds[0].vgd_kg">
-
-                <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>
-                :
-                <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_kg_nr">
-                  {{pointInfoIds[0].vgd_kg}}
-                </abbr>
+                <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>:
+                {{pointInfoIds[0].vgd_kg}}
                 <br/>
               </ng-container>
 
 
-
-
-
-
-              <ng-container *ngIf="selectedObligationLayer=='kg' && pointInfoIds[0].kg_operator  && pointInfoIds[0].kg_deadline">
+              <ng-container
+                *ngIf="selectedObligationLayer=='kg' && pointInfoIds[0].kg_operator  && pointInfoIds[0].kg_deadline">
                 <ng-container i18n="@@obligation_kg">Auflage KG</ng-container>
-                :
-                <abbr data-uk-tooltip="" [title]="pointInfoIds[0].rtr_j1_kg+'; '+pointInfoIds[0].rtr_j6_name">
-                  {{pointInfoIds[0].kg_operator}} ({{pointInfoIds[0].kg_deadline}})
-                </abbr>
+                {{pointInfoIds[0].kg_deadline}}: {{pointInfoIds[0].kg_operator}} ({{pointInfoIds[0].rtr_j6_name}})
                 <br/>
               </ng-container>
-
 
 
             </p>
@@ -182,11 +163,24 @@
           <div *ngIf="pointInfoIds" class="uk-flex uk-flex-column fullHeight">
 
             <p>
+
+              <ng-container *ngIf="pointInfoIds[0].r100">
+                <ng-container i18n="@@raster100">Raster 100m</ng-container>:
+                {{pointInfoIds[0].r100}}
+                <br/>
+              </ng-container>
+
               <ng-container *ngIf="pointInfoIds[0].short_id100 && pointInfoIds[0].long_id100">
                 <ng-container i18n="@@id100">ID100</ng-container>
                 :
                 {{pointInfoIds[0].short_id100}} ({{pointInfoIds[0].long_id100}})
 
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].r250">
+                <ng-container i18n="@@raster250">Raster 250m</ng-container>:
+                {{pointInfoIds[0].r250}}
                 <br/>
               </ng-container>
 
