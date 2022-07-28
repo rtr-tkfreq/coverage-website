@@ -1,6 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import sampleResponseToReq1, {FormOptionResponse, LayerConfiguration, Operator, PointInformation} from './sample1';
+import sampleResponseToReq1, {
+  FormOptionResponse,
+  LayerConfiguration,
+  Operator,
+  PointInfoCoverage,
+  PointInfoIds
+} from './sample1';
 
 import Map from "ol/Map";
 import View from 'ol/View';
@@ -40,8 +46,8 @@ export class FrqmapComponent implements OnInit {
   selectedReference: String | null;
   currentOverlay : TileLayer<TileSource>
   currentObligationOverlays: Array<TileLayer<TileSource>>
-  pointInfo: PointInformation[] | null
-
+  pointInfoCov: PointInfoCoverage[] | null
+  pointInfoIds: PointInfoIds[] | null
 
   constructor(
     private http : HttpClient
@@ -215,54 +221,35 @@ export class FrqmapComponent implements OnInit {
   }
 
   private loadInformationForPoint(coords : Coordinate) : void {
-    let params : any = {
+    let paramsCov: any = {
       cov_longitude: coords[0],
       cov_latitude: coords[1]
     }
     if (this.selectedOperator === null || this.selectedOperator === "null" || this.selectedOperator === "default") {
       //nothing
       //params.cov_operator = "@all";
-    }
-    else {
-      params.cov_operator = this.selectedOperator;
+    } else {
+      paramsCov.cov_operator = this.selectedOperator;
     }
 
     //Same for reference (f1/16), if any
     if (this.selectedReference) {
-      params.cov_reference = this.selectedReference;
+      paramsCov.cov_reference = this.selectedReference;
     }
 
-    let searchParams = (new URLSearchParams(params).toString());
-    let url = `${baseUrlApi}/rpc/cov?${searchParams}`;
+    let searchParamsCov = (new URLSearchParams(paramsCov).toString());
+    let urlCov = `${baseUrlApi}/rpc/cov?${searchParamsCov}`;
 
-    this.http.get<PointInformation[]>(url, {
+    this.http.get<PointInfoCoverage[]>(urlCov, {
       headers: {
         "Accept": "application/json"
       }
     })
       .subscribe((val) => {
         if (val.length > 0) {
-          this.pointInfo = val
+          this.pointInfoCov = val
 
           let first = val[0];
-
-          //set coordinates from request in order to
-          //not need the server return it
-          val[0].request_latitude = params.cov_latitude;
-          val[0].request_longitude = params.cov_longitude;
-
-          //build tooltip for location
-          val[0].location_tooltip="" +
-            (val[0].raster ? "Raster 100m: <br>&emsp;" + val[0].raster + "<br>" : "") +
-            (val[0].short_id100 ? "Short ID 100m: <br>&emsp;" + val[0].short_id100 + "<br>" : "") +
-            (val[0].long_id100 ? "Long ID 100m: <br>&emsp;" + val[0].long_id100 + "<br>" : "") +
-            (val[0].r250 ? "Raster 250m: <br>&emsp;" + val[0].r250 + "<br>" : "") +
-            (val[0].short_id250 ? "Short ID 250m: <br>&emsp;" + val[0].short_id250 + "<br>" : "") +
-            (val[0].long_id250 ? "Long ID 250m: <br>" + val[0].long_id250 + "" : "");
-
-          val[0].cadastral_tooltip ="" +
-            (val[0].j1_operator ? "" + val[0].j1_operator + "<br>" : "") +
-            (val[0].j1_kg_nr ? "KG-Nr: <br>&emsp;" + val[0].j1_kg_nr : "");
 
           if (this.currentVectorLayer !== null) {
             this.map.removeLayer(this.currentVectorLayer);
@@ -279,14 +266,14 @@ export class FrqmapComponent implements OnInit {
           });
           this.currentVectorLayer = new VectorLayer({
             source: vectorSource,
-            style: new Style ({
-                fill: new Fill({
-                    color: 'rgba(255,100,50,0.5)'
-                }),
-               stroke: new Stroke({
-                  color:'rgba(80,80,80,0.5)',
-                 width: 2
-               })
+            style: new Style({
+              fill: new Fill({
+                color: 'rgba(255,100,50,0.5)'
+              }),
+              stroke: new Stroke({
+                color: 'rgba(80,80,80,0.5)',
+                width: 2
+              })
 
             })
 
@@ -294,9 +281,8 @@ export class FrqmapComponent implements OnInit {
           this.map.addLayer(this.currentVectorLayer);
           this.map.updateSize();
 
-        }
-        else {
-          this.pointInfo = null
+        } else {
+          this.pointInfoCov = null
           if (this.currentVectorLayer !== null) {
             this.map.removeLayer(this.currentVectorLayer);
             this.currentVectorLayer = null;
@@ -305,7 +291,43 @@ export class FrqmapComponent implements OnInit {
         }
       })
 
+    let paramsIds: any = {
+      cov_longitude: coords[0],
+      cov_latitude: coords[1]
+    }
 
+    let searchParamsIds = (new URLSearchParams(paramsIds).toString());
+
+    let urlIds = `${baseUrlApi}/rpc/id?${searchParamsIds}`;
+    this.http.get<PointInfoIds[]>(urlIds, {
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+      .subscribe((val) => {
+        if (val.length > 0) {
+          this.pointInfoIds = val
+
+          let first = val[0];
+
+          //set coordinates from request in order to
+          //not need the server return it
+          first.request_latitude = paramsCov.cov_latitude;
+          first.request_longitude = paramsCov.cov_longitude;
+
+          //build tooltip for location
+          first.location_tooltip = "" +
+            (first.r100 ? "Raster 100m: <br>&emsp;" + first.r100 + "<br>" : "")
+            +  (first.r250 ? "Raster 250m: <br>&emsp;" + first.r250 + "<br>" : "")
+
+          console.log("tt "+first.location_tooltip)
+
+
+        }
+        else {
+          this.pointInfoIds = null
+        }
+      })
   }
 
   private changeOverlaySource(url: String) :void {

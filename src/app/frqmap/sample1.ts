@@ -33,7 +33,7 @@ export interface LayerConfiguration {
   [key: string]: any
 }
 
-export interface PointInformation {
+export interface PointInfoCoverage {
   operator: string,
   reference: string,
   license: string,
@@ -47,18 +47,32 @@ export interface PointInformation {
   centroid_x: number,
   centroid_y: number,
   geojson: string,
-  request_latitude: number,
-  request_longitude: number,
-  j1_kg: string, //J1 Annex KG
-  j1_kg_nr: string,
-  j1_operator: string, //operator with obligation
-  r250: string, //Raster 250m
+  [key: string]: any
+}
+
+export interface PointInfoIds {
+  vgd_kg_nr: string, vgd_kg: string, //katastralgemeinde
+  vgd_gkz: string ,vgd_pg: string, //gemeinde
+  vgd_gb_kz: string, vgd_gb: string, //bezirk
+  vgd_bl_kz: string, vgd_bl: string, //bundesland
+
+  rtr_j6_name: string, rtr_j6_id: string, //DSR
+
+  r100: string, //raster 100m
   long_id100: string,
   short_id100: string,
+
+  r250: string, //raster 250m
   long_id250: string,
   short_id250: string,
+
+  rtr_j1_kg: string, //J1 annex KG
+  rtr_j1_kg_nr: string,
   location_tooltip: string,
-  cadastral_tooltip: string,
+  kg_operator: string,
+  kg_deadline: string,
+  request_latitude: number,
+  request_longitude: number
   [key: string]: any
 }
 

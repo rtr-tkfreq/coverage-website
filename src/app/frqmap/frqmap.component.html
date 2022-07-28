@@ -4,13 +4,14 @@
   </div>
 
 
-
   <div class="uk-container uk-container-xlarge">
     <div class="uk-container">
       <form class="uk-form uk-padding-remove uk-margin-top-50">
         <p class="uk-inline">
           <label for="statistik_type" class="uk-margin-small-right" i18n="@@operator">Betreiber</label>
-          <select *ngIf="formOptions" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type" name="statistik_type" [(ngModel)]="selectedOperator" (ngModelChange)="selectedObligationLayer=null;reloadMap()"  >
+          <select *ngIf="formOptions" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type"
+                  name="statistik_type" [(ngModel)]="selectedOperator"
+                  (ngModelChange)="selectedObligationLayer=null;reloadMap()">
             <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator">
               <ng-container *ngIf="operator.label === '@all'" i18n="@@allOperators">Alle Betreiber</ng-container>
               <ng-container *ngIf="operator.label !== '@all'">
@@ -23,10 +24,11 @@
         </p>
         <p class="uk-inline uk-margin-remove-top" *ngIf="operatorFilterForOperator(selectedOperator)?.obligations">
           <label for="statistik_type" class="uk-margin-small-right" i18n="@@obligation">Versorgungsauflagen</label>
-          <select id="obligation" name="obligation" class="uk-select uk-width-auto"  [(ngModel)]="selectedObligationLayer" (ngModelChange)="reloadMap()">
+          <select id="obligation" name="obligation" class="uk-select uk-width-auto"
+                  [(ngModel)]="selectedObligationLayer" (ngModelChange)="reloadMap()">
             <option [value]="null" i18n="@@none">nicht dargestellt</option>
             <option *ngFor="let obligation of operatorFilterForOperator(selectedOperator)?.obligations"
-                    [value]="obligation.type" >
+                    [value]="obligation.type">
               <ng-container *ngIf="obligation.type === 'kg'" i18n="@@cadastral">Katastralgemeinden</ng-container>
               <ng-container *ngIf="obligation.type === 'street'" i18n="@@streets">Straßen</ng-container>
               <ng-container *ngIf="obligation.type === 'cities'" i18n="@@cities">Städte</ng-container>
@@ -45,91 +47,180 @@
         </div>
       </div>
       <div class="uk-width-1-5@m">
-        <div *ngIf="!pointInfo" class="uk-flex uk-flex-column fullHeight">
+        <div *ngIf="!pointInfoCov && !pointInfoIds" class="uk-flex uk-flex-column fullHeight">
           <div class="alignToStart uk-width-expand">
-          <h5 i18n="@@introtext">Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</h5>
-            <div i18n="@@introtext_details"><p>Diese Informationen beruhen auf <a href="/open-data/de">Open Data der Netzbetreiber</a> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber.
-            Diese Netze werden auch von weiteren Mobilfunkanbietern (z.B. MVNOs) verwendet.</p>
-            <p>Unter "maximaler Geschwindigkeit" ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag erreicht wird. Die "normalerweise verfügbare Geschwindigkeit" ist jene Geschwindigkeit, die zu 95% der Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten unterschritten werden.</p>
-          </div>
+            <h5 i18n="@@introtext">Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</h5>
+            <div i18n="@@introtext_details"><p>Diese Informationen beruhen auf <a href="/open-data/de">Open Data der
+              Netzbetreiber</a> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die
+              Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa
+              mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung
+              möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber.
+              Diese Netze werden auch von weiteren Mobilfunkanbietern (z.B. MVNOs) verwendet.</p>
+              <p>Unter "maximaler Geschwindigkeit" ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag
+                erreicht wird. Die "normalerweise verfügbare Geschwindigkeit" ist jene Geschwindigkeit, die zu 95% der
+                Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten
+                unterschritten werden.</p>
+            </div>
           </div>
           <div class="alignToEnd">
-            <p><strong i18n="@@legend">Legende:</strong><ng-container i18n="help_full"></ng-container></p>
-              <div class="legendContainer">
-                <div i18n="@@quality">Versorgungsqualität</div>
-                <div class="legendGradient"></div>
-                <div class="uk-grid" uk-grid>
-                  <div class="uk-width-1-3" i18n="@@bad">schwach</div>
-                  <div class="uk-width-1-3 uk-text-center" i18n="@@medium">mittel</div>
-                  <div class="uk-width-1-3 uk-text-right" i18n="@@excellent">ausge<wbr>zeichnet</div>
-                </div>
-              </div>
-          </div>
-        </div>
-        <div *ngIf="pointInfo" class="uk-flex uk-flex-column fullHeight">
-          <div class="alignToStart uk-width-expand">
-          <h3 i18n="@@information">Informationen zur Abdeckung</h3>
-          <p>
-            <ng-container i18n="@@coordinates">Koordinaten:
-              <abbr data-uk-tooltip="" [title]="pointInfo[0].location_tooltip">
-                N {{convertDMS(pointInfo[0].request_latitude)}},
-                O {{convertDMS(pointInfo[0].request_longitude)}}
-              </abbr>
-              <br/>
-            </ng-container>
-            <ng-container *ngIf="pointInfo[0].j1_kg">
-            <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>:
-              <abbr data-uk-tooltip="" [title]="pointInfo[0].cadastral_tooltip">
-              {{pointInfo[0].j1_kg}}
-              </abbr>
-              <br/>
-            </ng-container>
-          </p>
-          <div *ngFor="let info of pointInfo">
-            <h4 class="uk-margin-top-50 uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
-            <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
-              <thead>
-              <tr>
-                <th class="uk-text-right" i18n="@@mbits">MBit/s</th>
-                <th class="uk-text-right" i18n="@@down">Down</th>
-                <th class="uk-text-right" i18n="@@up">Up</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngIf="info.downloadkbitnormal">
-                <td><ng-container i18n="@@normallyAvailable">Normal</ng-container></td>
-                <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | FormatBps}}&nbsp;</td>
-                <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | FormatBps}}&nbsp;</td>
-              </tr>
-              <tr *ngIf="info.downloadkbitmax">
-                <td><ng-container i18n="@@maxSpeed">Maximal</ng-container></td>
-                <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | FormatBps}}&nbsp;</td>
-                <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | FormatBps}}&nbsp;</td>
-              </tr>
-              </tbody>
-            </table>
-            <p>
-              <ng-container i18n="@@dateDate">Datenstand</ng-container>: {{ info.last_updated | date: 'dd.MM.yyyy' }}
+            <p><strong i18n="@@legend">Legende:</strong>
+              <ng-container i18n="help_full"></ng-container>
             </p>
-          </div>
-          </div>
-          <div class="alignToEnd">
-            <p>
-            <ng-container i18n="@@license">{pointInfo.length, plural, =1 {Lizenz} other {Lizenzen}}:</ng-container>
-              <ng-container *ngFor="let info of pointInfo; last as isLast">
-                {{info.license}} {{getOperatorByLabel(info.operator)?.label}}<ng-container *ngIf="!isLast">,</ng-container>
-              </ng-container>
-            </p>
-          </div>
-          <div class="alignToEnd">
-            <p><strong i18n="@@legend">Legende:</strong><ng-container i18n="help_full"></ng-container></p>
             <div class="legendContainer">
               <div i18n="@@quality">Versorgungsqualität</div>
               <div class="legendGradient"></div>
               <div class="uk-grid" uk-grid>
                 <div class="uk-width-1-3" i18n="@@bad">schwach</div>
                 <div class="uk-width-1-3 uk-text-center" i18n="@@medium">mittel</div>
-                <div class="uk-width-1-3 uk-text-right" i18n="@@excellent">ausge<wbr>zeichnet</div>
+                <div class="uk-width-1-3 uk-text-right" i18n="@@excellent">ausge
+                  <wbr>
+                  zeichnet
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="pointInfoIds || pointInfoCov" class="uk-flex uk-flex-column fullHeight">
+          <div *ngIf="pointInfoIds" class="alignToStart uk-width-expand">
+            <h3 i18n="@@information">Informationen zur Abdeckung</h3>
+            <p>
+<b>
+              <ng-container i18n="@@coordinates">Auswahl:
+                <abbr data-uk-tooltip="" [title]="pointInfoIds[0].location_tooltip">
+                  N {{convertDMS(pointInfoIds[0].request_latitude)}},
+                  O {{convertDMS(pointInfoIds[0].request_longitude)}}
+                </abbr>
+                <br/>
+              </ng-container>
+</b>
+              <ng-container *ngIf="pointInfoIds[0].vgd_gb">
+                <ng-container i18n="@@district">Bezirk</ng-container>
+                :
+                <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_gb_kz">
+                  {{pointInfoIds[0].vgd_gb}}
+                </abbr>
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].vgd_pg">
+                <ng-container i18n="@@community">Gemeinde</ng-container>
+                :
+                <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_gkz">
+                  {{pointInfoIds[0].vgd_pg}}
+                </abbr>
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].vgd_kg">
+
+                <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>
+                :
+                <abbr data-uk-tooltip="" [title]="'ID '+pointInfoIds[0].vgd_kg_nr">
+                  {{pointInfoIds[0].vgd_kg}}
+                </abbr>
+                <br/>
+              </ng-container>
+
+
+
+
+
+
+              <ng-container *ngIf="selectedObligationLayer=='kg' && pointInfoIds[0].kg_operator  && pointInfoIds[0].kg_deadline">
+                <ng-container i18n="@@obligation_kg">Auflage KG</ng-container>
+                :
+                <abbr data-uk-tooltip="" [title]="pointInfoIds[0].rtr_j1_kg+'; '+pointInfoIds[0].rtr_j6_name">
+                  {{pointInfoIds[0].kg_operator}} ({{pointInfoIds[0].kg_deadline}})
+                </abbr>
+                <br/>
+              </ng-container>
+
+
+
+            </p>
+          </div>
+          <div *ngIf="pointInfoCov" class="uk-flex uk-flex-column fullHeight">
+
+            <div *ngFor="let info of pointInfoCov">
+              <h4 class="uk-margin-top-50 uk-margin-remove-bottom">{{getOperatorByLabel(info.operator)?.label}}</h4>
+              <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
+                <thead>
+                <tr>
+                  <th class="uk-text-right" i18n="@@mbits">MBit/s</th>
+                  <th class="uk-text-right" i18n="@@down">Down</th>
+                  <th class="uk-text-right" i18n="@@up">Up</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngIf="info.downloadkbitnormal">
+                  <td>
+                    <ng-container i18n="@@normallyAvailable">Normal</ng-container>
+                  </td>
+                  <td class="uk-text-right speedColumn">{{(info.downloadkbitnormal / 1000) | FormatBps}}&nbsp;</td>
+                  <td class="uk-text-right speedColumn">{{(info.uploadkbitnormal / 1000) | FormatBps}}&nbsp;</td>
+                </tr>
+                <tr *ngIf="info.downloadkbitmax">
+                  <td>
+                    <ng-container i18n="@@maxSpeed">Maximal</ng-container>
+                  </td>
+                  <td class="uk-text-right speedColumn">{{(info.downloadkbitmax / 1000) | FormatBps}}&nbsp;</td>
+                  <td class="uk-text-right speedColumn">{{(info.uploadkbitmax / 1000) | FormatBps}}&nbsp;</td>
+                </tr>
+                </tbody>
+              </table>
+              <p>
+                <ng-container i18n="@@dateDate">Datenstand</ng-container>
+                :
+                {{ info.last_updated | date: 'dd.MM.yyyy' }}
+              </p>
+            </div>
+          </div>
+          <div *ngIf="!pointInfoCov" class="uk-flex uk-flex-column fullHeight">
+            <h4 i18n="@@no_coverage">Keine Abdeckung.</h4>
+          </div>
+          <div *ngIf="pointInfoIds" class="uk-flex uk-flex-column fullHeight">
+
+            <p>
+              <ng-container *ngIf="pointInfoIds[0].short_id100 && pointInfoIds[0].long_id100">
+                <ng-container i18n="@@id100">ID100</ng-container>
+                :
+                {{pointInfoIds[0].short_id100}} ({{pointInfoIds[0].long_id100}})
+
+                <br/>
+              </ng-container>
+
+              <ng-container *ngIf="pointInfoIds[0].short_id250 && pointInfoIds[0].long_id250">
+                <ng-container i18n="@@id250">ID250</ng-container>
+                :
+                {{pointInfoIds[0].short_id250}} ({{pointInfoIds[0].long_id250}})
+
+                <br/>
+              </ng-container>
+            </p>
+          </div>
+          <div *ngIf="pointInfoCov" class="alignToEnd">
+            <p>
+              <ng-container i18n="@@license">{pointInfoCov.length, plural, =1 {Lizenz} other {Lizenzen}}:</ng-container>
+              <ng-container *ngFor="let info of pointInfoCov; last as isLast">
+                {{info.license}} {{getOperatorByLabel(info.operator)?.label}}
+                <ng-container *ngIf="!isLast">,</ng-container>
+              </ng-container>
+            </p>
+          </div>
+          <div class="alignToEnd">
+            <p><strong i18n="@@legend">Legende:</strong>
+              <ng-container i18n="help_full"></ng-container>
+            </p>
+            <div class="legendContainer">
+              <div i18n="@@quality">Versorgungsqualität</div>
+              <div class="legendGradient"></div>
+              <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-3" i18n="@@bad">schwach</div>
+                <div class="uk-width-1-3 uk-text-center" i18n="@@medium">mittel</div>
+                <div class="uk-width-1-3 uk-text-right" i18n="@@excellent">ausge
+                  <wbr>
+                  zeichnet
+                </div>
               </div>
             </div>
 
