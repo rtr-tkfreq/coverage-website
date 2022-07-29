@@ -811,6 +811,14 @@
           <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="cadastral_plural" datatype="html">
+        <source>Katastralgemeinden</source>
+        <target state="translated">Cadastral communities</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="obligation_operator" datatype="html">
         <source>Betreiber: </source>
         <target state="translated">Operator: </target>
@@ -956,8 +964,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="obligation_kg" datatype="html">
-        <source>Auflage Katastralgemeinde</source>
-        <target state="translated">Obligation Cadastral community</target>
+        <source>Auflage Katastralgemeinden</source>
+        <target state="translated">Obligation Cadastral communities</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
           <context context-type="linenumber">99</context>
