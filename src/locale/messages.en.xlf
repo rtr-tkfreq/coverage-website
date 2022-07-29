@@ -800,11 +800,47 @@
         </context-group>
       </trans-unit>
       <trans-unit id="cadastral" datatype="html">
-        <source>Katastralgemeinden</source>
-        <target state="translated">Cadastral communities</target>
+        <source>Katastralgemeinde</source>
+        <target state="translated">Cadastral community</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="obligation_operator" datatype="html">
+        <source>Betreiber: </source>
+        <target state="translated">Operator: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="obligation_deadline" datatype="html">
+        <source>Verpflichtet seit: </source>
+        <target state="translated">Obligation since: </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="coverage_headline" datatype="html">
+        <source>Abdeckung</source>
+        <target state="translated">Coverage</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="operator_info_100m" datatype="html">
+        <source>Betreiberangabe für 100m x 100m Raster:</source>
+        <target state="translated">Operator information for 100m x 100m raster:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="streets" datatype="html">
@@ -912,11 +948,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="coordinates" datatype="html">
-        <source>Koordinaten: N <x id="INTERPOLATION" equiv-text="{{convertDMS(pointInfo[0].centroid_y)}}"/>, O <x id="INTERPOLATION_1" equiv-text="{{convertDMS(pointInfo[0].centroid_x)}}"/></source>
-        <target state="translated">Coordinates: N <x id="INTERPOLATION" equiv-text="{{convertDMS(pointInfo[0].centroid_y)}}"/>, E <x id="INTERPOLATION_1" equiv-text="{{convertDMS(pointInfo[0].centroid_x)}}"/></target>
+        <source>Auswahl: N <x id="INTERPOLATION" equiv-text="{{convertDMS(pointInfoIds[0].request_latitude)}"/>, O <x id="INTERPOLATION_1" equiv-text="O {{convertDMS(pointInfoIds[0].request_longitude)"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/></source>
+        <target state="translated">Selected: N <x id="INTERPOLATION" equiv-text="{{convertDMS(pointInfoIds[0].request_latitude)}"/>, E <x id="INTERPOLATION_1" equiv-text="O {{convertDMS(pointInfoIds[0].request_longitude)"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
           <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="obligation_kg" datatype="html">
+        <source>Auflage Katastralgemeinde</source>
+        <target state="translated">Obligation Cadastral community</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="raster" datatype="html">
@@ -1001,6 +1045,86 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
           <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no_coverage" datatype="html">
+        <source>Keine Abdeckung.</source>
+        <target state="translated">No coverage.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geo_info" datatype="html">
+        <source>Geoinformation</source>
+        <target state="translated">Geo information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="community" datatype="html">
+        <source> Gemeinde</source>
+        <target state="translated">Community</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="district" datatype="html">
+        <source>Bezirk</source>
+        <target state="translated">District</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">186</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="region" datatype="html">
+        <source>Bundesland</source>
+        <target state="translated">Region</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permanent_settlement_area" datatype="html">
+        <source>Dauersiedlungsraum</source>
+        <target state="translated">Permanent settlement area</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">199</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="raster100" datatype="html">
+        <source>Raster 100m</source>
+        <target state="translated">Raster 100m</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="id100" datatype="html">
+        <source>ID100</source>
+        <target state="translated">ID100</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">211</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="raster250" datatype="html">
+        <source>Raster 250m</source>
+        <target state="translated">Raster 250m</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">218</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="id250" datatype="html">
+        <source>ID250</source>
+        <target state="translated">ID250</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">224</context>
         </context-group>
       </trans-unit>
     </body>

@@ -29,7 +29,7 @@
             <option [value]="null" i18n="@@none">nicht dargestellt</option>
             <option *ngFor="let obligation of operatorFilterForOperator(selectedOperator)?.obligations"
                     [value]="obligation.type">
-              <ng-container *ngIf="obligation.type === 'kg'" i18n="@@cadastral">Katastralgemeinden</ng-container>
+              <ng-container *ngIf="obligation.type === 'kg'" i18n="@@cadastral_plural">Katastralgemeinden</ng-container>
               <ng-container *ngIf="obligation.type === 'street'" i18n="@@streets">Straßen</ng-container>
               <ng-container *ngIf="obligation.type === 'cities'" i18n="@@cities">Städte</ng-container>
               <ng-container *ngIf="obligation.type === 'roads_bl'" i18n="@@roads_bl">Straßen (B/L)</ng-container>
@@ -69,7 +69,7 @@
             <div class="legendContainer">
               <div i18n="@@quality">Versorgungsqualität</div>
               <div class="legendGradient"></div>
-              <div class="uk-grid" uk-grid>
+              <div class="uk-grid">
                 <div class="uk-width-1-3" i18n="@@bad">schwach</div>
                 <div class="uk-width-1-3 uk-text-center" i18n="@@medium">mittel</div>
                 <div class="uk-width-1-3 uk-text-right" i18n="@@excellent">ausge
@@ -113,7 +113,7 @@
 
             <ng-container
               *ngIf="pointInfoIds[0].kg_deadline">
-              <ng-container i18n="@@obligation_operator">Verpflichtet seit: </ng-container>
+              <ng-container i18n="@@obligation_deadline">Verpflichtet seit: </ng-container>
               {{pointInfoIds[0].kg_deadline}}
               <br/>
             </ng-container>
@@ -124,7 +124,7 @@
             </p>
           </div>
           <div *ngIf="pointInfoCov" class="uk-flex uk-flex-column fullHeight">
-            <h3 i18n="@@information">Abdeckung</h3>
+            <h3 i18n="@@coverage_headline">Abdeckung</h3>
 
 
             <div *ngFor="let info of pointInfoCov">
@@ -244,7 +244,7 @@
             <div class="legendContainer">
               <div i18n="@@quality">Versorgungsqualität</div>
               <div class="legendGradient"></div>
-              <div class="uk-grid" uk-grid>
+              <div class="uk-grid">
                 <div class="uk-width-1-3" i18n="@@bad">schwach</div>
                 <div class="uk-width-1-3 uk-text-center" i18n="@@medium">mittel</div>
                 <div class="uk-width-1-3 uk-text-right" i18n="@@excellent">ausge
