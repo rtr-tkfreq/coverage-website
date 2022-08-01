@@ -1039,6 +1039,14 @@
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="measureWithNetztest" datatype="html">
+        <source>Ihre Geschwindigkeit mit dem RTR-Netztest messen</source>
+        <target state="translated">Measure your speed with RTR-NetTest</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frqmap/frqmap.component.html</context>
+          <context context-type="linenumber">164</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="measureSpeed" datatype="html">
         <source>Geschwindigkeit messen</source>
         <target state="translated">Measure speed</target>
