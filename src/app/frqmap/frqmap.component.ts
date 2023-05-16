@@ -87,7 +87,7 @@ export class FrqmapComponent implements OnInit {
         const options = optionsFromCapabilities(result, {
           layer: 'bmapgrau',
           matrixSet: 'google3857'
-        })
+        })!
         options.attributions = 'Grundkarte &copy; <a href="//www.basemap.at/">' +
           'basemap.at</a>, Versorgungsdaten CC-BY4.0.'
 
@@ -331,7 +331,7 @@ export class FrqmapComponent implements OnInit {
     this.currentOverlay = new TileLayer({
       source: new XYZ({
           url: tileUrl,
-          projection: olProj.get('EPSG:3857'),
+          projection: olProj.get('EPSG:3857')!,
           maxZoom: 14,
           minZoom: 7
         }
@@ -361,7 +361,7 @@ export class FrqmapComponent implements OnInit {
         let newOverlay = new TileLayer({
           source: new XYZ({
               url: tileUrl,
-              projection: olProj.get('EPSG:3857'),
+              projection: olProj.get('EPSG:3857')!,
               maxZoom: 14,
               minZoom: 7
             }
@@ -435,8 +435,8 @@ class CenterOnUserLocationControl extends Control {
     ).then((coords: any) => {
       console.log("Centering map to user location ", coords)
       let convertedCoords = olProj.transform(coords, 'EPSG:4326', 'EPSG:3857')
-      this.getMap().getView().setCenter(convertedCoords)
-      this.getMap().getView().setZoom(14);
+      this.getMap()?.getView().setCenter(convertedCoords)
+      this.getMap()?.getView().setZoom(14);
     });
   }
 }
