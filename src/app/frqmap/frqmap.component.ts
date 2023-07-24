@@ -24,6 +24,7 @@ import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 import {Fill, Stroke, Style} from "ol/style";
 import TileSource from "ol/source/Tile";
 import {Control, defaults as defaultControls} from "ol/control";
+import {MapboxVector} from "ol/layer";
 
 
 const baseUrl : String = "";
@@ -78,7 +79,14 @@ export class FrqmapComponent implements OnInit {
     this.map.getView().fit(textent, {size: this.map.getSize()});
 
     //add basemap layers
-    this.http.get(baseMapCapabilities, {
+    const layer = new MapboxVector({
+      styleUrl: 'https://mapsneu.wien.gv.at/basemapvectorneu/root.json',
+      opacity: 1,
+      visible: true
+    });
+    this.map.getLayers().insertAt(0, layer)
+
+    /*this.http.get(baseMapCapabilities, {
       observe: 'body',
       responseType: 'text'
     })
@@ -91,14 +99,9 @@ export class FrqmapComponent implements OnInit {
         options.attributions = 'Grundkarte &copy; <a href="//www.basemap.at/">' +
           'basemap.at</a>, Versorgungsdaten CC-BY4.0.'
 
-        const layer = new TileLayer({
-          source: new WMTSSource(options),
-          opacity: 1,
-          visible: true
-        })
-        this.map.getLayers().insertAt(0, layer)
+
         //this.map.addLayer(layer);
-      });
+      });*/
 
 
 
