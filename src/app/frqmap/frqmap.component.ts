@@ -179,9 +179,9 @@ export class FrqmapComponent implements OnInit {
     if (this.selectedObligationLayer) {
       let obligationUrl = '';
       if (reference) {
-        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&obligation=${this.selectedObligationLayer}`
+        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&obligation.eq.${this.selectedObligationLayer}`
       } else {
-        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator})&obligation=${this.selectedObligationLayer}`
+        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator})&obligation.eq.${this.selectedObligationLayer}`
       }
 
       console.log(this.selectedOperator);
