@@ -24,5 +24,5 @@ locale files in `/locale` can be generated via `ng extract-i18n --output-path sr
 
 ## License
 
-Copyright 2022 Rundfunk und Telekom Regulierungs-GmbH (RTR-GmbH). This source code is licensed under the Apache license found in the LICENSE.txt file. The documentation to the project is licensed under the CC BY 4.0 license.
+Copyright 2022-2024 Rundfunk und Telekom Regulierungs-GmbH (RTR-GmbH). This source code is licensed under the Apache license found in the LICENSE.txt file. The documentation to the project is licensed under the CC BY 4.0 license.
 Trademarks and logos of RTR, TKK and PCK are not part of this license.
