@@ -18,20 +18,22 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
+          node -v
+          npm -v
           npm install
           npm run build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: build # The branch the action should deploy to.
-          FOLDER: dist/frq-map # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: build # The branch the action should deploy to.
+          folder: dist/frq-map # The folder the action should deploy.
+          clean: true # Automatically remove deleted files from the deploy branch
