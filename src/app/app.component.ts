@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -11,7 +12,10 @@ export class AppComponent {
 
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'FormatBps'})
+@Pipe({
+  standalone: false,
+  name: 'FormatBps'
+})
 export class FormatBps implements PipeTransform {
   transform(bps: number): String {
     var value;
