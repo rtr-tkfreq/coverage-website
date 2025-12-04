@@ -33,6 +33,7 @@ const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
 const parser = new WMTSCapabilities();
 
 @Component({
+  standalone: false,
   selector: 'app-frqmap',
   templateUrl: './frqmap.component.html',
   styleUrls: ['./frqmap.component.scss']
