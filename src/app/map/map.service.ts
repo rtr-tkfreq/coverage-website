@@ -34,6 +34,9 @@ const DESATURATE = 1;
 const CONTRAST = 0.55;
 const LIGHTEN = 0.15;
 
+/** basemap.at advertises maxzoom 19 in its TileJSON but only serves vector tiles to z16. */
+const BASEMAP_MAX_ZOOM = 16;
+
 /**
  * Owns the MapLibre GL map for the coverage view and all source/layer
  * manipulation. Provided per map component instance. The public surface is the
@@ -246,6 +249,21 @@ export class MapService {
       if (layer['paint']) {
         this.recolorContainer(layer['paint']);
       }
+      this.hideRoadNumberShield(layer);
+    }
+  }
+
+  /**
+   * Road-number shields (motorway A-roads, B-roads, exits) are multicolour sprite
+   * icons with no `icon-color`, so they can't be recoloured. Hide the coloured
+   * shield but keep the (already recoloured) number text so they blend in.
+   */
+  private hideRoadNumberShield(layer: Record<string, any>): void {
+    const icon = layer['layout']?.['icon-image'];
+    const iconStr = typeof icon === 'string' ? icon : JSON.stringify(icon ?? '');
+    if (layer['type'] === 'symbol' && /_Nr/i.test(iconStr)) {
+      layer['paint'] = layer['paint'] ?? {};
+      layer['paint']['icon-opacity'] = 0;
     }
   }
 
@@ -374,6 +392,9 @@ export class MapService {
         if (tileJson[key] !== undefined && source[key] === undefined) {
           source[key] = tileJson[key];
         }
+      }
+      if (source['type'] === 'vector') {
+        source['maxzoom'] = Math.min((source['maxzoom'] as number) ?? BASEMAP_MAX_ZOOM, BASEMAP_MAX_ZOOM);
       }
       delete source['url'];
     } catch {
