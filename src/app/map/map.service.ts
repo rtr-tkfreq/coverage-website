@@ -28,6 +28,12 @@ const POINT_SOURCE = 'point';
 const POINT_FILL = 'point-fill';
 const POINT_LINE = 'point-line';
 
+// Basemap recolouring ("soft uniform grey"): full desaturation, contrast
+// compressed toward mid-grey so the coloured coverage overlays stand out.
+const DESATURATE = 1;
+const CONTRAST = 0.55;
+const LIGHTEN = 0.15;
+
 /**
  * Owns the MapLibre GL map for the coverage view and all source/layer
  * manipulation. Provided per map component instance. The public surface is the
@@ -231,6 +237,123 @@ export class MapService {
     }
     const sources = Object.values<any>(style['sources'] ?? {});
     await Promise.all(sources.map((source) => this.resolveSource(source)));
+    this.recolorStyle(style);
+  }
+
+  /** Recolours every layer's paint to a soft uniform grey so overlays stand out. */
+  private recolorStyle(style: Record<string, any>): void {
+    for (const layer of (style['layers'] ?? []) as Record<string, any>[]) {
+      if (layer['paint']) {
+        this.recolorContainer(layer['paint']);
+      }
+    }
+  }
+
+  /** Recursively recolours any colour (string or rgb/rgba expression) within a paint value. */
+  private recolorContainer(container: any): void {
+    const entries: [string | number, any][] = Array.isArray(container)
+      ? container.map((v, i) => [i, v])
+      : Object.keys(container).map((k) => [k, container[k]]);
+    for (const [key, value] of entries) {
+      const recoloured = this.asColor(value);
+      if (recoloured !== null) {
+        container[key] = recoloured;
+      } else if (value && typeof value === 'object') {
+        this.recolorContainer(value);
+      }
+    }
+  }
+
+  /** Recolours a colour string or `["rgb"|"rgba", ...]` expression; null if not a colour. */
+  private asColor(value: any): string | null {
+    if (typeof value === 'string') {
+      return this.transformColor(value);
+    }
+    if (
+      Array.isArray(value) &&
+      (value[0] === 'rgb' || value[0] === 'rgba') &&
+      value.slice(1).every((n: unknown) => typeof n === 'number')
+    ) {
+      return this.transformRgba(value[1], value[2], value[3], value[4] ?? 1);
+    }
+    return null;
+  }
+
+  /** Parses a hex/rgb(a)/hsl(a) colour and recolours it; null if not a colour. */
+  private transformColor(input: string): string | null {
+    const value = input.trim();
+    let r: number;
+    let g: number;
+    let b: number;
+    let a = 1;
+    let match: RegExpExecArray | null;
+
+    if ((match = /^#([0-9a-f]{3,8})$/i.exec(value))) {
+      let hex = match[1];
+      if (hex.length === 3 || hex.length === 4) {
+        hex = hex.split('').map((c) => c + c).join('');
+      }
+      if (hex.length !== 6 && hex.length !== 8) {
+        return null;
+      }
+      r = parseInt(hex.slice(0, 2), 16);
+      g = parseInt(hex.slice(2, 4), 16);
+      b = parseInt(hex.slice(4, 6), 16);
+      if (hex.length === 8) {
+        a = parseInt(hex.slice(6, 8), 16) / 255;
+      }
+    } else if ((match = /^rgba?\(([^)]+)\)$/i.exec(value))) {
+      const parts = match[1].split(',').map((p) => parseFloat(p));
+      [r, g, b] = parts;
+      if (parts[3] !== undefined) a = parts[3];
+    } else if ((match = /^hsla?\(([^)]+)\)$/i.exec(value))) {
+      const parts = match[1].split(',').map((p) => parseFloat(p));
+      [r, g, b] = this.hslToRgb(parts[0] / 360, parts[1] / 100, parts[2] / 100);
+      if (parts[3] !== undefined) a = parts[3];
+    } else {
+      return null;
+    }
+    return this.transformRgba(r, g, b, a);
+  }
+
+  /** Desaturates toward luminance, then applies CONTRAST and LIGHTEN. */
+  private transformRgba(r: number, g: number, b: number, a: number): string | null {
+    if ([r, g, b].some((c) => Number.isNaN(c))) {
+      return null;
+    }
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+    const channel = (c: number): number => {
+      let x = c + (lum - c) * DESATURATE;
+      x = 128 + (x - 128) * CONTRAST;
+      x = x + (255 - x) * LIGHTEN;
+      return Math.round(Math.min(255, Math.max(0, x)));
+    };
+    const R = channel(r);
+    const G = channel(g);
+    const B = channel(b);
+    return a >= 1 ? `rgb(${R},${G},${B})` : `rgba(${R},${G},${B},${a})`;
+  }
+
+  private hslToRgb(h: number, s: number, l: number): [number, number, number] {
+    if (s === 0) {
+      const v = Math.round(l * 255);
+      return [v, v, v];
+    }
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    const hue = (t: number): number => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
+    return [
+      Math.round(hue(h + 1 / 3) * 255),
+      Math.round(hue(h) * 255),
+      Math.round(hue(h - 1 / 3) * 255),
+    ];
   }
 
   private async resolveSource(source: Record<string, any>): Promise<void> {
