@@ -1,1 +1,1 @@
-{"version":"4.1.8","results":[["frq-map:src/app/coverage/coverage-store.spec.ts",{"duration":33.25510000000031,"failed":false}],["frq-map:src/app/shared/format-bps-pipe.spec.ts",{"duration":25.712999999999738,"failed":false}]]}
+{"version":"4.1.8","results":[["frq-map:src/app/coverage/coverage-store.spec.ts",{"duration":29.88610000000017,"failed":false}],["frq-map:src/app/shared/format-bps-pipe.spec.ts",{"duration":25.550300000000334,"failed":false}]]}
