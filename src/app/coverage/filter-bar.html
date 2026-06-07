@@ -1,0 +1,52 @@
+<form class="uk-form uk-padding-remove uk-margin-top-50">
+  <p class="uk-inline">
+    <label for="statistik_type" class="uk-margin-small-right" i18n="@@operator">Betreiber</label>
+    @if (store.operators().length) {
+      <select
+        class="uk-select uk-width-auto uk-margin-medium-right"
+        id="statistik_type"
+        name="statistik_type"
+        [ngModel]="store.selectedOperator()"
+        (ngModelChange)="store.setOperator($event)"
+      >
+        @for (operator of store.operators(); track operator.label) {
+          <option [value]="operator.operator ?? '@all'">
+            @if (operator.label === '@all') {
+              <ng-container i18n="@@allOperators">Alle Betreiber</ng-container>
+            } @else {
+              {{ operator.label }}
+            }
+          </option>
+        }
+      </select>
+    }
+  </p>
+
+  @if (store.obligations()) {
+    <p class="uk-inline uk-margin-remove-top">
+      <label for="obligation" class="uk-margin-small-right" i18n="@@obligation">Versorgungsauflagen</label>
+      <select
+        id="obligation"
+        name="obligation"
+        class="uk-select uk-width-auto"
+        [ngModel]="store.selectedObligation()"
+        (ngModelChange)="store.setObligation($event)"
+      >
+        <option [ngValue]="null" i18n="@@none">nicht dargestellt</option>
+        @for (obligation of store.obligations(); track obligation.type) {
+          <option [ngValue]="obligation.type">
+            @switch (obligation.type) {
+              @case ('kg') { <ng-container i18n="@@cadastral_plural">Katastralgemeinden</ng-container> }
+              @case ('street') { <ng-container i18n="@@streets">Straßen</ng-container> }
+              @case ('cities') { <ng-container i18n="@@cities">Städte</ng-container> }
+              @case ('roads_bl') { <ng-container i18n="@@roads_bl">Straßen (B/L)</ng-container> }
+              @case ('motorways') { <ng-container i18n="@@motorways">Autobahnen</ng-container> }
+              @case ('railways') { <ng-container i18n="@@railways">Bahnstrecken</ng-container> }
+              @default { {{ obligation.type }} }
+            }
+          </option>
+        }
+      </select>
+    </p>
+  }
+</form>

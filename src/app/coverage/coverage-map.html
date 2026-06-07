@@ -1,0 +1,46 @@
+<div class="uk-section-default uk-section">
+  <div class="uk-container">
+    <h2 i18n="@@cardMobile">Mobile Netzabdeckung</h2>
+  </div>
+
+  <div class="uk-container uk-container-xlarge">
+    <div class="uk-container">
+      <app-filter-bar />
+    </div>
+
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <div class="map-container" id="map"></div>
+      </div>
+
+      <div class="uk-width-1-5@m">
+        @if (!store.pointInfoCov() && !store.pointInfoIds()) {
+          <div class="uk-flex uk-flex-column fullHeight">
+            <div class="alignToStart uk-width-expand">
+              <h5 i18n="@@introtext">Diese Karte informiert Sie über die Mobilfunkversorgung in Österreich.</h5>
+              <div i18n="@@introtext_details"><p>Diese Informationen beruhen auf <a href="/open-data/de">Open Data der
+                Netzbetreiber</a> und werden von diesen basierend auf einer Lizenzauflage zur Verfügung gestellt. Die
+                Daten beziehen sich auf eine Fläche von 100m x 100m (Mikroraster der Statistik Austria). Für Fragen - etwa
+                mit welchem Tarif diese Bandbreiten erreicht werden bzw. ob für Ihren konkreten Standort eine Herstellung
+                möglich ist - wenden Sie sich bitte an den jeweiligen Netzbetreiber.
+                Diese Netze werden auch von weiteren Mobilfunkanbietern (z.B. MVNOs) verwendet.</p>
+                <p>Unter "maximaler Geschwindigkeit" ist jene Geschwindigkeit angeführt, die zumindest einmal pro Tag
+                  erreicht wird. Die "normalerweise verfügbare Geschwindigkeit" ist jene Geschwindigkeit, die zu 95% der
+                  Zeit während eines Tages erreicht wird, damit kann diese Geschwindigkeit für 1 Stunde und 12 Minuten
+                  unterschritten werden.</p>
+                <p>
+                  Informationen zu Versorgungsauflagen finden Sie <a href="/obligations/de"> hier</a>.
+                </p>
+              </div>
+            </div>
+            <div class="alignToEnd">
+              <app-legend />
+            </div>
+          </div>
+        } @else {
+          <app-point-info />
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,16 +4,23 @@ This website shows a map showing mobile coverage in Austria.
 
 ## Prerequisites
 
-This project depends on `nodejs`, `npm` and `angular`. If not installed, please install [nodejs/npm](https://nodejs.org/en/)
-and angular cli using `npm install -g @angular/cli`. All other dependencies can be installed using `npm install`.
+This project targets **Angular 22** and requires **Node.js 22 LTS** (or newer). If not installed, please install
+[nodejs/npm](https://nodejs.org/en/) and the Angular CLI using `npm install -g @angular/cli`. All other dependencies
+can be installed using `npm install`.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+The API/tile base URL is configured per environment in `src/environments/`. Local/development builds point at the live
+host (`https://frq.rtr.at`) so the map and coverage data work when surfed locally (the backend sends permissive CORS
+headers). Production builds use same-origin relative URLs (`/api` and root-relative tile paths).
+
 ## Build for deployment
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.  
+Run `ng build` to build the project. With the Angular application builder the localized build artifacts are stored
+under `dist/frq-map/browser/<locale>/` (i.e. `.../browser/de/` and `.../browser/en/`); serve each locale from its
+sub-directory.  
 The individual steps can also be found in the corresponding [GitHub action](https://github.com/rtr-tkfreq/coverage-website/blob/master/.github/workflows/main.yml). 
 The up-to-date pages can be found in the `build` branch.
 

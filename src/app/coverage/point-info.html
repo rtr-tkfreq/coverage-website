@@ -1,0 +1,126 @@
+<div class="uk-flex uk-flex-column fullHeight">
+  @if (store.pointInfoIds(); as ids) {
+    <div class="alignToStart uk-width-expand">
+      <b>
+        <ng-container i18n="@@coordinates"
+          >Auswahl: N {{ ids[0].request_latitude | dms }}, O {{ ids[0].request_longitude | dms }} <br
+        /></ng-container>
+      </b>
+      @if (store.selectedObligation() === 'kg' && ids[0].kg_operator && ids[0].kg_deadline) {
+        <h3 i18n="@@obligation_kg">Auflage Katastralgemeinden</h3>
+        @if (ids[0].rtr_j1_kg) {
+          <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>: {{ ids[0].rtr_j1_kg }}<br />
+        }
+        @if (ids[0].kg_operator) {
+          <ng-container i18n="@@obligation_operator">Betreiber: </ng-container>{{ ids[0].kg_operator }}<br />
+        }
+        @if (ids[0].kg_deadline) {
+          <ng-container i18n="@@obligation_deadline">Verpflichtet seit: </ng-container>{{ ids[0].kg_deadline }}<br />
+        }
+      }
+    </div>
+  }
+
+  @if (store.pointInfoCov(); as cov) {
+    <div class="uk-flex uk-flex-column fullHeight">
+      <h3 i18n="@@coverage_headline">Abdeckung</h3>
+      @for (info of cov; track info.operator) {
+        <div>
+          <h4 class="uk-margin-remove-bottom">{{ operatorLabel(info.operator) }}</h4>
+          <ng-container i18n="@@operator_info_100m">Betreiberangabe für 100m x 100m Raster:</ng-container>
+          <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
+            <thead>
+              <tr>
+                <th class="uk-text-right" i18n="@@mbits">MBit/s</th>
+                <th class="uk-text-right" i18n="@@down">Down</th>
+                <th class="uk-text-right" i18n="@@up">Up</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (info.downloadkbitnormal) {
+                <tr>
+                  <td><ng-container i18n="@@normallyAvailable">Normal</ng-container></td>
+                  <td class="uk-text-right speedColumn">{{ info.downloadkbitnormal / 1000 | formatBps }}&nbsp;</td>
+                  <td class="uk-text-right speedColumn">{{ info.uploadkbitnormal / 1000 | formatBps }}&nbsp;</td>
+                </tr>
+              }
+              @if (info.downloadkbitmax) {
+                <tr>
+                  <td><ng-container i18n="@@maxSpeed">Maximal</ng-container></td>
+                  <td class="uk-text-right speedColumn">{{ info.downloadkbitmax / 1000 | formatBps }}&nbsp;</td>
+                  <td class="uk-text-right speedColumn">{{ info.uploadkbitmax / 1000 | formatBps }}&nbsp;</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <p>
+            <ng-container i18n="@@dateDate">Datenstand</ng-container>: {{ info.last_updated | date: 'dd.MM.yyyy' }}
+          </p>
+        </div>
+      }
+      <a
+        href="https://www.netztest.at"
+        class="uk-button uk-button-small uk-button-default uk-button-secondary"
+        target="_blank"
+        i18n="@@measureSpeed"
+        i18n-title="@@measureWithNetztest"
+        title="Ihre Geschwindigkeit mit dem RTR-Netztest messen"
+        >Geschwindigkeit messen</a
+      >
+    </div>
+  } @else {
+    <div class="uk-flex uk-flex-column fullHeight">
+      <h4 i18n="@@no_coverage">Keine Abdeckung.</h4>
+    </div>
+  }
+
+  @if (store.pointInfoIds(); as ids) {
+    <div>
+      <h3 i18n="@@geo_info">Geoinformation</h3>
+      <p>
+        @if (ids[0].vgd_kg) {
+          <ng-container i18n="@@cadastral">Katastralgemeinde</ng-container>: {{ ids[0].vgd_kg }}<br />
+        }
+        @if (ids[0].vgd_pg) {
+          <ng-container i18n="@@community"> Gemeinde</ng-container>: {{ ids[0].vgd_pg }}<br />
+        }
+        @if (ids[0].vgd_gb) {
+          <ng-container i18n="@@district">Bezirk</ng-container>: {{ ids[0].vgd_gb }}<br />
+        }
+        @if (ids[0].vgd_bl) {
+          <ng-container i18n="@@region">Bundesland</ng-container>: {{ ids[0].vgd_bl }}<br />
+        }
+        @if (ids[0].rtr_j6_name) {
+          <ng-container i18n="@@permanent_settlement_area">Dauersiedlungsraum</ng-container>: {{ ids[0].rtr_j6_name }}<br />
+        }
+        @if (ids[0].r100) {
+          <ng-container i18n="@@raster100">Raster 100m</ng-container>: {{ ids[0].r100 }}<br />
+        }
+        @if (ids[0].short_id100 && ids[0].long_id100) {
+          <ng-container i18n="@@id100">ID100</ng-container>: {{ ids[0].short_id100 }} ({{ ids[0].long_id100 }})<br />
+        }
+        @if (ids[0].r250) {
+          <ng-container i18n="@@raster250">Raster 250m</ng-container>: {{ ids[0].r250 }}<br />
+        }
+        @if (ids[0].short_id250 && ids[0].long_id250) {
+          <ng-container i18n="@@id250">ID250</ng-container>: {{ ids[0].short_id250 }} ({{ ids[0].long_id250 }})<br />
+        }
+      </p>
+    </div>
+  }
+
+  @if (store.pointInfoCov(); as cov) {
+    <div class="alignToEnd">
+      <p>
+        <ng-container i18n="@@license">{cov.length, plural, =1 {Lizenz} other {Lizenzen}}:</ng-container>
+        @for (info of cov; track info.operator; let isLast = $last) {
+          {{ info.license }} {{ operatorLabel(info.operator) }}@if (!isLast) {,}
+        }, CCBY4.0 BEV
+      </p>
+    </div>
+  }
+
+  <div class="alignToEnd">
+    <app-legend />
+  </div>
+</div>
