@@ -37,6 +37,14 @@ export class CoverageMap {
     effect(() => this.map.showCoverage(this.store.coverageUrl()));
     effect(() => this.map.setObligationOverlays(this.store.obligationUrls()));
     effect(() => this.map.showPointPolygon(this.store.pointPolygon()));
+    effect(() => {
+      const coord = this.store.clickedCoord();
+      if (coord) {
+        this.map.showClickMarker(coord[0], coord[1]);
+      } else {
+        this.map.clearClickMarker();
+      }
+    });
 
     this.map.click$
       .pipe(takeUntilDestroyed(this.destroyRef))

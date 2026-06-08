@@ -5,12 +5,11 @@ import { ALL_OPERATORS } from '../core/coverage-api.service';
 import { DmsPipe } from '../shared/dms-pipe';
 import { FormatBpsPipe } from '../shared/format-bps-pipe';
 import { CoverageStore } from './coverage-store';
-import { Legend } from './legend';
 
-/** Side panel showing coverage + administrative details for a clicked point. */
+/** Panel showing coverage + administrative details for a clicked point. */
 @Component({
   selector: 'app-point-info',
-  imports: [DatePipe, DmsPipe, FormatBpsPipe, Legend],
+  imports: [DatePipe, DmsPipe, FormatBpsPipe],
   templateUrl: './point-info.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

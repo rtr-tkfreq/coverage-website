@@ -27,6 +27,7 @@ export class CoverageStore {
   private readonly _pointInfoCov = signal<PointInfoCoverage[] | null>(null);
   private readonly _pointInfoIds = signal<PointInfoIds[] | null>(null);
   private readonly _pointPolygon = signal<string | object | null>(null);
+  private readonly _clickedCoord = signal<[number, number] | null>(null);
 
   readonly operators = computed<Operator[]>(() => this._formOptions()?.filter.operators ?? []);
   readonly selectedOperator = this._selectedOperator.asReadonly();
@@ -39,6 +40,7 @@ export class CoverageStore {
   readonly pointInfoCov = this._pointInfoCov.asReadonly();
   readonly pointInfoIds = this._pointInfoIds.asReadonly();
   readonly pointPolygon = this._pointPolygon.asReadonly();
+  readonly clickedCoord = this._clickedCoord.asReadonly();
 
   /** Loads settings and the initial coverage layer. */
   init(): void {
@@ -63,6 +65,7 @@ export class CoverageStore {
 
   /** Loads coverage + administrative info for a clicked WGS84 point. */
   selectPoint(longitude: number, latitude: number): void {
+    this._clickedCoord.set([longitude, latitude]);
     const operator = this._selectedOperator();
     const reference = this._selectedReference();
 
@@ -85,6 +88,14 @@ export class CoverageStore {
         this._pointInfoIds.set(null);
       }
     });
+  }
+
+  /** Clears the clicked-point info (dismisses the overlay and the highlighted cell). */
+  clearPoint(): void {
+    this._pointInfoCov.set(null);
+    this._pointInfoIds.set(null);
+    this._pointPolygon.set(null);
+    this._clickedCoord.set(null);
   }
 
   private reloadMap(): void {

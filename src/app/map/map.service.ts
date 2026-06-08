@@ -62,6 +62,7 @@ export class MapService {
   private desiredCoverage: string | null = null;
   private desiredObligations: string[] | null = null;
   private desiredPoint: string | object | null = null;
+  private clickMarker?: maplibregl.Marker;
 
   private readonly clickSubject = new Subject<MapClick>();
   readonly click$: Observable<MapClick> = this.clickSubject.asObservable();
@@ -91,7 +92,28 @@ export class MapService {
     }
   }
 
+  /** Shows (or moves) a pin marker at the clicked location (visible at any zoom). */
+  showClickMarker(longitude: number, latitude: number): void {
+    if (!this.map) {
+      return;
+    }
+    if (this.clickMarker) {
+      this.clickMarker.setLngLat([longitude, latitude]);
+    } else {
+      this.clickMarker = new maplibregl.Marker({ color: '#cd1236', scale: 1 / 3 })
+        .setLngLat([longitude, latitude])
+        .addTo(this.map);
+    }
+  }
+
+  /** Removes the clicked-location pin marker, if any. */
+  clearClickMarker(): void {
+    this.clickMarker?.remove();
+    this.clickMarker = undefined;
+  }
+
   destroy(): void {
+    this.clearClickMarker();
     this.map?.remove();
     this.map = undefined;
     this.ready = false;
@@ -128,9 +150,12 @@ export class MapService {
 
     map.fitBounds(AUSTRIA_BOUNDS, { padding: 20, animate: false });
 
-    map.on('click', (event) =>
-      this.clickSubject.next({ longitude: event.lngLat.lng, latitude: event.lngLat.lat }),
-    );
+    map.on('click', (event) => {
+      this.clickSubject.next({ longitude: event.lngLat.lng, latitude: event.lngLat.lat });
+      // Shift the clicked point toward the left so the info overlay (top-right)
+      // does not cover it.
+      map.easeTo({ center: event.lngLat, offset: [-160, 0], duration: 500 });
+    });
 
     map.on('load', () => {
       this.ready = true;
