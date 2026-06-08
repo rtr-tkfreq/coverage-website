@@ -27,6 +27,15 @@ const OBLIGATION_PREFIX = 'obligation-';
 const POINT_SOURCE = 'point';
 const POINT_FILL = 'point-fill';
 const POINT_LINE = 'point-line';
+const ADMIN_BORDERS_SOURCE = 'admin-borders';
+const ADMIN_BORDERS_LAYER = 'admin-borders';
+
+/**
+ * Optional accurate administrative borders. Drop a GeoJSON file (FeatureCollection
+ * of polygons or lines) at `src/assets/admin-borders.geojson` to render them; if
+ * the file is absent it is silently skipped.
+ */
+const ADMIN_BORDERS_URL = 'assets/admin-borders.geojson';
 
 // Basemap recolouring ("soft uniform grey"): full desaturation, contrast
 // compressed toward mid-grey so the coloured coverage overlays stand out.
@@ -125,6 +134,7 @@ export class MapService {
 
     map.on('load', () => {
       this.ready = true;
+      this.addAdminBorders(map);
       this.applyCoverage();
       this.applyObligations();
       this.applyPoint();
@@ -148,7 +158,7 @@ export class MapService {
     map.addSource(COVERAGE_SOURCE, this.rasterSource(this.desiredCoverage));
     map.addLayer(
       { id: COVERAGE_LAYER, type: 'raster', source: COVERAGE_SOURCE },
-      this.firstExistingLayer([...this.obligationIds, POINT_FILL]),
+      this.firstExistingLayer([...this.obligationIds, ADMIN_BORDERS_LAYER, POINT_FILL]),
     );
   }
 
@@ -165,7 +175,10 @@ export class MapService {
     (this.desiredObligations ?? []).forEach((url, index) => {
       const id = `${OBLIGATION_PREFIX}${index}`;
       map.addSource(id, this.rasterSource(url));
-      map.addLayer({ id, type: 'raster', source: id }, this.firstExistingLayer([POINT_FILL]));
+      map.addLayer(
+        { id, type: 'raster', source: id },
+        this.firstExistingLayer([ADMIN_BORDERS_LAYER, POINT_FILL]),
+      );
       this.obligationIds.push(id);
     });
   }
@@ -214,6 +227,33 @@ export class MapService {
     return ids.find((id) => this.map?.getLayer(id));
   }
 
+  /**
+   * Loads the optional accurate admin-border GeoJSON (see ADMIN_BORDERS_URL) and
+   * renders it above the coverage overlays. Silently skipped if the file is absent.
+   */
+  private addAdminBorders(map: maplibregl.Map): void {
+    fetch(ADMIN_BORDERS_URL)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (!data || !this.map || this.map.getSource(ADMIN_BORDERS_SOURCE)) {
+          return;
+        }
+        this.map.addSource(ADMIN_BORDERS_SOURCE, { type: 'geojson', data });
+        this.map.addLayer(
+          {
+            id: ADMIN_BORDERS_LAYER,
+            type: 'line',
+            source: ADMIN_BORDERS_SOURCE,
+            paint: { 'line-color': '#6f7294', 'line-width': 1.2, 'line-opacity': 0.85 },
+          },
+          this.firstExistingLayer([POINT_FILL]),
+        );
+      })
+      .catch(() => {
+        /* no border file present — ignore */
+      });
+  }
+
   /** Coerces a GeoJSON string/geometry/feature into a Feature for a geojson source. */
   private toFeature(geojson: string | object): Feature {
     const data: any = typeof geojson === 'string' ? JSON.parse(geojson) : geojson;
@@ -250,6 +290,50 @@ export class MapService {
         this.recolorContainer(layer['paint']);
       }
       this.hideRoadNumberShield(layer);
+      this.adjustProminence(layer);
+    }
+  }
+
+  /**
+   * Tunes the basemap for the coverage map: small place/road/path labels are
+   * surfaced earlier, while motorways and large cities (noise here) are toned
+   * down. Administrative borders are hidden (basemap.at's geometry is inaccurate).
+   */
+  private adjustProminence(layer: Record<string, any>): void {
+    const id: string = layer['id'] ?? '';
+    const sourceLayer: string = layer['source-layer'] ?? '';
+    const paint = (layer['paint'] = layer['paint'] ?? {});
+
+    // De-emphasise motorways.
+    if (layer['type'] === 'line' && /AB_SS/.test(id)) {
+      paint['line-opacity'] = 0.3;
+    }
+
+    // De-emphasise large-city (state/district capital) labels and markers.
+    if (/LANDESHAUPTSTADT|BEZHPTSTADT/.test(sourceLayer)) {
+      if (layer['type'] === 'symbol') {
+        paint['text-opacity'] = 0.4;
+        paint['icon-opacity'] = 0.4;
+      } else if (layer['type'] === 'circle') {
+        paint['circle-opacity'] = 0.2;
+        paint['circle-stroke-opacity'] = 0.2;
+      }
+    }
+
+    // Administrative borders are hidden — basemap.at's border geometry is inaccurate.
+    if (layer['type'] === 'line' && /GRENZE/.test(sourceLayer)) {
+      paint['line-opacity'] = 0;
+    }
+
+    // Surface small settlement / place / road / path labels at lower zooms.
+    if (
+      layer['type'] === 'symbol' &&
+      layer['layout']?.['text-field'] &&
+      /SIEDLUNG_P_SIEDLUNG|GEONAMEN|GIP_/.test(sourceLayer)
+    ) {
+      if (typeof layer['minzoom'] === 'number' && layer['minzoom'] > 13) {
+        layer['minzoom'] = 13;
+      }
     }
   }
 
