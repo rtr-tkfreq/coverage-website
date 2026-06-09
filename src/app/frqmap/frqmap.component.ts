@@ -265,6 +265,7 @@ export class FrqmapComponent implements OnInit {
       .subscribe((coverage) => {
         this.pointInfoCov = coverage.length ? coverage : null;
         this.showCell(coverage.length ? coverage[0].geojson : null);
+        this.scheduleMapResize();
       });
   }
 
@@ -284,7 +285,32 @@ export class FrqmapComponent implements OnInit {
         } else {
           this.pointInfoIds = null;
         }
+        this.scheduleMapResize();
       });
+  }
+
+  /** Closes the info panel: the right column animates back to 1/5 with the intro
+   *  text, and the current selection (pin + cell highlight) is cleared. */
+  closeDetails(): void {
+    this.pointInfoCov = null;
+    this.pointInfoIds = null;
+    this.showCell(null);
+    this.clearClickMarker();
+    this.scheduleMapResize();
+  }
+
+  private clearClickMarker(): void {
+    if (this.clickMarkerLayer) {
+      this.map.removeLayer(this.clickMarkerLayer);
+      this.clickMarkerLayer = null;
+    }
+  }
+
+  /** Keeps the OpenLayers canvas in sync with the panel's width animation. */
+  private scheduleMapResize(): void {
+    for (const delay of [0, 100, 200, 300, 400, 500]) {
+      setTimeout(() => this.map.updateSize(), delay);
+    }
   }
 
   /** Highlights the clicked 100 m raster cell from its GeoJSON (or clears it). */
