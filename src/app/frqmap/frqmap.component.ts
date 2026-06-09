@@ -300,20 +300,12 @@ export class FrqmapComponent implements OnInit {
   }
 
   /** Closes the info panel: the right column animates back to 1/5 with the intro
-   *  text, and the current selection (pin + cell highlight) is cleared. */
+   *  text. The pin stays so the user can still see where they clicked. */
   closeDetails(): void {
     this.pointInfoCov = null;
     this.pointInfoIds = null;
     this.showCell(null);
-    this.clearClickMarker();
     this.scheduleMapResize();
-  }
-
-  private clearClickMarker(): void {
-    if (this.clickMarkerLayer) {
-      this.map.removeLayer(this.clickMarkerLayer);
-      this.clickMarkerLayer = null;
-    }
   }
 
   /** Keeps the OpenLayers canvas in sync with the panel's width animation. */
