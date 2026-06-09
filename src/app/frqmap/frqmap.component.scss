@@ -13,9 +13,13 @@
   padding-bottom: 16px;
 }
 
-h2 {
+/* The heading is the only child of its .uk-container, so UIkit's
+   `.uk-container > :last-child { margin-bottom: 0 }` (specificity 0,2,0) zeroes a
+   plain `h2` rule. The descendant selector outranks it to re-add a small gap so
+   the descenders ("g") don't touch the Betreiber select below. */
+.uk-container h2 {
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 @media (max-width: 959px) {
@@ -24,8 +28,8 @@ h2 {
     padding-bottom: 10px;
   }
 
-  h2 {
-    margin-bottom: 14px;
+  .uk-container h2 {
+    margin-bottom: 6px;
   }
 }
 
