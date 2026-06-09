@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Feature, Map, View } from 'ol';
+import { Coordinate } from 'ol/coordinate';
 import { defaults as defaultControls } from 'ol/control';
 import { Extent } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import { Point } from 'ol/geom';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import { get as getProjection, transform } from 'ol/proj';
@@ -13,7 +15,7 @@ import { XYZ } from 'ol/source';
 import TileSource from 'ol/source/Tile';
 import VectorSource from 'ol/source/Vector';
 import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
-import { Fill, Stroke, Style } from 'ol/style';
+import { Fill, Icon, Stroke, Style } from 'ol/style';
 
 import { CenterOnUserLocationControl } from './center-on-user-location.control';
 import {
@@ -46,6 +48,27 @@ const CELL_STYLE = new Style({
   stroke: new Stroke({ color: 'rgba(80,80,80,0.5)', width: 2 }),
 });
 
+/** Teardrop pin marking the clicked location. Inlined so it is self-contained. */
+const CLICK_MARKER_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="36" viewBox="0 0 24 36">' +
+  '<path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 24 12 24s12-15 12-24C24 5.37 18.63 0 12 0z"' +
+  ' fill="#d32f2f" stroke="#fff" stroke-width="2"/>' +
+  '<circle cx="12" cy="12" r="4.5" fill="#fff"/>' +
+  '</svg>';
+
+/** A fixed-pixel-size pin, so the clicked spot stays visible at every zoom level
+ *  (unlike the geographic 100 m cell square, which shrinks to nothing when zoomed out). */
+const CLICK_MARKER_STYLE = new Style({
+  image: new Icon({
+    src: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(CLICK_MARKER_SVG),
+    anchor: [0.5, 1],
+    scale: 0.5,
+  }),
+});
+
+/** Keep the pin above all tile/vector layers, including the cell highlight. */
+const CLICK_MARKER_Z_INDEX = 1000;
+
 @Component({
   standalone: false,
   selector: 'app-frqmap',
@@ -65,6 +88,7 @@ export class FrqmapComponent implements OnInit {
   private coverageOverlay?: TileLayer<TileSource>;
   private obligationOverlays: TileLayer<TileSource>[] = [];
   private cellLayer: VectorLayer<VectorSource> | null = null;
+  private clickMarkerLayer: VectorLayer<VectorSource> | null = null;
   private readonly capabilitiesParser = new WMTSCapabilities();
 
   constructor(private readonly http: HttpClient) {}
@@ -89,6 +113,7 @@ export class FrqmapComponent implements OnInit {
     this.loadBasemap();
 
     this.map.on('click', (event) => {
+      this.showClickMarker(event.coordinate);
       const [longitude, latitude] = transform(event.coordinate, 'EPSG:3857', 'EPSG:4326');
       this.loadInformationForPoint(longitude, latitude);
     });
@@ -281,6 +306,20 @@ export class FrqmapComponent implements OnInit {
     });
     this.map.addLayer(this.cellLayer);
     this.map.updateSize();
+  }
+
+  /** Drops a pin at the clicked coordinate (EPSG:3857) so the location stays
+   *  visible regardless of zoom; replaces any previous pin. */
+  private showClickMarker(coordinate: Coordinate): void {
+    if (this.clickMarkerLayer) {
+      this.map.removeLayer(this.clickMarkerLayer);
+    }
+    this.clickMarkerLayer = new VectorLayer({
+      source: new VectorSource({ features: [new Feature(new Point(coordinate))] }),
+      style: CLICK_MARKER_STYLE,
+      zIndex: CLICK_MARKER_Z_INDEX,
+    });
+    this.map.addLayer(this.clickMarkerLayer);
   }
 
   /** Formats decimal degrees as degrees/minutes/seconds, e.g. `48° 12' 30.5"`. */
