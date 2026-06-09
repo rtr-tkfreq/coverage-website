@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import sampleResponseToReq1, {
   FormOptionResponse,
@@ -36,6 +36,7 @@ const parser = new WMTSCapabilities();
   standalone: false,
   selector: 'app-frqmap',
   templateUrl: './frqmap.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./frqmap.component.scss']
 })
 export class FrqmapComponent implements OnInit {

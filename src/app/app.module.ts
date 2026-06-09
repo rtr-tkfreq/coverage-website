@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {AppComponent, FormatBps} from './app.component';
 import { FrqmapComponent } from './frqmap/frqmap.component';
 import {FormsModule} from "@angular/forms";
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
     FormsModule
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent]
 })
