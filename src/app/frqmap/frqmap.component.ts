@@ -108,7 +108,7 @@ export class FrqmapComponent implements OnInit {
       layers: [],
       pixelRatio: 1,
     });
-    this.map.getView().fit(AUSTRIA_EXTENT, { size: this.map.getSize() });
+    this.fitAustria();
 
     this.loadBasemap();
 
@@ -118,10 +118,20 @@ export class FrqmapComponent implements OnInit {
       this.loadInformationForPoint(longitude, latitude);
     });
 
-    // The container may still be resizing right after creation; nudge the map.
+    // The container is often still laying out right after creation, so the first
+    // fit used a stale size; re-fit once it has its real size so Austria fills
+    // the map instead of sitting in a band of empty space.
     for (const delay of [100, 300, 1000]) {
-      setTimeout(() => this.map.updateSize(), delay);
+      setTimeout(() => {
+        this.map.updateSize();
+        this.fitAustria();
+      }, delay);
     }
+  }
+
+  /** Fits the Austria-wide extent to the current map size. */
+  private fitAustria(): void {
+    this.map.getView().fit(AUSTRIA_EXTENT, { size: this.map.getSize() });
   }
 
   private loadBasemap(): void {

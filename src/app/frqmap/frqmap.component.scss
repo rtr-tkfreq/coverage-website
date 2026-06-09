@@ -1,8 +1,31 @@
 #map {
-  height: 600px;
+  /* Match the map's shape to the Austria extent so the overview fills the canvas
+     with no empty band above/below. This also means the zoom/locate controls
+     (pinned to the top-left) sit on top of the map instead of in empty space. */
+  width: 100%;
+  aspect-ratio: 1139218 / 623726;
+}
 
-  @media (min-height: 1080px) {
-    height: 1000px;
+/* Trim the large default section/heading whitespace so the map sits higher on
+   the screen, especially on mobile. */
+.uk-section {
+  padding-top: 24px;
+  padding-bottom: 16px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 959px) {
+  .uk-section {
+    padding-top: 16px;
+    padding-bottom: 10px;
+  }
+
+  h2 {
+    margin-bottom: 14px;
   }
 }
 
