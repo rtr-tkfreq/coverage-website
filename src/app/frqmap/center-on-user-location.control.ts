@@ -1,15 +1,43 @@
+import { Feature } from 'ol';
 import { Control } from 'ol/control';
+import { Point } from 'ol/geom';
+import VectorLayer from 'ol/layer/Vector';
 import { transform } from 'ol/proj';
+import VectorSource from 'ol/source/Vector';
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 
-/** White dot icon, inlined so the control is self-contained. */
+/** "Locate me" crosshair, inlined so the control is self-contained.
+ *  Uses `currentColor` so it stays visible against the control button. */
 const ICON =
-  '<img alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQuMjMzMyA0LjIzMzMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTEuMDMxIC02NikiPgogIDxjaXJjbGUgY3g9IjUzLjE0OCIgY3k9IjY4LjExNyIgcj0iMS4wNTgzIiBmaWxsPSIjZmZmIiBzdHlsZT0icGFpbnQtb3JkZXI6ZmlsbCBtYXJrZXJzIHN0cm9rZSIvPgogPC9nPgo8L3N2Zz4K" />';
+  '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"' +
+  ' style="display:block;margin:auto" aria-hidden="true"' +
+  ' fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<circle cx="12" cy="12" r="3"/>' +
+  '<line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>' +
+  '<line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>' +
+  '</svg>';
+
+/** Classic "you are here" dot: blue fill with a white outline. */
+const USER_LOCATION_STYLE = new Style({
+  image: new CircleStyle({
+    radius: 7,
+    fill: new Fill({ color: 'rgba(0,90,200,0.9)' }),
+    stroke: new Stroke({ color: '#fff', width: 3 }),
+  }),
+});
 
 /** OpenLayers control that recenters the map on the user's current GPS location. */
 export class CenterOnUserLocationControl extends Control {
+  private readonly markerSource = new VectorSource();
+  private readonly markerLayer = new VectorLayer({
+    source: this.markerSource,
+    style: USER_LOCATION_STYLE,
+  });
+
   constructor() {
     const button = document.createElement('button');
     button.type = 'button';
+    button.title = $localize`:@@centerOnLocation:Auf aktuellen Standort zentrieren`;
     button.innerHTML = ICON;
 
     const element = document.createElement('div');
@@ -34,9 +62,17 @@ export class CenterOnUserLocationControl extends Control {
           'EPSG:4326',
           'EPSG:3857',
         );
-        const view = this.getMap()?.getView();
+        const map = this.getMap();
+        const view = map?.getView();
         view?.setCenter(center);
         view?.setZoom(14);
+
+        // Ensure the marker layer is on the map, then mark the location.
+        if (map && !map.getLayers().getArray().includes(this.markerLayer)) {
+          map.addLayer(this.markerLayer);
+        }
+        this.markerSource.clear();
+        this.markerSource.addFeature(new Feature(new Point(center)));
       },
       (error) => console.warn('Could not determine user location', error),
     );
