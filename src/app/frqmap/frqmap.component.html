@@ -42,7 +42,7 @@
         <div class="map-container" id="map"></div>
       </div>
 
-      <div class="right-panel" [ngClass]="(pointInfoCov || pointInfoIds) ? 'uk-width-1-3@m' : 'uk-width-1-5@m'">
+      <div class="right-panel" [ngClass]="(pointInfoCov || pointInfoIds) ? 'uk-width-1-3@m details-active' : 'uk-width-1-5@m'">
         <!-- Intro shown until a point is selected -->
         <div *ngIf="!pointInfoCov && !pointInfoIds" class="uk-flex uk-flex-column fullHeight">
           <div class="alignToStart uk-width-expand">
