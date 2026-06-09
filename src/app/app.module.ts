@@ -1,26 +1,20 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import {AppComponent, FormatBps} from './app.component';
+import { AppComponent } from './app.component';
+import { FormatBpsPipe } from './format-bps.pipe';
 import { FrqmapComponent } from './frqmap/frqmap.component';
-import {FormsModule} from "@angular/forms";
-import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FrqmapComponent,
-    FormatBps
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
-  providers: [
-    provideHttpClient(withXhr(), withInterceptorsFromDi())
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, FrqmapComponent, FormatBpsPipe],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  // Angular 22 bootstraps zoneless by default; this app mutates state inside
+  // RxJS subscribe callbacks, so it needs zone-based change detection to refresh
+  // template bindings (zone.js is loaded via polyfills.ts).
+  providers: [provideZoneChangeDetection(), provideHttpClient(withXhr())],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

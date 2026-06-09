@@ -1,444 +1,275 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import sampleResponseToReq1, {
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Feature, Map, View } from 'ol';
+import { defaults as defaultControls } from 'ol/control';
+import { Extent } from 'ol/extent';
+import { GeoJSON } from 'ol/format';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import TileLayer from 'ol/layer/Tile';
+import VectorLayer from 'ol/layer/Vector';
+import { get as getProjection, transform } from 'ol/proj';
+import { XYZ } from 'ol/source';
+import TileSource from 'ol/source/Tile';
+import VectorSource from 'ol/source/Vector';
+import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
+import { Fill, Stroke, Style } from 'ol/style';
+
+import { CenterOnUserLocationControl } from './center-on-user-location.control';
+import {
   FormOptionResponse,
   LayerConfiguration,
   Operator,
   PointInfoCoverage,
-  PointInfoIds
-} from './sample1';
+  PointInfoIds,
+} from './models';
 
-import Map from "ol/Map";
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import WMTSSource, {optionsFromCapabilities} from 'ol/source/WMTS'
-import * as olProj from "ol/proj";
-import {Extent} from "ol/extent";
-import {HttpClient} from "@angular/common/http";
-import {XYZ} from "ol/source";
-import {Coordinate} from "ol/coordinate";
-import VectorSource from "ol/source/Vector";
-import {GeoJSON} from "ol/format";
-import VectorLayer from "ol/layer/Vector";
-import WMTSCapabilities from 'ol/format/WMTSCapabilities';
-import {Fill, Stroke, Style} from "ol/style";
-import TileSource from "ol/source/Tile";
-import {Control, defaults as defaultControls} from "ol/control";
+const API_BASE = '/api';
+const TILES_BASE = '';
+const BASEMAP_CAPABILITIES_URL = 'assets/WMTSCapabilities.xml';
+const ATTRIBUTION =
+  'Grundkarte &copy; <a href="//www.basemap.at/">basemap.at</a>, Versorgungsdaten CC-BY4.0.';
 
+/** Austria-wide extent (EPSG:3857) used as the initial view. */
+const AUSTRIA_EXTENT: Extent = [908071, 5751733, 2047289, 6375459];
+const OVERLAY_MIN_ZOOM = 7;
+const OVERLAY_MAX_ZOOM = 14;
 
-const baseUrl : String = "";
-const baseUrlApi : String = `${baseUrl}/api`;
-const baseUrlTiles : String = `${baseUrl}`;
-const baseMapCapabilities: string = "assets/WMTSCapabilities.xml";
-const parser = new WMTSCapabilities();
+/** Operator value representing "all operators". */
+const ALL_OPERATORS = '@all';
+
+const ACCEPT_JSON = { Accept: 'application/json' };
+const ACCEPT_SINGLE_OBJECT = { Accept: 'application/vnd.pgrst.object+json' };
+
+const CELL_STYLE = new Style({
+  fill: new Fill({ color: 'rgba(255,100,50,0.5)' }),
+  stroke: new Stroke({ color: 'rgba(80,80,80,0.5)', width: 2 }),
+});
 
 @Component({
   standalone: false,
   selector: 'app-frqmap',
   templateUrl: './frqmap.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./frqmap.component.scss']
+  styleUrls: ['./frqmap.component.scss'],
 })
 export class FrqmapComponent implements OnInit {
-  formOptions : FormOptionResponse;
-  map: Map;
-  currentVectorLayer: VectorLayer<VectorSource<any>> | null = null
-  selectedOperator: String;
+  formOptions?: FormOptionResponse;
+  selectedOperator = ALL_OPERATORS;
   selectedObligationLayer: string | null = null;
-  selectedReference: String | null;
-  currentOverlay : TileLayer<TileSource>
-  currentObligationOverlays: Array<TileLayer<TileSource>>
-  pointInfoCov: PointInfoCoverage[] | null
-  pointInfoIds: PointInfoIds[] | null
+  pointInfoCov: PointInfoCoverage[] | null = null;
+  pointInfoIds: PointInfoIds[] | null = null;
 
-  constructor(
-    private http : HttpClient
-  ) { }
+  private map!: Map;
+  private selectedReference: string | null = null;
+  private coverageOverlay?: TileLayer<TileSource>;
+  private obligationOverlays: TileLayer<TileSource>[] = [];
+  private cellLayer: VectorLayer<VectorSource> | null = null;
+  private readonly capabilitiesParser = new WMTSCapabilities();
+
+  constructor(private readonly http: HttpClient) {}
 
   ngOnInit(): void {
-    console.log("init")
-    //@TODO: Request input for options
-    this.loadOptions()
-    this.initMap()
+    this.loadOptions();
+    this.initMap();
   }
+
+  // --- map setup -----------------------------------------------------------
 
   private initMap(): void {
     this.map = new Map({
-      controls: defaultControls().extend([new CenterOnUserLocationControl()]),
-      view: new View({
-        center: [0, 0],
-        zoom: 10,
-        enableRotation: false
-      }),
-      layers: [],
       target: 'map',
-      pixelRatio: 1
+      controls: defaultControls().extend([new CenterOnUserLocationControl()]),
+      view: new View({ center: [0, 0], zoom: 10, enableRotation: false }),
+      layers: [],
+      pixelRatio: 1,
+    });
+    this.map.getView().fit(AUSTRIA_EXTENT, { size: this.map.getSize() });
 
+    this.loadBasemap();
+
+    this.map.on('click', (event) => {
+      const [longitude, latitude] = transform(event.coordinate, 'EPSG:3857', 'EPSG:4326');
+      this.loadInformationForPoint(longitude, latitude);
     });
 
-    var textent : Extent = [908071,  5751733,     2047289,       6375459];
-    this.map.getView().fit(textent, {size: this.map.getSize()});
-
-    //add basemap layers
-    this.http.get(baseMapCapabilities, {
-      observe: 'body',
-      responseType: 'text'
-    })
-      .subscribe((text) => {
-        const result = parser.read(text);
-        const options = optionsFromCapabilities(result, {
-          layer: 'bmapgrau',
-          matrixSet: 'google3857'
-        })!
-        options.attributions = 'Grundkarte &copy; <a href="//www.basemap.at/">' +
-          'basemap.at</a>, Versorgungsdaten CC-BY4.0.'
-
-        const layer = new TileLayer({
-          source: new WMTSSource(options),
-          opacity: 1,
-          visible: true
-        })
-        this.map.getLayers().insertAt(0, layer)
-        //this.map.addLayer(layer);
-      });
-
-
-
-    this.map.on('click', (e) => {
-      let coordsWgs84 = olProj.transform(e.coordinate,'EPSG:3857', 'EPSG:4326');
-      console.log(e.coordinate, coordsWgs84);
-      this.loadInformationForPoint(coordsWgs84)
-    })
-
-    let timeouts = [100, 300, 1000, 3000]
-    timeouts.forEach(to => {
-      setTimeout(() => {
-        this.map.updateSize();
-      }, to);
-    })
+    // The container may still be resizing right after creation; nudge the map.
+    for (const delay of [100, 300, 1000]) {
+      setTimeout(() => this.map.updateSize(), delay);
+    }
   }
 
-  private loadOptions() {
-//    this.formOptions = sampleResponseToReq1;
-    let url = `${baseUrlApi}/settings`;
-    this.http.get<FormOptionResponse>(url,
-      {
-        headers: {
-          "Accept": "application/vnd.pgrst.object+json"
-        }})
+  private loadBasemap(): void {
+    this.http
+      .get(BASEMAP_CAPABILITIES_URL, { observe: 'body', responseType: 'text' })
+      .subscribe((xml) => {
+        const capabilities = this.capabilitiesParser.read(xml);
+        const options = optionsFromCapabilities(capabilities, {
+          layer: 'bmapgrau',
+          matrixSet: 'google3857',
+        });
+        if (!options) {
+          return;
+        }
+        options.attributions = ATTRIBUTION;
+        this.map.getLayers().insertAt(0, new TileLayer({ source: new WMTS(options) }));
+      });
+  }
+
+  // --- options + operator selection ----------------------------------------
+
+  private loadOptions(): void {
+    this.http
+      .get<FormOptionResponse>(`${API_BASE}/settings`, { headers: ACCEPT_SINGLE_OBJECT })
       .subscribe((response) => {
         this.formOptions = response;
-
-        //there should be a default - select it
-        let defaultOperator = this.formOptions.filter.operators.find(o => {
-          return o.default
-        })
-        if (defaultOperator?.operator === null) {
-          defaultOperator.operator = "default"
-        }
-        if (defaultOperator) {
-          this.selectedOperator = defaultOperator.operator;
-          this.reloadMap()
-        }
-      })
-
+        const fallback = response.filter.operators.find((operator) => operator.default);
+        this.selectedOperator = fallback?.operator ?? ALL_OPERATORS;
+        this.reloadMap();
+      });
   }
 
-  reloadMap() : void {
-    const reference = null;  // e.g. "F1/16" or "F7/16"
-    let operator = this.selectedOperator;
-    if (operator === null || operator === "null" || operator === "default") {
-      operator = "@all"
-    }
+  operatorFilterForOperator(operator: string): Operator | undefined {
+    return this.formOptions?.filter.operators.find(
+      (candidate) => (candidate.operator ?? ALL_OPERATORS) === operator,
+    );
+  }
 
-    let url = '';
+  getOperatorByLabel(operator: string): Operator | undefined {
+    return this.formOptions?.filter.operators.find((candidate) => candidate.operator === operator);
+  }
 
-    if (reference) {
-      url = `${baseUrlApi}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&limit=1`
-    }
-    else {
-      url = `${baseUrlApi}/tileurl?and=(operator.eq.${operator})&limit=1`
-    }
+  // --- coverage + obligation overlays --------------------------------------
 
-    console.log(this.selectedOperator);
-
-    this.http.get<LayerConfiguration>(url, {
-      headers: {
-        "Accept": "application/vnd.pgrst.object+json"
-      }
-    })
-      .subscribe((val) => {
-        console.log(val.url)
-        if (val.reference) {
-          this.selectedReference = val.reference;
-        } else {
-          this.selectedReference = null;
-        }
-        this.changeOverlaySource(val.url);
+  reloadMap(): void {
+    const operator = this.selectedOperator;
+    this.http
+      .get<LayerConfiguration>(`${API_BASE}/tileurl?and=(operator.eq.${operator})&limit=1`, {
+        headers: ACCEPT_SINGLE_OBJECT,
+      })
+      .subscribe((config) => {
+        this.selectedReference = config.reference ?? null;
+        this.setCoverageOverlay(config.url);
       });
 
-    //for debug only
-    if (this.selectedObligationLayer) {
-      let obligationUrl = '';
-      if (reference) {
-        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator},reference.eq.${reference})&obligation.eq.${this.selectedObligationLayer}`
-      } else {
-        obligationUrl = `${baseUrlApi}/tileurl?and=(operator.eq.${operator})&obligation.eq.${this.selectedObligationLayer}`
-      }
-
-      console.log(this.selectedOperator);
-
-      this.http.get<any>(obligationUrl, {
-        headers: {
-          "Accept": "application/json"
-        }
-      })
-        .subscribe((val) => {
-          console.log(val)
-        });
-    }
-
-    //reload in any case
-    if (this.selectedObligationLayer && this.operatorFilterForOperator(this.selectedOperator)) {
-      let urls = this.operatorFilterForOperator(this.selectedOperator)?.obligations?.find(o => o.type === this.selectedObligationLayer)?.source;
-      if (urls) {
-        this.changeObligationSource(urls);
-      } else {
-        this.changeObligationSource(null);
-      }
-    } else {
-      this.changeObligationSource(null);
-    }
+    this.setObligationOverlays(this.currentObligationSources());
   }
 
-  operatorFilterForOperator(operator: String): Operator | null {
-    if (this.formOptions && this.formOptions.filter && this.formOptions.filter.operators) {
-      let matchingOperator = this.formOptions.filter.operators.find(o =>
-        o.operator === operator
-      )
-      return matchingOperator || null;
-    } else {
+  private currentObligationSources(): string[] | null {
+    if (!this.selectedObligationLayer) {
       return null;
     }
+    return (
+      this.operatorFilterForOperator(this.selectedOperator)
+        ?.obligations?.find((obligation) => obligation.type === this.selectedObligationLayer)
+        ?.source ?? null
+    );
   }
 
-  private loadInformationForPoint(coords : Coordinate) : void {
-    let paramsCov: any = {
-      cov_longitude: coords[0],
-      cov_latitude: coords[1]
+  private setCoverageOverlay(url: string): void {
+    if (this.coverageOverlay) {
+      this.map.removeLayer(this.coverageOverlay);
     }
-    if (this.selectedOperator === null || this.selectedOperator === "null" || this.selectedOperator === "default") {
-      //nothing
-      //params.cov_operator = "@all";
-    } else {
-      paramsCov.cov_operator = this.selectedOperator;
-    }
-
-    //Same for reference (f1/16), if any
-    if (this.selectedReference) {
-      paramsCov.cov_reference = this.selectedReference;
-    }
-
-    let searchParamsCov = (new URLSearchParams(paramsCov).toString());
-    let urlCov = `${baseUrlApi}/rpc/cov?${searchParamsCov}`;
-
-    this.http.get<PointInfoCoverage[]>(urlCov, {
-      headers: {
-        "Accept": "application/json"
-      }
-    })
-      .subscribe((val) => {
-        if (val.length > 0) {
-          this.pointInfoCov = val
-
-          let first = val[0];
-
-          if (this.currentVectorLayer !== null) {
-            this.map.removeLayer(this.currentVectorLayer);
-            this.currentVectorLayer = null;
-          }
-
-          let geojson = new GeoJSON().readFeature(first.geojson, {
-            dataProjection: 'EPSG:4326', //WGS84
-            featureProjection: 'EPSG:3857' //Overlay + Basemap
-          });
-
-          var vectorSource = new VectorSource({
-            features: [geojson]
-          });
-          this.currentVectorLayer = new VectorLayer({
-            source: vectorSource,
-            style: new Style({
-              fill: new Fill({
-                color: 'rgba(255,100,50,0.5)'
-              }),
-              stroke: new Stroke({
-                color: 'rgba(80,80,80,0.5)',
-                width: 2
-              })
-
-            })
-
-          })
-          this.map.addLayer(this.currentVectorLayer);
-          this.map.updateSize();
-
-        } else {
-          this.pointInfoCov = null
-          if (this.currentVectorLayer !== null) {
-            this.map.removeLayer(this.currentVectorLayer);
-            this.currentVectorLayer = null;
-          }
-          console.log("unset")
-        }
-      })
-
-    let paramsIds: any = {
-      cov_longitude: coords[0],
-      cov_latitude: coords[1]
-    }
-
-    let searchParamsIds = (new URLSearchParams(paramsIds).toString());
-
-    let urlIds = `${baseUrlApi}/rpc/id?${searchParamsIds}`;
-    this.http.get<PointInfoIds[]>(urlIds, {
-      headers: {
-        "Accept": "application/json"
-      }
-    })
-      .subscribe((val) => {
-        if (val.length > 0) {
-          this.pointInfoIds = val
-
-          let first = val[0];
-
-          //set coordinates from request in order to
-          //not need the server return it
-          first.request_latitude = paramsCov.cov_latitude;
-          first.request_longitude = paramsCov.cov_longitude;
-
-        }
-        else {
-          this.pointInfoIds = null
-        }
-      })
+    this.coverageOverlay = this.tileOverlay(url);
+    this.map.addLayer(this.coverageOverlay);
   }
 
-  private changeOverlaySource(url: String) :void {
-    if (this.currentOverlay != null) {
-      this.map.removeLayer(this.currentOverlay)
+  private setObligationOverlays(urls: string[] | null): void {
+    for (const layer of this.obligationOverlays) {
+      this.map.removeLayer(layer);
     }
+    this.obligationOverlays = (urls ?? []).map((url) => {
+      const layer = this.tileOverlay(url);
+      this.map.addLayer(layer);
+      return layer;
+    });
+  }
 
-    const tileUrl = `${baseUrlTiles}${url}/{z}/{x}/{y}.png`;
-    this.currentOverlay = new TileLayer({
+  private tileOverlay(url: string): TileLayer<TileSource> {
+    return new TileLayer({
       source: new XYZ({
-          url: tileUrl,
-          projection: olProj.get('EPSG:3857')!,
-          maxZoom: 14,
-          minZoom: 7
-        }
-      ),
-      visible: true,
-      opacity: 1.0
+        url: `${TILES_BASE}${url}/{z}/{x}/{y}.png`,
+        projection: getProjection('EPSG:3857')!,
+        minZoom: OVERLAY_MIN_ZOOM,
+        maxZoom: OVERLAY_MAX_ZOOM,
+      }),
     });
-
-    this.map.addLayer(this.currentOverlay);
   }
 
-  private changeObligationSource(urls: Array<string> | null) :void {
-    //remove obligation layers
-    if (this.currentObligationOverlays != null &&
-      this.currentObligationOverlays.length > 0) {
-      this.currentObligationOverlays.forEach(layer => {
-          this.map.removeLayer(layer)
-        }
-      )
+  // --- point info ----------------------------------------------------------
+
+  private loadInformationForPoint(longitude: number, latitude: number): void {
+    this.loadCoverageForPoint(longitude, latitude);
+    this.loadIdsForPoint(longitude, latitude);
+  }
+
+  private loadCoverageForPoint(longitude: number, latitude: number): void {
+    const params: Record<string, string> = {
+      cov_longitude: String(longitude),
+      cov_latitude: String(latitude),
+    };
+    if (this.selectedOperator !== ALL_OPERATORS) {
+      params['cov_operator'] = this.selectedOperator;
+    }
+    if (this.selectedReference) {
+      params['cov_reference'] = this.selectedReference;
     }
 
-    this.currentObligationOverlays = [];
-
-    if (urls) {
-      urls.forEach((url) => {
-        const tileUrl = baseUrlTiles + `${url}/{z}/{x}/{y}.png`;
-        let newOverlay = new TileLayer({
-          source: new XYZ({
-              url: tileUrl,
-              projection: olProj.get('EPSG:3857')!,
-              maxZoom: 14,
-              minZoom: 7
-            }
-          ),
-          visible: true,
-          opacity: 1.0
-        });
-
-        this.map.addLayer(newOverlay);
-        this.currentObligationOverlays.push(newOverlay);
-
-      })
-    }
-
+    const query = new URLSearchParams(params).toString();
+    this.http
+      .get<PointInfoCoverage[]>(`${API_BASE}/rpc/cov?${query}`, { headers: ACCEPT_JSON })
+      .subscribe((coverage) => {
+        this.pointInfoCov = coverage.length ? coverage : null;
+        this.showCell(coverage.length ? coverage[0].geojson : null);
+      });
   }
 
-  getOperatorByLabel(name : String): Operator | undefined {
-    let result = this.formOptions.filter.operators.find((o) => {
-      return o.operator === name
-    });
-    return result
-  }
-
-  convertDMS(dd: number): string {
-    //https://stackoverflow.com/questions/5786025/decimal-degrees-to-degrees-minutes-and-seconds-in-javascript
-    var deg = dd | 0; // truncate dd to get degrees
-    var frac = Math.abs(dd - deg); // get fractional part
-    var min = (frac * 60) | 0; // multiply fraction by 60 and truncate
-    var sec = ((frac * 3600 - min * 60)*1000|0)/1000;
-    return deg + "° " + min + "' " + sec + "\"";
-  }
-}
-
-class CenterOnUserLocationControl extends Control {
-  /**
-   * @param {Object} [opt_options] Control options.
-   */
-  constructor(opt_options? : any) {
-    const options = opt_options || {};
-
-    var button = document.createElement('button');
-    button.innerHTML = '<img alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQuMjMzMyA0LjIzMzMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTEuMDMxIC02NikiPgogIDxjaXJjbGUgY3g9IjUzLjE0OCIgY3k9IjY4LjExNyIgcj0iMS4wNTgzIiBmaWxsPSIjZmZmIiBzdHlsZT0icGFpbnQtb3JkZXI6ZmlsbCBtYXJrZXJzIHN0cm9rZSIvPgogPC9nPgo8L3N2Zz4K" />';
-
-    const element = document.createElement('div');
-    element.className = 'center-user-location ol-unselectable ol-control';
-
-    element.appendChild(button);
-
-    super({
-      element: element,
-      target: options.target,
-    });
-
-    button.addEventListener('click', this.centerMapOnUserLocation.bind(this), false);
-    button.addEventListener('touchstart', this.centerMapOnUserLocation.bind(this), false);
-  }
-
-  centerMapOnUserLocation() {
-    new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            let coords = [position.coords.longitude, position.coords.latitude]
-            resolve(coords)
-          }, (error) => {
-            reject(error)
-          })
+  private loadIdsForPoint(longitude: number, latitude: number): void {
+    const query = new URLSearchParams({
+      cov_longitude: String(longitude),
+      cov_latitude: String(latitude),
+    }).toString();
+    this.http
+      .get<PointInfoIds[]>(`${API_BASE}/rpc/id?${query}`, { headers: ACCEPT_JSON })
+      .subscribe((ids) => {
+        if (ids.length) {
+          // The coordinates aren't returned by the API, so carry them over.
+          ids[0].request_longitude = longitude;
+          ids[0].request_latitude = latitude;
+          this.pointInfoIds = ids;
         } else {
-          reject("Geolocation is not supported by this browser.")
+          this.pointInfoIds = null;
         }
-      }
-    ).then((coords: any) => {
-      console.log("Centering map to user location ", coords)
-      let convertedCoords = olProj.transform(coords, 'EPSG:4326', 'EPSG:3857')
-      this.getMap()?.getView().setCenter(convertedCoords)
-      this.getMap()?.getView().setZoom(14);
+      });
+  }
+
+  /** Highlights the clicked 100 m raster cell from its GeoJSON (or clears it). */
+  private showCell(geojson: string | null): void {
+    if (this.cellLayer) {
+      this.map.removeLayer(this.cellLayer);
+      this.cellLayer = null;
+    }
+    if (!geojson) {
+      return;
+    }
+    const feature = new GeoJSON().readFeature(geojson, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:3857',
+    }) as Feature;
+    this.cellLayer = new VectorLayer({
+      source: new VectorSource({ features: [feature] }),
+      style: CELL_STYLE,
     });
+    this.map.addLayer(this.cellLayer);
+    this.map.updateSize();
+  }
+
+  /** Formats decimal degrees as degrees/minutes/seconds, e.g. `48° 12' 30.5"`. */
+  convertDMS(decimalDegrees: number): string {
+    const degrees = decimalDegrees | 0;
+    const fraction = Math.abs(decimalDegrees - degrees);
+    const minutes = (fraction * 60) | 0;
+    const seconds = (((fraction * 3600 - minutes * 60) * 1000) | 0) / 1000;
+    return `${degrees}° ${minutes}' ${seconds}"`;
   }
 }

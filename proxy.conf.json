@@ -1,0 +1,17 @@
+{
+  "/api": {
+    "target": "https://frq.rtr.at",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/cov": {
+    "target": "https://frq.rtr.at",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/obligations": {
+    "target": "https://frq.rtr.at",
+    "secure": true,
+    "changeOrigin": true
+  }
+}
