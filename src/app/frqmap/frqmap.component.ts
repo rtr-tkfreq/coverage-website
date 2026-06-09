@@ -34,6 +34,11 @@ const ATTRIBUTION =
 
 /** Austria-wide extent (EPSG:3857) used as the initial view. */
 const AUSTRIA_EXTENT: Extent = [908071, 5751733, 2047289, 6375459];
+
+/** Min viewport width (UIkit `@m`) treated as desktop. */
+const DESKTOP_BREAKPOINT = 960;
+/** On desktop the initial view starts 20% more zoomed in than the full-country fit. */
+const DESKTOP_INITIAL_ZOOM_FACTOR = 1.2;
 const OVERLAY_MIN_ZOOM = 7;
 const OVERLAY_MAX_ZOOM = 14;
 
@@ -129,9 +134,17 @@ export class FrqmapComponent implements OnInit {
     }
   }
 
-  /** Fits the Austria-wide extent to the current map size. */
+  /** Fits the Austria-wide extent to the current map size. On desktop the view
+   *  then zooms in 20% so it starts a bit closer than the full-country overview. */
   private fitAustria(): void {
-    this.map.getView().fit(AUSTRIA_EXTENT, { size: this.map.getSize() });
+    const view = this.map.getView();
+    view.fit(AUSTRIA_EXTENT, { size: this.map.getSize() });
+    if (window.innerWidth >= DESKTOP_BREAKPOINT) {
+      const resolution = view.getResolution();
+      if (resolution) {
+        view.setResolution(resolution / DESKTOP_INITIAL_ZOOM_FACTOR);
+      }
+    }
   }
 
   private loadBasemap(): void {
