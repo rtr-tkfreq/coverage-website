@@ -112,8 +112,27 @@ export class FrqmapComponent implements OnInit {
           return;
         }
         options.attributions = ATTRIBUTION;
-        this.map.getLayers().insertAt(0, new TileLayer({ source: new WMTS(options) }));
+        const basemap = new TileLayer({ source: new WMTS(options) });
+        this.desaturate(basemap);
+        this.map.getLayers().insertAt(0, basemap);
       });
+  }
+
+  /** Renders a layer in grey tones only (the basemap.at "grau" tiles still carry
+   *  muted colours); the coverage overlays keep their colours. */
+  private desaturate(layer: TileLayer<TileSource>): void {
+    layer.on('prerender', (event) => {
+      const context = event.context as CanvasRenderingContext2D | undefined;
+      if (context) {
+        context.filter = 'grayscale(100%)';
+      }
+    });
+    layer.on('postrender', (event) => {
+      const context = event.context as CanvasRenderingContext2D | undefined;
+      if (context) {
+        context.filter = 'none';
+      }
+    });
   }
 
   // --- options + operator selection ----------------------------------------
