@@ -8,22 +8,22 @@
       <form class="uk-form uk-padding-remove">
         <p class="uk-inline">
           <label for="statistik_type" class="uk-margin-small-right" i18n="@@operator">Betreiber</label>
-          <select *ngIf="formOptions" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type"
+          <select *ngIf="layers.length" class="uk-select uk-width-auto uk-margin-medium-right" id="statistik_type"
                   name="statistik_type" [(ngModel)]="selectedOperator"
                   (ngModelChange)="selectedObligationLayer = null; reloadMap()">
-            <option *ngFor="let operator of formOptions.filter.operators" [value]="operator.operator ?? '@all'">
-              <ng-container *ngIf="operator.label === '@all'" i18n="@@allOperators">Alle Betreiber</ng-container>
-              <ng-container *ngIf="operator.label !== '@all'">{{ operator.label }}</ng-container>
+            <option *ngFor="let layer of layers" [value]="layer.code">
+              <ng-container *ngIf="layer.code === '@all'" i18n="@@allOperators">Alle Betreiber</ng-container>
+              <ng-container *ngIf="layer.code !== '@all'">{{ layer.visible_name }}</ng-container>
             </option>
           </select>
         </p>
 
-        <p class="uk-inline uk-margin-remove-top" *ngIf="operatorFilterForOperator(selectedOperator)?.obligations">
+        <p class="uk-inline uk-margin-remove-top" *ngIf="obligationTypesForSelectedOperator().length">
           <label for="obligation" class="uk-margin-small-right" i18n="@@obligation">Versorgungsauflagen</label>
           <select id="obligation" name="obligation" class="uk-select uk-width-auto"
                   [(ngModel)]="selectedObligationLayer" (ngModelChange)="reloadMap()">
             <option [ngValue]="null" i18n="@@none">nicht dargestellt</option>
-            <option *ngFor="let obligation of operatorFilterForOperator(selectedOperator)?.obligations"
+            <option *ngFor="let obligation of obligationTypesForSelectedOperator()"
                     [ngValue]="obligation.type">
               <ng-container *ngIf="obligation.type === 'kg'" i18n="@@cadastral_plural">Katastralgemeinden</ng-container>
               <ng-container *ngIf="obligation.type === 'street'" i18n="@@streets">Straßen</ng-container>
@@ -106,7 +106,7 @@
           <div *ngIf="pointInfoCov" class="uk-flex uk-flex-column fullHeight">
             <h3 i18n="@@coverage_headline">Abdeckung</h3>
             <div *ngFor="let info of pointInfoCov">
-              <h4 class="uk-margin-remove-bottom">{{ getOperatorByLabel(info.operator)?.label }}</h4>
+              <h4 class="uk-margin-remove-bottom">{{ getOperatorByLabel(info.operator)?.visible_name }}</h4>
               <ng-container i18n="@@operator_info_100m">Betreiberangabe für 100m x 100m Raster:</ng-container>
               <table class="uk-table uk-table-small uk-table-striped uk-margin-remove-top">
                 <thead>
@@ -179,7 +179,7 @@
             <p>
               <ng-container i18n="@@license">{pointInfoCov.length, plural, =1 {Lizenz} other {Lizenzen}}:</ng-container>
               <ng-container *ngFor="let info of pointInfoCov; last as isLast">
-                {{ info.license }} {{ getOperatorByLabel(info.operator)?.label }}<ng-container *ngIf="!isLast">,</ng-container>
+                {{ info.license }} {{ getOperatorByLabel(info.operator)?.visible_name }}<ng-container *ngIf="!isLast">,</ng-container>
               </ng-container>, CCBY4.0 BEV
             </p>
           </div>

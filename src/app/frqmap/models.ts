@@ -1,22 +1,18 @@
 /** Type definitions for the PostgREST coverage API behind `/api`. */
 
-export interface FormOptionResponse {
-  filter: Filter;
+/** A selectable map layer: a real operator (code matches
+ *  cov_mno.operator/tileurl.operator directly, e.g. 'TMA') or a combined/
+ *  derived layer (e.g. '@all') — always the same shape either way. */
+export interface Layer {
+  code: string;
+  reference: string | null;
+  visible_name: string;
+  is_default: boolean;
+  sort_order: number;
 }
 
-export interface Filter {
-  operators: Operator[];
-}
-
-export interface Operator {
-  label: string;
-  default: boolean;
-  /** `null` represents the "all operators" option. */
-  operator: string | null;
-  obligations?: OperatorObligation[];
-}
-
-export interface OperatorObligation {
+export interface LayerObligation {
+  layer: string;
   type: string;
   source: string[];
 }

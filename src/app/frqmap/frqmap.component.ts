@@ -18,13 +18,7 @@ import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
 import { Fill, Icon, Stroke, Style } from 'ol/style';
 
 import { CenterOnUserLocationControl } from './center-on-user-location.control';
-import {
-  FormOptionResponse,
-  LayerConfiguration,
-  Operator,
-  PointInfoCoverage,
-  PointInfoIds,
-} from './models';
+import { Layer, LayerConfiguration, LayerObligation, PointInfoCoverage, PointInfoIds } from './models';
 
 const API_BASE = '/api';
 const TILES_BASE = '';
@@ -42,7 +36,7 @@ const DESKTOP_INITIAL_ZOOM_FACTOR = 1.2;
 const OVERLAY_MIN_ZOOM = 7;
 const OVERLAY_MAX_ZOOM = 14;
 
-/** Operator value representing "all operators". */
+/** Layer code representing "all operators". */
 const ALL_OPERATORS = '@all';
 
 const ACCEPT_JSON = { Accept: 'application/json' };
@@ -82,7 +76,8 @@ const CLICK_MARKER_Z_INDEX = 1000;
   styleUrls: ['./frqmap.component.scss'],
 })
 export class FrqmapComponent implements OnInit {
-  formOptions?: FormOptionResponse;
+  layers: Layer[] = [];
+  obligations: LayerObligation[] = [];
   selectedOperator = ALL_OPERATORS;
   selectedObligationLayer: string | null = null;
   pointInfoCov: PointInfoCoverage[] | null = null;
@@ -187,33 +182,45 @@ export class FrqmapComponent implements OnInit {
 
   private loadOptions(): void {
     this.http
-      .get<FormOptionResponse>(`${API_BASE}/settings`, { headers: ACCEPT_SINGLE_OBJECT })
-      .subscribe((response) => {
-        this.formOptions = response;
-        const fallback = response.filter.operators.find((operator) => operator.default);
-        this.selectedOperator = fallback?.operator ?? ALL_OPERATORS;
+      .get<Layer[]>(`${API_BASE}/layers?order=sort_order.asc`, { headers: ACCEPT_JSON })
+      .subscribe((layers) => {
+        this.layers = layers;
+        const fallback = layers.find((layer) => layer.is_default);
+        this.selectedOperator = fallback?.code ?? ALL_OPERATORS;
         this.reloadMap();
+      });
+    this.http
+      .get<LayerObligation[]>(`${API_BASE}/layer_obligations`, { headers: ACCEPT_JSON })
+      .subscribe((obligations) => {
+        this.obligations = obligations;
       });
   }
 
-  operatorFilterForOperator(operator: string): Operator | undefined {
-    return this.formOptions?.filter.operators.find(
-      (candidate) => (candidate.operator ?? ALL_OPERATORS) === operator,
-    );
+  operatorFilterForOperator(operator: string): Layer | undefined {
+    return this.layers.find((candidate) => candidate.code === operator);
   }
 
-  getOperatorByLabel(operator: string): Operator | undefined {
-    return this.formOptions?.filter.operators.find((candidate) => candidate.operator === operator);
+  getOperatorByLabel(operator: string): Layer | undefined {
+    return this.layers.find((candidate) => candidate.code === operator);
+  }
+
+  obligationTypesForSelectedOperator(): LayerObligation[] {
+    return this.obligations.filter((obligation) => obligation.layer === this.selectedOperator);
   }
 
   // --- coverage + obligation overlays --------------------------------------
 
   reloadMap(): void {
     const operator = this.selectedOperator;
+    // order=date.desc is required, not cosmetic: an operator can have more
+    // than one tileurl row (e.g. both F1/16 and F7/16), and without an
+    // explicit order PostgREST/Postgres make no guarantee which one a bare
+    // limit=1 returns.
     this.http
-      .get<LayerConfiguration>(`${API_BASE}/tileurl?and=(operator.eq.${operator})&limit=1`, {
-        headers: ACCEPT_SINGLE_OBJECT,
-      })
+      .get<LayerConfiguration>(
+        `${API_BASE}/tileurl?and=(operator.eq.${operator})&order=date.desc&limit=1`,
+        { headers: ACCEPT_SINGLE_OBJECT },
+      )
       .subscribe((config) => {
         this.selectedReference = config.reference ?? null;
         this.setCoverageOverlay(config.url);
@@ -227,9 +234,10 @@ export class FrqmapComponent implements OnInit {
       return null;
     }
     return (
-      this.operatorFilterForOperator(this.selectedOperator)
-        ?.obligations?.find((obligation) => obligation.type === this.selectedObligationLayer)
-        ?.source ?? null
+      this.obligations.find(
+        (obligation) =>
+          obligation.layer === this.selectedOperator && obligation.type === this.selectedObligationLayer,
+      )?.source ?? null
     );
   }
 
