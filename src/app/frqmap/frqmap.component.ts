@@ -40,7 +40,6 @@ const OVERLAY_MAX_ZOOM = 14;
 const ALL_OPERATORS = '@all';
 
 const ACCEPT_JSON = { Accept: 'application/json' };
-const ACCEPT_SINGLE_OBJECT = { Accept: 'application/vnd.pgrst.object+json' };
 
 const CELL_STYLE = new Style({
   fill: new Fill({ color: 'rgba(255,100,50,0.5)' }),
@@ -221,18 +220,20 @@ export class FrqmapComponent implements OnInit {
   // --- coverage + obligation overlays --------------------------------------
 
   reloadMap(): void {
-    const operator = this.selectedOperator;
-    // order=date.desc is required, not cosmetic: an operator can have more
-    // than one tileurl row (e.g. both F1/16 and F7/16), and without an
-    // explicit order PostgREST/Postgres make no guarantee which one a bare
-    // limit=1 returns.
+    // api.layer_tileurl resolves the selected layer's tiles whether it has
+    // its own render (a leaf, or a genuine multi-operator combo like
+    // "all3600mhz") or is a pure alias for a single other layer's data (e.g.
+    // a second reference of an operator that already has one) — a plain
+    // `tileurl?operator=eq.<code>` filter only ever worked for the first
+    // case, since a pure alias has no tileurl row under its own code at all.
     this.http
-      .get<LayerConfiguration>(
-        `${API_BASE}/tileurl?and=(operator.eq.${operator})&order=date.desc&limit=1`,
-        { headers: ACCEPT_SINGLE_OBJECT },
-      )
-      .subscribe((config) => {
-        this.setCoverageOverlay(config.url);
+      .get<LayerConfiguration[]>(`${API_BASE}/rpc/layer_tileurl?cov_layer=${this.selectedOperator}`, {
+        headers: ACCEPT_JSON,
+      })
+      .subscribe((configs) => {
+        if (configs.length) {
+          this.setCoverageOverlay(configs[0].url);
+        }
       });
 
     this.setObligationOverlays(this.currentObligationSources());
