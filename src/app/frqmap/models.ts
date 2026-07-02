@@ -14,6 +14,8 @@ export interface Layer {
 export interface LayerObligation {
   layer: string;
   type: string;
+  label_de: string;
+  label_en: string;
   source: string[];
 }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Feature, Map, View } from 'ol';
@@ -84,14 +84,16 @@ export class FrqmapComponent implements OnInit {
   pointInfoIds: PointInfoIds[] | null = null;
 
   private map!: Map;
-  private selectedReference: string | null = null;
   private coverageOverlay?: TileLayer<TileSource>;
   private obligationOverlays: TileLayer<TileSource>[] = [];
   private cellLayer: VectorLayer<VectorSource> | null = null;
   private clickMarkerLayer: VectorLayer<VectorSource> | null = null;
   private readonly capabilitiesParser = new WMTSCapabilities();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(LOCALE_ID) private readonly locale: string,
+  ) {}
 
   ngOnInit(): void {
     this.loadOptions();
@@ -208,6 +210,14 @@ export class FrqmapComponent implements OnInit {
     return this.obligations.filter((obligation) => obligation.layer === this.selectedOperator);
   }
 
+  /** This build's locale (`de`/`en`) picks which backend-provided label to
+   *  show — this app is compiled once per locale (see angular.json), so
+   *  LOCALE_ID is fixed for the lifetime of a given deployment, not
+   *  something that changes at runtime. */
+  obligationLabel(obligation: LayerObligation): string {
+    return this.locale.startsWith('de') ? obligation.label_de : obligation.label_en;
+  }
+
   // --- coverage + obligation overlays --------------------------------------
 
   reloadMap(): void {
@@ -222,7 +232,6 @@ export class FrqmapComponent implements OnInit {
         { headers: ACCEPT_SINGLE_OBJECT },
       )
       .subscribe((config) => {
-        this.selectedReference = config.reference ?? null;
         this.setCoverageOverlay(config.url);
       });
 
@@ -279,20 +288,17 @@ export class FrqmapComponent implements OnInit {
   }
 
   private loadCoverageForPoint(longitude: number, latitude: number): void {
-    const params: Record<string, string> = {
+    // api.cov_layer resolves the selected layer (leaf or combined) to its
+    // underlying (operator, reference) set via cov_layer_source itself, so
+    // the same call works for "@all", a single operator, or a combined
+    // layer like the F7/16 combo — no separate reference tracking needed.
+    const query = new URLSearchParams({
       cov_longitude: String(longitude),
       cov_latitude: String(latitude),
-    };
-    if (this.selectedOperator !== ALL_OPERATORS) {
-      params['cov_operator'] = this.selectedOperator;
-    }
-    if (this.selectedReference) {
-      params['cov_reference'] = this.selectedReference;
-    }
-
-    const query = new URLSearchParams(params).toString();
+      cov_layer: this.selectedOperator,
+    }).toString();
     this.http
-      .get<PointInfoCoverage[]>(`${API_BASE}/rpc/cov?${query}`, { headers: ACCEPT_JSON })
+      .get<PointInfoCoverage[]>(`${API_BASE}/rpc/cov_layer?${query}`, { headers: ACCEPT_JSON })
       .subscribe((coverage) => {
         this.pointInfoCov = coverage.length ? coverage : null;
         this.showCell(coverage.length ? coverage[0].geojson : null);
