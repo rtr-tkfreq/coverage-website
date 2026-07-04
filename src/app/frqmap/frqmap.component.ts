@@ -79,6 +79,12 @@ export class FrqmapComponent implements OnInit {
   obligations: LayerObligation[] = [];
   selectedOperator = ALL_OPERATORS;
   selectedObligationLayer: string | null = null;
+  /** Every published date for the selected layer, newest first (see
+   *  api.layer_tileurl) — only ever more than one entry if that layer's
+   *  target has been re-rendered for a newer date without its older tiles
+   *  being deleted. */
+  availableDates: LayerConfiguration[] = [];
+  selectedDate: string | null = null;
   pointInfoCov: PointInfoCoverage[] | null = null;
   pointInfoIds: PointInfoIds[] | null = null;
 
@@ -226,17 +232,32 @@ export class FrqmapComponent implements OnInit {
     // a second reference of an operator that already has one) — a plain
     // `tileurl?operator=eq.<code>` filter only ever worked for the first
     // case, since a pure alias has no tileurl row under its own code at all.
+    // It returns every published date, newest first, so the default display
+    // stays "the latest date" while still letting the date selector below
+    // offer any older ones still on disk.
     this.http
       .get<LayerConfiguration[]>(`${API_BASE}/rpc/layer_tileurl?cov_layer=${this.selectedOperator}`, {
         headers: ACCEPT_JSON,
       })
       .subscribe((configs) => {
+        this.availableDates = configs;
+        this.selectedDate = configs[0]?.date ?? null;
         if (configs.length) {
           this.setCoverageOverlay(configs[0].url);
         }
       });
 
     this.setObligationOverlays(this.currentObligationSources());
+  }
+
+  /** Switches the displayed coverage tiles to whichever date is now selected.
+   *  Purely client-side — reloadMap() already fetched every available date's
+   *  URL in one call, so no new request is needed just to change dates. */
+  selectDate(): void {
+    const config = this.availableDates.find((candidate) => candidate.date === this.selectedDate);
+    if (config) {
+      this.setCoverageOverlay(config.url);
+    }
   }
 
   private currentObligationSources(): string[] | null {
@@ -293,11 +314,20 @@ export class FrqmapComponent implements OnInit {
     // underlying (operator, reference) set via cov_layer_source itself, so
     // the same call works for "@all", a single operator, or a combined
     // layer like the F7/16 combo — no separate reference tracking needed.
-    const query = new URLSearchParams({
+    const params: Record<string, string> = {
       cov_longitude: String(longitude),
       cov_latitude: String(latitude),
       cov_layer: this.selectedOperator,
-    }).toString();
+    };
+    // Pass the same date the map is currently showing, so a clicked point's
+    // details always match the tiles on screen instead of always reporting
+    // today's true latest regardless of which historical date is selected.
+    // Omitted (not just empty) when unset, so api.cov_layer()'s own
+    // cov_date DEFAULT NULL (= latest) applies instead.
+    if (this.selectedDate) {
+      params['cov_date'] = this.selectedDate;
+    }
+    const query = new URLSearchParams(params).toString();
     this.http
       .get<PointInfoCoverage[]>(`${API_BASE}/rpc/cov_layer?${query}`, { headers: ACCEPT_JSON })
       .subscribe((coverage) => {

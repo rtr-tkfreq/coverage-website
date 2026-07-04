@@ -18,6 +18,16 @@
           </select>
         </p>
 
+        <p class="uk-inline uk-margin-remove-top" *ngIf="availableDates.length > 1">
+          <label for="coverage_date" class="uk-margin-small-right" i18n="@@dateDate">Datenstand</label>
+          <select class="uk-select uk-width-auto uk-margin-medium-right" id="coverage_date"
+                  name="coverage_date" [(ngModel)]="selectedDate" (ngModelChange)="selectDate()">
+            <option *ngFor="let config of availableDates" [value]="config.date">
+              {{ config.date | date: 'dd.MM.yyyy' }}
+            </option>
+          </select>
+        </p>
+
         <p class="uk-inline uk-margin-remove-top" *ngIf="obligationTypesForSelectedOperator().length">
           <label for="obligation" class="uk-margin-small-right" i18n="@@obligation">Versorgungsauflagen</label>
           <select id="obligation" name="obligation" class="uk-select uk-width-auto"
